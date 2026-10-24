@@ -1,0 +1,36 @@
+#pmMaint{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100vh;height:100dvh;z-index:30000;display:none;align-items:center;justify-content:center;padding:24px;overflow:hidden;overscroll-behavior:none;touch-action:none;background-color:#3E2415;
+  background:radial-gradient(900px 600px at 50% -12%,rgba(232,164,108,.28),transparent 62%),linear-gradient(160deg,#3E2415 0%,#5A3620 55%,#7E4728 100%);
+  color:#FFF8F3;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl}
+#pmMaint.show{display:flex;background-color:#3E2415;animation:pmmIn .45s ease-out both}
+#pmMaint::before,#pmMaint::after{content:"";position:absolute;border-radius:50%;filter:blur(46px);opacity:.38;pointer-events:none}
+#pmMaint::before{width:340px;height:340px;background:#E8A46C;top:-130px;right:-110px;animation:pmmFloat 9s ease-in-out infinite}
+#pmMaint::after{width:280px;height:280px;background:#9A5B00;bottom:-120px;left:-90px;animation:pmmFloat 12s ease-in-out infinite reverse}
+#pmMaint .pmm-card{position:relative;z-index:1;width:min(100%,440px);text-align:center;padding:34px 26px 26px;border-radius:30px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.55);animation:pmmRise .6s cubic-bezier(.2,.8,.2,1) both}
+.pmm-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;padding:6px 13px;border-radius:99px;
+  background:rgba(232,164,108,.16);color:#FFD9B8;border:1px solid rgba(232,164,108,.34)}
+.pmm-badge i{width:7px;height:7px;border-radius:50%;background:#F5B27A;animation:pmmPulse 1.6s infinite}
+.pmm-ico{position:relative;width:98px;height:98px;margin:22px auto 18px;display:grid;place-items:center;border-radius:30px;
+  background:linear-gradient(145deg,#F2B983,#9A5B00);box-shadow:0 18px 44px -14px rgba(232,164,108,.65)}
+.pmm-ico::after{content:"";position:absolute;inset:-9px;border-radius:36px;border:1.5px dashed rgba(255,217,184,.35);animation:pmmSpin 24s linear infinite}
+.pmm-ico svg{width:44px;height:44px;color:#3E2415;animation:pmmSwing 3.6s ease-in-out infinite;transform-origin:50% 50%}
+#pmMaint h1{font-size:25px;margin:0 0 10px;font-weight:900;letter-spacing:-.2px}
+#pmMaintMsg{margin:0 0 8px;color:rgba(255,248,243,.93);line-height:1.85;font-weight:600;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.pmm-since{font-size:12.5px;color:rgba(255,248,243,.58);margin:0 0 22px;min-height:1.2em}
+.pmm-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 24px;position:relative}
+.pmm-bar::after{content:"";position:absolute;top:0;bottom:0;width:38%;border-radius:inherit;background:linear-gradient(90deg,transparent,#F5B27A,transparent);animation:pmmSlide 1.7s ease-in-out infinite}
+#pmMaint button#pmMaintOut{width:100%;min-height:48px;border-radius:15px;padding:13px 16px;font-size:15px;font-weight:800;cursor:pointer;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);color:#FFF8F3;transition:background .2s,transform .15s}
+#pmMaint button#pmMaintOut:hover{background:rgba(255,255,255,.2)}
+#pmMaint button#pmMaintOut:active{transform:scale(.985)}
+.pmm-foot{margin-top:16px;font-size:11.5px;color:rgba(255,248,243,.5)}
+@keyframes pmmIn{from{opacity:0}to{opacity:1}}
+@keyframes pmmRise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes pmmFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-14px)}}
+@keyframes pmmSpin{to{transform:rotate(360deg)}}
+@keyframes pmmSwing{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+@keyframes pmmSlide{from{right:-40%}to{right:102%}}
+@keyframes pmmPulse{0%{box-shadow:0 0 0 0 rgba(245,178,122,.6)}70%{box-shadow:0 0 0 8px rgba(245,178,122,0)}100%{box-shadow:0 0 0 0 rgba(245,178,122,0)}}
+@media (prefers-reduced-motion:reduce){#pmMaint,#pmMaint *,#pmMaint::before,#pmMaint::after{animation:none!important}}
+@media (max-width:420px){#pmMaint h1{font-size:22px}#pmMaint .pmm-card{padding:28px 20px 22px}}

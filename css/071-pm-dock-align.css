@@ -1,0 +1,5 @@
+/* الرسايل والإعدادات: نفس بنية باقي أزرار الشريط (الأيقونة والاسم جوه الزرار نفسه) عشان يتساووا في الارتفاع والمكان */
+html body #pmDock #pmMsgWrap,html body #pmDock #pmGearWrap{display:contents!important}
+html body #pmDock #pmMsgWrap>button,html body #pmDock #pmGearWrap>button{flex:1 1 0!important;width:auto!important;min-width:0!important;height:auto!important;position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;padding:7px 0!important;margin:0!important;border-radius:18px!important}
+html body #pmDock .pmd-lbl{margin:0!important;line-height:1!important;font-size:11px!important}
+html body #pmDock #pmGearWrap>button svg{width:19px!important;height:19px!important}

@@ -1,0 +1,6 @@
+/* أزرار الشريط اللي فوق التبويبات: الأسماء دايمًا ظاهرة، حتى مع وضع الأيقونات */
+#localSaveStatus{font-size:12px;line-height:1.6}
+#localSaveStatus button{opacity:1}
+#localSaveStatus button.mini{font-size:12px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;min-height:36px;opacity:1;color:var(--navy)}
+#localSaveStatus button .ui-ico{font-size:14px}
+.pm-live-chip span:last-child{font-size:12px;display:inline}

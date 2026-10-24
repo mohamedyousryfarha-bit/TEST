@@ -1,0 +1,6 @@
+/* الموبايل: الكروت تاخد عرض الشاشة كله ومتتوزعش على نص الشاشة */
+@media (max-width:860px){
+  html body .pm-grid{display:flex!important;flex-direction:column!important;gap:12px!important}
+  html body .pm-grid > .card{width:100%!important;max-width:100%!important;grid-column:auto!important;margin:0!important}
+  html body .pm-grid .minis{grid-template-columns:1fr 1fr}
+}

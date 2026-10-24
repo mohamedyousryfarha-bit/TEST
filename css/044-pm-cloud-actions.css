@@ -1,0 +1,14 @@
+/* إعادة تصميم أزرار السحابة: بدون الشريط الأخضر، والأسماء كاملة */
+#localSaveStatus.autosave{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));background:none;border:0;box-shadow:none;padding:0;color:inherit}
+#localSaveStatus>span{display:none}
+#localSaveStatus button{display:flex;align-items:center;justify-content:center;width:100%;margin:0;line-height:1.35;white-space:normal;text-align:center;border:1px solid #E6DCCD;background:#FBF6EE;color:#3E2415;box-shadow:0 2px 6px rgba(62,36,21,.05);cursor:pointer}
+#localSaveStatus button:hover{background:#F6EFE4}
+#localSaveStatus button .ui-ico{flex:0 0 auto;line-height:0}
+#localSaveStatus button#signOutButton{color:#B42318;background:#FDF1EF;border-color:#F2D4CF}
+#localSaveStatus button#signOutButton:hover{background:#FBE6E2}
+@media(max-width:520px) {
+  #localSaveStatus button#signOutButton{grid-column:1/-1}
+}
+html[data-theme="dark"] #localSaveStatus button{background:#3C2A1F;color:#F0DED3;border-color:#4F3B30}
+html[data-theme="dark"] #localSaveStatus button:hover{background:#493326}
+html[data-theme="dark"] #localSaveStatus button#signOutButton{background:#2C1412;color:#F3A79F;border-color:#6B2A24}

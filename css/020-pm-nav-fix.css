@@ -1,0 +1,10 @@
+/* إصلاح شريط الأقسام: قاعدة وحدة نهائية بتلغي التعارض بين الطبقات القديمة */
+html body nav.tabs{display:flex!important;grid-template-columns:none!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:6px!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:none!important;padding:8px!important;margin:0 0 16px!important;height:auto!important;scrollbar-width:none!important}
+html body nav.tabs::-webkit-scrollbar{display:none!important}
+html body nav.tabs .tab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;flex:0 0 84px!important;width:84px!important;min-width:84px!important;max-width:84px!important;height:auto!important;min-height:64px!important;padding:8px 4px!important;gap:4px!important;font-size:11px!important;font-weight:700!important;line-height:1.3!important;white-space:normal!important;text-align:center!important;border-radius:14px!important;transform:none!important;animation:none!important;transition:background .2s,color .2s,box-shadow .2s!important}
+html body nav.tabs .tab:hover,html body nav.tabs .tab:active,html body nav.tabs .tab.active{transform:none!important}
+html body nav.tabs .tab .ui-ico{width:26px!important;height:26px!important;min-width:26px}
+html body nav.tabs .tab svg{width:22px!important;height:22px!important}
+html body nav.tabs .tab .ui-ico *{animation:none!important}
+html body nav.tabs .tab.active{background:linear-gradient(125deg,#AF5E2F,#EA9360)!important;color:#fff!important;box-shadow:0 8px 18px -10px #AF5E2F!important}
+html body nav.tabs .tab.active .ui-ico{color:#fff!important}

@@ -1,0 +1,28 @@
+/* قائمة الأقسام: بطاقات بأيقونات ملوّنة + اسم تحتها (شكل 2026: بطاقات واضحة، أيقونة في مربع ناعم، حالة نشطة مملوءة) */
+html body nav.tabs{padding:14px!important}
+html body nav.tabs .nav-title{display:inline-block!important;background:#FAF3EF!important;color:#7E4728!important;border-radius:99px!important;padding:4px 11px!important;font-size:12px!important;font-weight:800!important;margin:0 0 10px!important}
+html body nav.tabs .nav-items{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))!important;gap:10px!important}
+html body nav.tabs .tab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;gap:9px!important;min-height:104px!important;padding:14px 8px 12px!important;border-radius:18px!important;border:1px solid #F1E9E5!important;background:#fff!important;color:var(--ink)!important;font-size:12.5px!important;font-weight:750!important;line-height:1.35!important;text-align:center!important;box-shadow:0 2px 6px rgba(62,36,21,.05)!important;transition:transform .15s ease,box-shadow .2s ease,background .2s ease!important}
+html body nav.tabs .tab:hover{transform:translateY(-2px)!important;box-shadow:0 10px 20px -12px rgba(62,36,21,.25)!important}
+html body nav.tabs .tab .tab-ico{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;flex:0 0 auto;background:#FDF2EC;color:#7E4728;transition:background .2s ease,color .2s ease}
+html body nav.tabs .tab .tab-ico svg{width:22px;height:22px}
+html body nav.tabs .tab .tab-lbl{display:block;min-height:2.7em;display:flex;align-items:center;justify-content:center}
+html body nav.tabs .nav-group:nth-child(2) .tab .tab-ico{background:#E8F7EF;color:#16794B}
+html body nav.tabs .nav-group:nth-child(3) .tab .tab-ico{background:#F1EAFF;color:#6D28D9}
+html body nav.tabs .tab.active{background:linear-gradient(135deg,#7E4728,#A8643C)!important;border-color:transparent!important;color:#fff!important;box-shadow:0 12px 22px -12px #7E4728!important}
+html body nav.tabs .tab.active .tab-ico{background:rgba(255,255,255,.2)!important;color:#fff!important}
+html[data-theme="dark"] body nav.tabs .tab{background:#36241A!important;border-color:#493428!important;color:#EAE7E6!important}
+html[data-theme="dark"] body nav.tabs .tab .tab-ico{background:rgba(230,167,131,.14);color:#EEC0A5}
+html[data-theme="dark"] body nav.tabs .nav-group:nth-child(2) .tab .tab-ico{background:rgba(127,217,168,.14);color:#7FD9A8}
+html[data-theme="dark"] body nav.tabs .nav-group:nth-child(3) .tab .tab-ico{background:rgba(196,181,253,.14);color:#C4B5FD}
+html[data-theme="dark"] body nav.tabs .nav-title{background:#432C1F!important;color:#EEC0A5!important}
+@media (prefers-reduced-motion:reduce){html body nav.tabs .tab{transition:none!important}}
+html body nav.tabs .tab > .ui-ico.tab-ico{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;margin:0!important;padding:0!important;display:grid!important;place-items:center!important;border-radius:15px!important;background:#FDF2EC!important;color:#7E4728!important;animation:none!important;transform:none!important}
+html body nav.tabs .tab > .ui-ico.tab-ico svg{width:22px!important;height:22px!important;animation:none!important}
+html body nav.tabs .tab.active > .ui-ico.tab-ico{background:rgba(255,255,255,.2)!important;color:#fff!important}
+html body nav.tabs .nav-group:nth-child(2) .tab > .ui-ico.tab-ico{background:#E8F7EF!important;color:#16794B!important}
+html body nav.tabs .nav-group:nth-child(3) .tab > .ui-ico.tab-ico{background:#F1EAFF!important;color:#6D28D9!important}
+html[data-theme="dark"] body nav.tabs .tab > .ui-ico.tab-ico{background:rgba(230,167,131,.14)!important;color:#EEC0A5!important}
+html body nav.tabs .nav-items{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:1fr!important;align-items:stretch!important}
+html body nav.tabs .tab{height:100%!important}
+@media (min-width:650px){html body nav.tabs .nav-items{grid-template-columns:repeat(4,minmax(0,1fr))!important}}

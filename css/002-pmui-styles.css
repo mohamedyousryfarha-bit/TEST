@@ -1,0 +1,94 @@
+/* ==================================================================
+   PastryMY Pro · حزمة تحسين الواجهة (أيقونات متحركة + تنبيهات)
+   طبقة عرض فقط — لا تمس أي كود خاص بالعمل أو الحسابات
+   ================================================================== */
+:root{--ui-ok:#16794B;--ui-err:#B42318;--ui-warn:#B7791F;--ui-info:#7E4728;--ui-ease:cubic-bezier(.22,.9,.24,1)}
+/* ---------- 1) الأيقونات المتحركة ---------- */
+.ui-ico{display:inline-grid;place-items:center;flex:0 0 auto;line-height:0}
+.ui-ico svg{width:100%;height:100%;display:block;overflow:visible}
+.ui-ico [class*="a-"]{transform-box:fill-box;transform-origin:center}
+.a-draw{--len:70;stroke-dasharray:var(--len);stroke-dashoffset:0}
+.a-hand, .a-rev, .a-spin-fast{transform-box:view-box;transform-origin:50% 50%}
+@keyframes uiDraw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+@keyframes uiSpin{to{transform:rotate(360deg)}}
+@keyframes uiFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes uiBounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+@keyframes uiPulse{0%,100%{opacity:1}50%{opacity:.22}}
+@keyframes uiSlideX{0%,100%{transform:translateX(0)}50%{transform:translateX(2.5px)}}
+@keyframes uiLid{0%,100%{transform:rotate(0)}50%{transform:rotate(-7deg)}}
+@keyframes uiRing{0%{transform:scale(.72);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+.ui-live .a-draw, :is(.tab,button,label):hover .ui-ico .a-draw{animation:uiDraw .7s var(--ui-ease) both}
+.ui-live .a-float, :is(.tab,button,label):hover .ui-ico .a-float{animation:uiFloat 1.9s ease-in-out infinite}
+.ui-live .a-bounce-y, :is(.tab,button,label):hover .ui-ico .a-bounce-y{animation:uiBounceY 1.05s ease-in-out infinite}
+.ui-live .a-pulse, :is(.tab,button,label):hover .ui-ico .a-pulse{animation:uiPulse 1.35s ease-in-out infinite}
+.ui-live .a-blink, :is(.tab,button,label):hover .ui-ico .a-blink{animation:uiPulse 1.25s ease-in-out infinite}
+.ui-live .a-slide, :is(.tab,button,label):hover .ui-ico .a-slide{animation:uiSlideX 1.3s ease-in-out infinite}
+.ui-live .a-lid, :is(.tab,button,label):hover .ui-ico .a-lid{animation:uiLid 1.5s ease-in-out infinite}
+.ui-live .a-hand, :is(.tab,button,label):hover .ui-ico .a-hand{animation:uiSpin 7s linear infinite}
+.ui-live .a-rev, :is(.tab,button,label):hover .ui-ico .a-rev{animation:uiSpin 2.6s linear infinite}
+.ui-ico.spin svg{animation:uiSpin 1.1s linear infinite}
+.ui-ico.spinner svg{animation:uiSpin .9s linear infinite}
+.ui-ico.refresh svg{animation:uiSpin 8s linear infinite}
+:is(button,label,.tab):hover .ui-ico.refresh svg{animation-duration:1.1s}
+/* ---------- 2) شريط الأقسام: صف واحد قابل للتمرير بأيقونة ---------- */
+nav.tabs{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav.tabs::-webkit-scrollbar{height:0;display:none}
+nav.tabs .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;scroll-snap-align:center;animation:tabIn .45s var(--ui-ease) both;animation-delay:calc(var(--i,0)*35ms)}
+@keyframes tabIn{from{opacity:0;transform:translateY(12px) scale(.94)}to{opacity:1;transform:none}}
+/* ---------- 3) تحسينات عامة على البطاقات والحقول ---------- */
+header{position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:-30% -12%;background:radial-gradient(60% 55% at 25% 0%,rgba(255,255,255,.22),transparent 70%);animation:uiShine 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes uiShine{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
+.card{position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3E2415,#7E4728,#D18559);opacity:.92}
+@media(hover:hover) {
+  .card:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(62,36,21,.13)}
+}
+.card>h2, .sectionhead h2{display:flex;align-items:center;gap:9px}
+.card>h2 .ui-ico, .sectionhead h2 .ui-ico{width:30px;height:30px;padding:5px;border-radius:10px;background:#F9F3EF;color:var(--blue);box-shadow:inset 0 0 0 1px #F0E5DE}
+.primary, .secondary, .danger{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.primary .ui-ico, .secondary .ui-ico, .danger .ui-ico{width:20px;height:20px}
+.mini .ui-ico{width:16px;height:16px}
+button:disabled{opacity:.6;cursor:progress}
+button:disabled .ui-ico svg{animation:uiSpin 1s linear infinite}
+input:focus, select:focus, textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(126,71,40,.13)}
+input:hover, select:hover, textarea:hover{border-color:#D3C3B9}
+.stat b.flash{animation:uiFlash .7s var(--ui-ease)}
+@keyframes uiFlash{0%{transform:scale(1)}35%{transform:scale(1.12);color:var(--blue)}100%{transform:scale(1)}}
+.login-card{animation:tabIn .5s var(--ui-ease) both}
+.login-mark{animation:markGlow 3.6s ease-in-out infinite alternate}
+@keyframes markGlow{from{box-shadow:0 8px 18px rgba(62,36,21,.22)}to{box-shadow:0 14px 30px rgba(126,71,40,.42)}}
+/* ---------- 4) رسائل التنبيه الاحترافية (Toast) ---------- */
+.toast-stack{position:fixed;top:96px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;pointer-events:none}
+.toast{position:relative;pointer-events:auto;display:flex;align-items:flex-start;gap:11px;overflow:hidden}
+.toast::before{content:"";position:absolute;top:0;bottom:0;inset-inline-start:0;width:4px;background:var(--tc)}
+.toast.sync{--tc:#7E4728;--tbg:#FDF2EC;--tfg:#7E4728}
+@keyframes toastIn{from{opacity:0;transform:translateY(-18px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-12px) scale(.97)}}
+.toast-ico{position:relative;flex:0 0 auto;display:grid;place-items:center}
+.toast-ico .ui-ring{position:absolute;inset:0;border:2px solid var(--tc);opacity:0;animation:uiRing 1.5s ease-out .12s 2}
+.toast-body{padding-inline-start:3px}
+.toast-title{margin:1px 0 3px;display:flex;align-items:center;gap:6px}
+.toast-x{flex:0 0 auto;border:0;background:transparent;line-height:1;border-radius:8px;cursor:pointer;display:grid;place-items:center;padding:0}
+.toast-progress{position:absolute;bottom:0;inset-inline-start:0;width:100%;transform-origin:right center;animation:toastBar linear forwards}
+.toast:hover .toast-progress{animation-play-state:paused}
+@keyframes toastBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+/* ---------- 5) شريط حالة المزامنة ---------- */
+.sync-pill{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(160%);z-index:11000;display:flex;align-items:center;gap:8px;border-radius:99px;color:#fff;font-weight:750;box-shadow:0 12px 30px rgba(50,28,15,.32);transition:transform .34s var(--ui-ease),opacity .3s ease,background .3s ease;pointer-events:none;max-width:min(92vw,430px);opacity:0}
+.sync-pill.show{transform:translateX(-50%) translateY(0);opacity:1}
+.sync-pill .ui-ico{width:18px;height:18px}
+/* ---------- 6) نافذة الرسائل المطوّرة ---------- */
+.msg-box{position:relative}
+.msg-symbol{width:78px;height:78px;border-radius:26px;font-size:34px;position:relative;overflow:visible}
+.msg-symbol .ui-ico{width:40px;height:40px}
+.msg-symbol .ui-halo{position:absolute;inset:0;border-radius:26px;border:2px solid currentColor;opacity:0;animation:uiRing 1.7s ease-out .25s 2}
+.msg-box.warn .msg-symbol{background:#FFF6E3;color:#8A5500}
+.msg-box.sync .msg-symbol{background:#FDF2EC;color:#7E4728}
+.msg-box.warn{border-top:4px solid #E8A33D}
+.msg-box.error{border-top:4px solid #E0705F}
+.msg-box.success{border-top:4px solid #2FAE74}
+.msg-ok{letter-spacing:.2px}
+#demoPreviewButton{margin-top:10px;background:linear-gradient(135deg,#7E4728,#A8643C)}
+@media(prefers-reduced-motion:reduce) {
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

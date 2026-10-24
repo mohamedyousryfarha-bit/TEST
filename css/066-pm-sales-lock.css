@@ -1,0 +1,6 @@
+/* المبيعات: يشوفوا المنيو والسلة بس. الأقسام التانية والإدارة مخفية من الشريط والقوائم */
+body[data-role="sales"] nav.tabs .nav-group:not(:nth-child(2)){display:none!important}
+body[data-role="sales"] nav.tabs .nav-group:nth-child(2) .tab:not([data-tab="menu"]):not([data-tab="cartpage"]):not([data-tab="salesInvoices"]):not([data-tab="openInvoices"]){display:none!important}
+body[data-role="sales"] .pm-dock [data-act="stock"],
+body[data-role="sales"] .pm-dock [data-act="devices"],
+body[data-role="sales"] #menuAdminCard, body[data-role="sales"] .pm-owner-card{display:none!important}

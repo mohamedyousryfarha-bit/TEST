@@ -1,0 +1,5 @@
+html body #menu #menuGrid .mx-name{min-height:0!important;font-size:13px!important}
+html body #menu #menuGrid .mx-body{padding:6px 8px 8px!important;gap:4px!important}
+html body #menu #menuGrid .mx-thumb{font-size:30px!important}
+html body #menu #menuGrid .mx-step button,html body #menu #menuGrid .mx-card .mx-plus{width:28px!important;height:28px!important;min-width:28px!important;font-size:15px!important;border-radius:9px!important}
+html body #menu #menuGrid .mx-qty{height:28px!important;min-width:28px!important;border-radius:9px!important}

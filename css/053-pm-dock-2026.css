@@ -1,0 +1,36 @@
+[hidden]{display:none!important}
+/* شريط تنقل سفلي عائم (شكل المعاينة 2026) */
+.pm-dock{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:11200;width:min(94vw,440px);display:flex;justify-content:space-between;align-items:center;gap:2px;padding:7px;border-radius:26px;background:rgba(255,255,255,.84);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid #EFE7E3;box-shadow:0 18px 40px -16px rgba(62,36,21,.35)}
+.pm-dock button{flex:1;min-width:0;border:0;background:none;color:#7E6F66;font:inherit;font-size:11px;font-weight:750;display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 0;border-radius:18px;cursor:pointer;transition:color .2s ease,background .2s ease;touch-action:manipulation}
+.pm-dock button svg{width:22px;height:22px}
+.pm-dock button.on{color:#7E4728;background:rgba(126,71,40,.10)}
+body.auth-required .pm-dock{display:none!important}
+body.role-kitchen .pm-dock [data-act="cart"]{display:none!important}
+/* الأجهزة المتصلة: ورقة سفلية */
+.pm-devsheet{position:fixed;inset:0;z-index:11300;background:rgba(39,21,11,.45);display:flex;align-items:flex-end;justify-content:center}
+.pm-devsheet .sheet{width:min(100%,520px);background:#fff;border-radius:26px 26px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 50px -20px rgba(39,21,11,.4);animation:pmSheetUp .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes pmSheetUp{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+.pm-devsheet .grab{width:44px;height:5px;border-radius:99px;background:#E6DCD7;margin:0 auto 14px}
+.pm-devsheet h3{margin:0 0 12px;font-size:17px;color:#3E2415;display:flex;align-items:center;gap:8px}
+.pm-devsheet .row{display:flex;align-items:center;gap:12px;background:#FCF9F8;border:1px solid #F2EAE6;border-radius:16px;padding:13px 14px;margin-bottom:10px}
+.pm-devsheet .row .ic{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:#FDF2EC;color:#7E4728;flex:0 0 auto}
+.pm-devsheet .row .ic svg{width:20px;height:20px}
+.pm-devsheet .row b{display:block;font-size:14px;color:#3E2415}
+.pm-devsheet .row small{font-size:12.5px;color:#7E6F66;line-height:1.5}
+.pm-devsheet .close{width:100%;margin-top:6px;border:0;border-radius:14px;padding:13px;background:#F7F2EF;color:#3E2415;font:inherit;font-weight:800;min-height:48px;cursor:pointer}
+.pm-devsheet .sheet{max-height:82vh;overflow:auto}
+#pmDevList{margin:0 0 10px}
+#pmDevList .pm-pres-row{background:#FCF9F8;border:1px solid #F2EAE6;border-radius:14px;padding:10px 12px;margin-bottom:8px}
+#pmDevList .pm-pres-name{font-size:14px}
+#pmDevList .pm-pres-meta{font-size:12px;line-height:1.5}
+html[data-theme="dark"] #pmDevList .pm-pres-row{background:#281A12;border-color:#3C2D25}
+html[data-theme="dark"] .pm-devsheet .sheet{background:#2D1E16;color:#F5ECE7}
+html[data-theme="dark"] .pm-devsheet h3{color:#F5ECE7}
+html[data-theme="dark"] .pm-devsheet .row{background:#281A12;border-color:#3C2D25}
+html[data-theme="dark"] .pm-devsheet .row b{color:#F5ECE7}
+html[data-theme="dark"] .pm-devsheet .close{background:#3B291E;color:#F6EEE9}
+html[data-theme="dark"] .pm-dock{background:rgba(45,30,22,.88);border-color:#3C2D25}
+html[data-theme="dark"] .pm-dock button{color:#B9A497}
+html[data-theme="dark"] .pm-dock button.on{color:#E6A783;background:rgba(230,167,131,.12)}
+/* ارفع زراير الإضافة فوق الشريط */
+.pm-fabs{bottom:100px!important}

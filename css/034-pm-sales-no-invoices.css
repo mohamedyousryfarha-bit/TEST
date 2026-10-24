@@ -1,0 +1,3 @@
+body.role-sales nav.tabs .tab[data-tab="cartpage"],
+body.role-sales #pmInvTab,
+body.role-sales .pm-dock [data-act="cart"]{display:none!important}

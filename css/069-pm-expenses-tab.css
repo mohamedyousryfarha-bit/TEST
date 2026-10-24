@@ -1,0 +1,4 @@
+/* تبويب المصروفات التشغيلية: الفورم وسجل المصروفات تحت بعض بعرض الشاشة */
+html body #expenses.active{display:block}
+html body #expenses.active>.card{margin:0 0 16px!important;grid-column:auto}
+html body #monthly.active>.card:first-child{grid-column:span 12!important}

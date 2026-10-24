@@ -1,0 +1,8 @@
+/* الرسايل والإعدادات: ورقة من تحت زي الأجهزة المتصلة */
+.pm-sheet-s{position:fixed!important;left:0!important;right:0!important;top:auto!important;bottom:0!important;width:100%!important;max-width:520px!important;margin:0 auto!important;max-height:78vh!important;overflow:auto!important;border-radius:26px 26px 0 0!important;padding:14px 18px calc(22px + env(safe-area-inset-bottom,0px))!important;background:#fff!important;color:#261912!important;z-index:11260!important;box-shadow:0 -20px 50px -20px rgba(39,21,11,.4)!important;box-sizing:border-box!important;animation:pmSheetUp .28s cubic-bezier(.2,.8,.2,1)!important;text-align:right!important;direction:rtl!important}
+.pm-sheet-s .pm-grab-s{width:44px;height:5px;border-radius:99px;background:#E6DCD7;margin:0 auto 12px}
+.pm-sheet-s .pm-h-s{margin:0 0 12px;font-size:17px;color:#3E2415;display:flex;align-items:center;gap:8px}
+#pmSheetBg{position:fixed;inset:0;z-index:11250;background:rgba(39,21,11,.45);display:none}
+#pmSheetBg.show{display:block}
+html[data-theme="dark"] .pm-sheet-s{background:#2D1E16!important;color:#F5ECE7!important}
+html[data-theme="dark"] .pm-sheet-s .pm-h-s{color:#F5ECE7}
