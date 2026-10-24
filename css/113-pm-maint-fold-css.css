@@ -1,0 +1,5 @@
+html body #pmMaintFold{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:16px!important;color:#F6EDE8!important;margin:12px 0!important;padding:10px 14px!important}
+html body #pmMaintFold>summary{color:#F6EDE8!important;font-weight:800!important;font-size:15px!important;cursor:pointer}
+html body #pmMaintFoldBody{margin-top:8px!important}
+html body #pmMaintFoldBody .pm-maint-row{background:transparent!important;border:0!important;color:#F6EDE8!important;box-shadow:none!important}
+html body #pmMaintFoldBody .pm-maint-row *{color:inherit}
