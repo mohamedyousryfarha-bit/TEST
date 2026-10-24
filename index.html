@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3E2415"><meta name="description" content="RMY: الوصفات والتكلفة والمشتريات والمبيعات والمخزون."><title>PastryMY Pro 3.4.3 | تطويرات التشغيل والتقارير</title>
+<link rel="stylesheet" href="css/001-inline.css"><meta name="application-version" content="3.4.3"><meta name="application-updated" content="2026-10-21"><script src="js/001-pm-boot.js"></script>
+
+<link rel="stylesheet" href="css/002-pmui-styles.css">
+
+<link rel="stylesheet" href="css/003-pm-pro-styles.css">
+
+<link rel="stylesheet" href="css/004-pm-notify-styles.css">
+
+<link rel="stylesheet" href="css/005-inline.css">
+
+
+
+
+<link rel="stylesheet" href="css/006-pm-responsive.css">
+
+<link rel="stylesheet" href="css/007-pm-tap-fix.css">
+<link rel="stylesheet" href="css/008-pm-topbar-css.css">
+<link rel="stylesheet" href="css/009-pm-wipe-css.css">
+<link rel="stylesheet" href="css/010-pm-fab-fix.css">
+
+<link rel="stylesheet" href="css/011-pm-cnt-css.css">
+<link rel="stylesheet" href="css/012-pm-showinv-css.css">
+
+<link rel="stylesheet" href="css/013-pm-pres-icon-css.css">
+
+
+
+<link rel="stylesheet" href="css/014-pm-design-v2.css">
+
+<link rel="stylesheet" href="css/015-pm-home-layout-v2.css">
+
+<link rel="stylesheet" href="css/016-pm-sales-layout-v2.css">
+
+<link rel="stylesheet" href="css/017-pm-stock-menu-layout-v2.css">
+
+<link rel="stylesheet" href="css/018-pm-monthly-layout-v2.css">
+
+<link rel="stylesheet" href="css/019-pm-visual-v4.css">
+<script src="js/002-inline.js"></script>
+
+<link rel="stylesheet" href="css/020-pm-nav-fix.css">
+
+<link rel="stylesheet" href="css/021-pm-mobile-grid-fix.css">
+
+<link rel="stylesheet" href="css/022-pm-home-root-fix.css">
+
+<link rel="stylesheet" href="css/023-pm-nav-clear.css">
+<script src="js/003-inline.js"></script>
+
+<link rel="stylesheet" href="css/024-pm-header-logo.css">
+
+<link rel="stylesheet" href="css/025-pm-menu-compact.css">
+
+<link rel="stylesheet" href="css/026-pm-admin-tiles.css">
+<script src="js/004-inline.js"></script>
+
+<link rel="stylesheet" href="css/027-pm-roles.css">
+<script src="js/005-inline.js"></script>
+
+<link rel="stylesheet" href="css/028-pm-kitchen-view.css">
+
+<link rel="stylesheet" href="css/029-pm-table-fit.css">
+
+<link rel="stylesheet" href="css/030-pm-tables-all.css">
+<link rel="stylesheet" href="css/031-pm-drawer-cart.css">
+<link rel="stylesheet" href="css/032-pm-cart-centered-modal-css.css">
+<link rel="stylesheet" href="css/033-pm-header-sticky.css">
+<link rel="stylesheet" href="css/034-pm-sales-no-invoices.css">
+<link rel="stylesheet" href="css/035-pm-print-fix.css">
+<link rel="stylesheet" href="css/036-pm-parties.css">
+<link rel="stylesheet" href="css/037-pm-menu-bulk-delete-style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="ICONS/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="ICONS/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="ICONS/icon-192.png">
+<link rel="stylesheet" href="css/038-pm-logo-var.css">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="css/039-pm-upgrade-341-css.css">
+</head><body class="auth-required"><header><button type="button" id="drawerBtn" aria-label="القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="hrow"><div class="brand"><div class="mark"><span class="pm-logo-img" role="img" aria-label="RMY"></span></div></div><p id="headerBismillah" style="display:none"></p></div></header><div id="messageDialog" class="msg-overlay" role="dialog" aria-modal="true" aria-labelledby="messageTitle" aria-describedby="messageText"><div id="messageBox" class="msg-box"><div id="messageSymbol" class="msg-symbol">✓</div><h2 id="messageTitle" class="msg-title">تمت العملية بنجاح</h2><p id="messageText" class="msg-text"></p><button id="messageOk" class="msg-ok" type="button">تمام</button></div></div>
+<section id="loginScreen" class="login-screen" aria-labelledby="loginTitle"><div class="sweet-bg" aria-hidden="true"><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="swDonut" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#E9B98A"/><circle cx="24" cy="24" r="16" fill="#F7A6C1"/><circle cx="24" cy="24" r="6" fill="#F7F2EF"/><path d="M10 14 q4 -3 6 0 M30 30 q4 -2 6 1 M32 12 q3 -1 4 2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="swCupcake" viewBox="0 0 48 48"><path d="M12 26h24l-4 16H16z" fill="#F3C98B"/><path d="M7 27c0-10 8-17 17-17s17 7 17 17z" fill="#F7A6C1"/><path d="M12 22h24" stroke="#fff" stroke-width="2" opacity=".6"/><circle cx="24" cy="8" r="4" fill="#D6336C"/></symbol>
+<symbol id="swCookie" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#D9A066"/><circle cx="16" cy="18" r="3" fill="#4A2C1A"/><circle cx="30" cy="16" r="2.5" fill="#4A2C1A"/><circle cx="26" cy="30" r="3" fill="#4A2C1A"/><circle cx="14" cy="32" r="2" fill="#4A2C1A"/><circle cx="34" cy="28" r="2" fill="#4A2C1A"/></symbol>
+<symbol id="swMacaron" viewBox="0 0 48 48"><rect x="3" y="9" width="42" height="13" rx="6.5" fill="#CDB4F6"/><rect x="3" y="26" width="42" height="13" rx="6.5" fill="#B8A2EA"/><rect x="8" y="21" width="32" height="6" rx="3" fill="#FFF6E0"/></symbol>
+<symbol id="swCake" viewBox="0 0 48 48"><path d="M6 38 L24 8 L42 38 Z" fill="#FBE7C6"/><path d="M11 30 H37 M14 22 H34" stroke="#F7A6C1" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="6" r="3.5" fill="#D6336C"/></symbol>
+<symbol id="swLollipop" viewBox="0 0 48 48"><circle cx="24" cy="18" r="15" fill="#A8E6CF"/><circle cx="24" cy="18" r="9" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity=".7"/><rect x="22.5" y="32" width="3" height="15" rx="1.5" fill="#E1D7D1"/></symbol>
+</defs></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:6%;--l:4%;--s:34px;--d:16s;--dl:0s;--a:swX"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:18%;--l:70%;--s:28px;--d:12s;--dl:-4s;--a:swXr"><use href="#swCookie"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:60%;--l:8%;--s:40px;--d:18s;--dl:-2s;--a:swXr"><use href="#swCupcake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:78%;--l:62%;--s:30px;--d:14s;--dl:-7s;--a:swX"><use href="#swMacaron"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:40%;--l:88%;--s:26px;--d:20s;--dl:-9s;--a:swY"><use href="#swLollipop"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:10%;--l:40%;--s:24px;--d:15s;--dl:-5s;--a:swD"><use href="#swCake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:88%;--l:20%;--s:36px;--d:17s;--dl:-11s;--a:swDr"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:50%;--l:2%;--s:22px;--d:13s;--dl:-3s;--a:swY"><use href="#swCookie"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:30%;--l:50%;--s:32px;--d:19s;--dl:-8s;--a:swD"><use href="#swMacaron"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:70%;--l:90%;--s:30px;--d:15s;--dl:-1s;--a:swDr"><use href="#swCake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:4%;--l:85%;--s:22px;--d:11s;--dl:-6s;--a:swY"><use href="#swCupcake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:92%;--l:48%;--s:26px;--d:16s;--dl:-12s;--a:swX"><use href="#swLollipop"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:55%;--l:40%;--s:20px;--d:21s;--dl:-4s;--a:swD"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:22%;--l:22%;--s:28px;--d:14s;--dl:-10s;--a:swDr"><use href="#swCookie"/></svg></div>
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-logo" aria-hidden="true"><span class="pm-logo-img"></span></div>
+      <h1 id="loginTitle">RMY</h1>
+      <p class="login-subtitle">إدارة الوصفات والإنتاج والمخزون</p>
+    </div>
+
+    <div id="loginMessage" class="login-message" role="status">يلزم الاتصال بمشروع Supabase لإكمال تسجيل الدخول.</div>
+
+    <div id="sharedLoginPane">
+      <div class="login-field">
+        <label for="sharedEmail">البريد الإلكتروني</label>
+        <div class="login-input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+          <input id="sharedEmail" type="email" autocomplete="username" placeholder="name@example.com">
+        </div>
+      </div>
+      <div class="login-field">
+        <label for="sharedPassword">كلمة المرور</label>
+        <div class="login-input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <input id="sharedPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+        </div>
+      </div>
+      <button id="signInButton" class="primary login-button" type="button">تسجيل الدخول</button>
+    </div>
+
+    <div id="employeePane" class="hide">
+      <div class="login-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.4 7 10 4-1.6 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>تم تسجيل دخول الحساب المشترك. اختر اسمك وأدخل PIN الشخصي (4 أو 5 أرقام)، ويتحقق الخادم منه قبل فتح التطبيق وقبل كل حفظ.</span>
+      </div>
+
+      <div id="staffStep">
+        <div class="staff-title">اختر اسمك</div>
+        <div id="staffGrid" class="staff-grid"></div>
+        <button id="backToLoginButton" class="secondary login-button" type="button">تسجيل خروج من الحساب المشترك</button>
+      </div>
+
+      <div id="pinStep" class="hide">
+        <div class="pin-who">
+          <span id="pinAvatar" class="staff-av" aria-hidden="true"></span>
+          <div><b id="pinName"></b><small>أدخل PIN الشخصي (4 أو 5 أرقام)</small></div>
+        </div>
+        <div class="login-field">
+          <label for="employeePin" class="pin-label">PIN الشخصي</label>
+          <div class="login-input-wrap pin-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <input id="employeePin" type="password" inputmode="numeric" pattern="[0-9]{4,5}" autocomplete="off" maxlength="5" placeholder="•••••">
+          </div>
+        </div>
+        <button id="unlockButton" class="primary login-button" type="button">التحقق وفتح التطبيق</button>
+        <button id="pinBackButton" class="secondary login-button" type="button">مش أنا؟ اختر اسمك من القايمة</button>
+      </div>
+
+      <select id="employeeName" class="hide" tabindex="-1" aria-hidden="true"><option value="">تحميل أسماء الموظفين…</option></select>
+    </div>
+
+    <div class="login-foot">
+      <p class="login-footnote">حقوق الملكية محفوظة © 2026 · Pastry Chef Mohamed Yousry</p>
+    </div>
+  </div>
+</section>
+<main class="wrap"><div id="pmBackBar" class="pm-back-bar"><button id="pmBack" type="button">→ رجوع للقائمة</button></div>
+<div class="autosave" id="localSaveStatus"><span>●</span><span>في انتظار الاتصال الآمن بالسحابة…</span><button id="retryCloudButton" type="button" class="secondary mini" onclick="retryCloudSync()">تحديث الصفحة</button><button id="reloadCloudButton" type="button" class="secondary mini" onclick="reloadCloudState()">آخر نسخة سحابية</button><button id="signOutButton" type="button" class="secondary mini" onclick="signOutCloud()">تسجيل خروج</button></div>
+<nav class="tabs noprint" id="appNav"><div class="nav-group"><div class="nav-title">التشغيل</div><div class="nav-items"><button class="tab active" data-tab="analytics">الرئيسية</button><button class="tab" data-tab="customers">العملاء</button></div></div><div class="nav-group"><div class="nav-title">المبيعات</div><div class="nav-items"><button class="tab" data-tab="menu">المنيو</button><button class="tab" data-tab="cartpage">الفواتير</button><button class="tab" data-tab="salesInvoices">فواتير العملاء</button></div></div><div class="nav-group"><div class="nav-title">المطبخ</div><div class="nav-items"><button class="tab" data-tab="order">قسم التحضير</button><button class="tab" data-tab="recipes" data-rgroup="food">الوصفات</button></div></div><div class="nav-group"><div class="nav-title">المخزن</div><div class="nav-items"><button class="tab" data-tab="stock">المخزون</button><button class="tab" data-tab="history">حركة المخزون</button><button class="tab" data-tab="purchases">المشتريات</button></div></div><div class="nav-group"><div class="nav-title">الحسابات</div><div class="nav-items"><button class="tab" data-tab="prices">أسعار الخامات</button><button class="tab" data-tab="costing">تكلفة الوصفات</button><button class="tab" data-tab="expenses">المصروفات التشغيلية</button></div></div><div class="nav-group"><div class="nav-title">التقارير والإدارة</div><div class="nav-items"><button class="tab" data-tab="monthly">تقفيل الشهر</button><button class="tab" data-tab="audit">سجل التعديلات</button><button class="tab" data-tab="backup">النسخ الاحتياطي</button></div></div><div class="nav-group" id="partiesGroup"><div class="nav-title">الحفلات</div><div class="nav-items"><button class="tab" data-tab="parties">أوردرات الحفلات</button><button class="tab" data-tab="partyInvoices">فواتير الحفلات</button><button class="tab" data-tab="partyTemplate">هيكل فاتورة الحفلات</button></div></div><div class="nav-group" id="drinkGroup"><div class="nav-title">المشروبات</div><div class="nav-items"><button class="tab" data-tab="drinkProduce">إنتاج المشروبات</button><button class="tab" data-tab="drinkQueue">حسب الطلب</button><button class="tab" data-tab="recipes" data-rgroup="drink">وصفة مشروبات</button></div></div></nav>
+<div id="home" hidden><div class="pm-grid">
+<div class="card c12 pm-hero" id="pmHero">
+  <div class="pm-hero-top"><div><small>مبيعات اليوم</small><div class="pm-hero-big" id="pmHeroSales">0 ج.م</div></div><span class="pm-hero-delta" id="pmHeroDelta">—</span></div>
+  <div class="pm-bars" id="pmBars" aria-hidden="true"></div>
+  <div class="pm-bars-lbl"><span id="pmBarsFirst"></span><span>اليوم</span></div>
+</div>
+<div class="pm-bento-row c12">
+  <div class="pm-tile"><div class="pm-tile-k"><span class="pm-tile-ico mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>جاهز للتسليم</div><div class="pm-tile-v" id="pmTileReady">0</div><div class="pm-tile-s">قطعة جاهزة الآن</div></div>
+  <div class="pm-tile"><div class="pm-tile-k"><span class="pm-tile-ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>تنبيهات المخزون</div><div class="pm-tile-v" id="pmTileAlerts">0</div><div class="pm-tile-s">خامات صفر أو تحت الحد</div></div>
+</div>
+
+<div hidden><b id="kpiSales7"></b><i id="kpiSalesNote"></i><b id="statRecipes"></b><b id="statIngredients"></b></div>
+<div class="card c4"><div class="card-h"><div><h2>تنبيهات المخزون</h2><p>خامات تحتاج تدخل</p></div></div>
+  <div class="minis"><div><b id="statZero">0</b><span>رصيد صفر</span></div><div><b id="statLow">0</b><span>تحت حد التنبيه</span></div></div>
+  <div id="homeAlerts"></div></div>
+<div class="card c12 pm-owner-card"><div class="card-h"><div><h2>أصناف تحتاج مراجعة السعر</h2><p>خامات بدون سعر شراء أو حجم عبوة</p></div></div><div id="homeNoPrice"></div></div>
+
+
+</div></div>
+<section id="order" class="panel"><div class="card"><h2>تجهيز طلب إنتاج</h2><div class="grid2"><div><label>اختر الصنف</label><select id="orderProduct"></select></div><div><label>عدد الوزنات</label><input id="orderQty" type="number" min="0.01" step="any" value="1"></div></div><div class="actions"><button id="addOrder" class="primary">إضافة صنف</button><button id="clearOrder" class="secondary">مسح الطلب</button></div><div id="orderItems"></div><div class="actions"><button id="calcOrder" class="secondary">حساب المكونات</button><button id="printOrder" class="secondary">طباعة كشف الطلب</button><button id="showPurchases" class="secondary">قائمة النواقص</button><button id="deductOrder" class="primary">تأكيد وخصم المخزون</button></div><div id="orderResult"></div><p class="small">لا يتم الخصم إذا كان أي مكون غير متوفر بالكمية المطلوبة. راجع النواقص قبل التأكيد. الوصفة الواحدة تعني وزنة أساسية كما هي مسجلة في Excel.</p></div></section>
+<section id="recipes" class="panel"><div class="card"><div class="sectionhead"><h2>قاعدة الوصفات</h2><button class="secondary mini" id="newRecipe">+ صنف جديد</button></div><label>اختيار الصنف</label><select id="editProduct"></select><div id="recipeEditor"></div><div class="actions"><button id="saveRecipe" class="primary">حفظ الوصفة</button><button id="deleteRecipe" class="danger">حذف الصنف</button></div><p class="small">كل صنف له مكوناته المستقلة. يمكنك إضافة أو حذف مكون وتحديد الوحدة والحرارة والوقت. حذف الصنف لا يمسح حركات المخزون القديمة.</p></div></section>
+<section id="stock" class="panel"><div class="card"><h2>إضافة رصيد لخامة</h2><label>الخامة</label><select id="stockIngredient"></select><div class="grid2"><div><label>الكمية المضافة</label><input id="stockAddQty" type="number" min="0.001" step="any" placeholder="مثال: 500"></div><div><label>الوحدة</label><select id="stockAddUnit"></select></div></div><button class="primary" id="addStock" style="width:100%;margin-top:12px">تسجيل الإضافة</button></div><div class="card"><div class="sectionhead"><h2>أرصدة المخزون</h2><button class="secondary mini" onclick="exportExcelTable('inventory')">تصدير Excel</button></div><label>بحث عن خامة</label><input id="stockSearch" placeholder="اكتب اسم الخامة..."><div id="stockTable" class="tablewrap"></div></div></section>
+<section id="prices" class="panel"><div class="card"><h2>أسعار شراء الخامات</h2><p class="small">هذا القسم لتسجيل سعر العبوة وحجمها فقط؛ يستخدم التطبيق هذه البيانات لحساب تكلفة مكونات الوصفات. حد تنبيه المخزون يُدار من هنا أيضًا حتى لا يتكرر في أكثر من مكان.</p><label>اختر الخامة</label><select id="priceIngredient"></select><div class="grid2"><div><label>سعر شراء العبوة (جنيه)</label><input id="pricePurchase" type="number" min="0" step="any"></div><div><label>حجم العبوة</label><input id="pricePackSize" type="number" min="0" step="any"></div><div><label>وحدة العبوة</label><select id="pricePackUnit"></select></div><div><label>حد إعادة الطلب بوحدة المخزون</label><input id="priceReorder" type="number" min="0" step="any"></div></div><div id="pricePreview" class="small"></div><button id="savePrice" class="primary" style="width:100%;margin-top:12px">حفظ السعر والتنبيه</button></div><div class="card"><h2>قائمة الأسعار والحالة</h2><div id="pricesTable" class="tablewrap"></div></div></section>
+<section id="costing" class="panel">
+<div class="card"><h2>تكلفة الوصفة وسعر البيع المقترح</h2><p class="small">يعتمد الحساب على أسعار شراء الخامات المسجلة في «أسعار الخامات». أدخل الناتج من الوزنة والتكلفة المباشرة الإضافية التي تريد تحميلها على هذه الوصفة. لا تسجّل نفس التكلفة مرة أخرى في المصروفات حتى لا تُحسب مرتين.</p>
+<label>اختيار الصنف</label><select id="costRecipe"></select>
+<div class="grid2"><div><label>عدد الوحدات الناتجة من الوزنة</label><input id="costYield" type="number" min="0.001" step="any" value="1"><div class="field-hint">مثال: 24 قطعة أو 2 تورتة</div></div><div><label>هامش الربح المستهدف %</label><input id="costMargin" type="number" min="0" max="95" step="1" value="30"><div class="field-hint">من 0 إلى 95% من سعر البيع</div></div><div><label>تكاليف إضافية للوزنة (جنيه)</label><input id="costExtra" type="number" min="0" step="any" value="0"></div><div><label>سعر البيع الفعلي للوحدة (اختياري)</label><input id="costActualPrice" type="number" min="0" step="any" placeholder="للمقارنة فقط"></div></div>
+<div class="actions"><button id="saveCostSettings" class="primary">حفظ إعدادات الصنف</button><button id="calcRecipeCost" class="secondary">حساب التكلفة</button><button id="printRecipeCost" class="secondary">طباعة التقرير</button></div><div id="recipeCostResult"></div></div>
+<div class="card"><div class="sectionhead"><h2>ملخص تكلفة الوصفات</h2><button id="exportCostReport" class="secondary mini">تصدير Excel</button></div><div id="allRecipeCosts" class="tablewrap"></div></div>
+</section>
+<section id="purchases" class="panel">
+<div class="card"><div class="sectionhead"><h2>قائمة نواقص المخزون</h2><button id="exportPurchases" class="secondary mini">تصدير Excel</button></div><p class="small">تعرض هذه القائمة الخامات غير الموجودة في المخزون أو التي رصيدها صفر، سواء كانت مستخدمة في الوصفات أو مسجلة ضمن أسعار الخامات. لا تعتمد على طلب الإنتاج الحالي.</p><div id="purchaseList"></div><div class="actions"><button id="refreshPurchases" class="secondary">تحديث القائمة</button><button id="printPurchases" class="secondary">طباعة القائمة</button></div></div>
+<div class="card"><h2>تسجيل شراء فعلي</h2><p class="small">سجّل كمية الخامة التي اشتريتها وإجمالي ما دفعته. سيزيد المخزون وتُسجّل الحركة، ويُحدّث سعر الشراء المرجعي إلى آخر عملية شراء لهذه الكمية والوحدة.</p><div class="grid2"><div><label>الخامة المشتراة</label><select id="purchaseIngredient"></select></div><div><label>الكمية المشتراة</label><input id="purchaseQty" type="number" min="0.001" step="any" placeholder="مثال: 2"></div><div><label>وحدة الكمية</label><select id="purchaseUnit"></select></div><div><label>إجمالي سعر الشراء (جنيه)</label><input id="purchaseTotal" type="number" min="0.01" step="any" placeholder="إجمالي الفاتورة لهذه الخامة"></div></div><label>المورد / رقم الفاتورة / ملاحظة (اختياري)</label><input id="purchaseNote" placeholder="اسم المورد أو رقم الفاتورة"><div id="purchasePreview" class="pro-note">اختر الخامة وأدخل الكمية والسعر لعرض سعر الوحدة.</div><button id="addPurchase" class="primary" style="width:100%;margin-top:12px">تسجيل الشراء وإضافة المخزون</button></div>
+<div class="card"><div class="sectionhead"><h2>سجل المشتريات الفعلية</h2><button id="exportPurchaseLog" class="secondary mini">تصدير سجل المشتريات</button></div><div id="purchasesTable" class="tablewrap"></div></div>
+<div class="card"><h2>المصروفات التشغيلية</h2><p class="small">المصروفات هي نفقات التشغيل العامة مثل الإيجار والكهرباء والنقل والصيانة. لا تسجّل هنا شراء خامات (يسجّل في المشتريات)، ولا تسجّل بندًا سبق تحميله ضمن تكلفة الوصفة حتى لا يتكرر الحساب.</p><div class="grid2"><div><label>نوع المصروف</label><select id="expenseCategory"><option>عمالة عامة غير محمّلة على الوصفات</option><option>راتب شيف</option><option>راتب مساعد شيف</option><option>راتب مبيعات</option><option>راتب ستيوراد</option><option>كهرباء / غاز عامة</option><option>نقل وتوصيل</option><option>إيجار</option><option>صيانة</option><option>تسويق</option><option>اتصالات / إنترنت</option><option>أخرى</option></select></div><div><label>قيمة المصروف (جنيه)</label><input id="expenseAmount" type="number" min="0.01" step="any" placeholder="قيمة المصروف"></div></div><label>تفاصيل المصروف</label><input id="expenseNote" placeholder="مثال: فاتورة كهرباء أو إيجار"><button id="addExpense" class="primary" style="width:100%;margin-top:12px">حفظ المصروف</button></div>
+<div class="card"><div class="sectionhead"><h2>سجل المصروفات</h2><button id="exportExpenses" class="secondary mini">تصدير Excel</button></div><div id="expensesTable" class="tablewrap"></div></div>
+</section>
+<section id="sales" class="panel">
+
+<div class="card"><h2>المبيعات</h2><p class="small">المبيعات هي الأموال الداخلة من بيع المنتجات. تسجيل البيع لا يُعد شراء خامات ولا مصروفًا تشغيليًا.</p><p class="small">سجّل الكمية المباعة وسعر البيع الفعلي للوحدة. تُحفظ تكلفة الوحدة التقديرية وقت التسجيل بحسب أسعار الخامات وإعدادات الوصفة الحالية، لحساب ربح تقريبي.</p>
+<div class="grid2"><div><label>الصنف المباع</label><select id="saleProduct"></select></div><div><label>عدد الوحدات المباعة</label><input id="saleQty" type="number" min="0.001" step="any" value="1"></div><div><label>سعر بيع الوحدة (جنيه)</label><input id="salePrice" type="number" min="0" step="any" placeholder="سعر البيع الفعلي"></div><div><label>ملاحظة (اختياري)</label><input id="saleNote" placeholder="فاتورة / عميل / ملاحظة"></div></div>
+<div id="salePreview" class="pro-note">اختر الصنف وأدخل الكمية والسعر لعرض تقدير الربح.</div><div class="actions"><button id="addSale" class="primary">حفظ عملية البيع</button><button id="printSales" class="secondary">طباعة التقرير</button></div></div>
+
+<div class="card"><h2>ملخص مالي للفترة الحالية</h2><div id="financialSummary"></div></div>
+
+
+</section>
+<section id="menu" class="panel">
+<div class="card"><div class="sectionhead"><h2>المنيو</h2></div><p class="small">اختر منيو القطع للبيع المباشر أو تبويب الحفلات لتسجيل طلب يحتاج تجهيزًا.</p><input type="search" class="menu-search" placeholder="ابحث عن صنف..." oninput="pmMenuSearch(this.value)"><div id="menuTabs" class="menu-tabs"><button type="button" data-mtab="piece" class="on">منيو القطع</button><button type="button" data-mtab="party">حفلات / حسب الطلب</button><button type="button" data-mtab="drink">مشروبات</button></div><div id="menuGrid" class="menu-grid"></div></div>
+
+<div class="card" id="menuAdminCard"><h2>إدارة المنيو</h2><p class="small">أضف صنفًا من الوصفات مع سعر البيع وصورة صغيرة. الصورة بتتضغط تلقائيًا.</p>
+<label>نوع الصنف</label><select id="menuKind" onchange="pmMenuKindChange()"><option value="piece">منيو القطع الجاهزة</option><option value="party">حفلات / حسب الطلب</option><option value="drink">مشروبات (متحضرة من الوصفات)</option></select><label id="menuOnDemandLbl" hidden style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="menuOnDemand" checked style="width:18px;min-height:18px"> حسب الطلب (يروح للباريستا لما يتطلب)</label><div id="menuPartyBox" hidden><label>اسم الصنف حسب الطلب</label><input id="menuPartyName" placeholder="مثلاً: تورتة فاكهة"><label>وصفة الإنتاج الخاصة (يمكن اختيار أكثر من وصفة)</label><div id="menuPartyParts" class="menu-party-parts"></div><p class="small">اختر وصفة محفوظة ومكتملة المكونات. الكميات المحددة هنا هي عدد الوحدات من كل وصفة لكل طلب.</p></div><label id="menuRecipeLbl">الصنف (من الوصفات)</label><select id="menuRecipe"></select>
+<div class="grid2"><div><label>سعر البيع (جنيه)</label><input id="menuPrice" type="number" min="0" step="any" placeholder="سعر البيع"></div><div><label>صورة الصنف</label><input id="menuImage" type="file" accept="image/*" onchange="pmMenuPickImage(this)"></div></div>
+<div id="menuImagePreview"></div>
+<div class="actions"><button id="menuAdd" class="primary" onclick="pmMenuAdd()">إضافة للمنيو</button></div>
+<div id="menuAdminList" style="margin-top:12px"></div></div>
+</section>
+<section id="cartpage" class="panel">
+<div class="card" id="invoicesCard"><div class="sectionhead"><h2>جدول الفواتير</h2><button id="exportSales" class="secondary mini" type="button">تصدير Excel</button></div>
+<div id="invPeriodNote" class="pro-note"></div>
+<div class="grid2"><div><label for="salesSearch">بحث عن فاتورة</label><input id="salesSearch" type="search" placeholder="رقم الفاتورة، اسم البائع، صنف، أو ملاحظة" oninput="pmSalesSearch()"></div><div><label for="invSeller">اسم حساب البائع</label><select id="invSeller" onchange="pmSalesSearch()"><option value="">كل البائعين</option></select></div></div>
+<div id="salesCount" class="small" style="margin:6px 0"></div><div id="salesTable"></div></div>
+</section>
+<section id="history" class="panel"><div class="card"><div class="sectionhead"><h2>سجل حركة المخزون</h2><button class="secondary mini" onclick="exportExcelTable('history')">تصدير Excel</button></div><div class="actions"><button class="secondary" onclick="window.print()">طباعة السجل</button></div><div id="historyTable" class="tablewrap"></div></div></section>
+<section id="salesInvoices" class="panel"><div class="card"><h2>فواتير العملاء</h2><p class="small">كل فواتير الشهر الحالي، للعرض والطباعة. الفواتير بتتقفل وتتأرشف مع تقفيل الشهر.</p><input id="salesInvSearch" type="search" placeholder="ابحث برقم الفاتورة أو اسم العميل أو الصنف" oninput="pmSalesInvRender()"><div id="salesInvBody" style="margin-top:12px"></div></div></section>
+<section id="customers" class="panel"><div class="card"><div class="sectionhead"><h2>العملاء</h2><button id="exportCustomers" class="secondary mini" type="button" onclick="pmExportCustomersExcel()">تصدير Excel</button></div>
+<p class="small">كل العملاء اللي اشتروا منا من الفواتير (بالاسم والتليفون). بيتحدّث تلقائي مع كل فاتورة جديدة.</p>
+<div class="stats" style="margin:10px 0"><div class="stat"><b id="custCount">0</b><span>عدد العملاء</span></div><div class="stat"><b id="custTotal">0</b><span>إجمالي مشترياتهم (ج.م)</span></div></div>
+<label for="custSearch">بحث بالاسم أو التليفون</label><input id="custSearch" type="search" placeholder="اكتب اسم العميل أو رقم التليفون">
+<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>العميل</th><th>التليفون</th><th>عدد الفواتير</th><th>إجمالي المشتريات</th><th>آخر شراء</th></tr></thead><tbody id="custTable"></tbody></table></div>
+</div><div class="card"><div class="sectionhead"><h2>عملاء الحفلات</h2></div><p class="small">كل اللي طلبوا حفلات: بياناتهم وحفلاتهم، وإجمالي اللي اتسلّم ليهم من فواتير الحفلات.</p><div class="stats" style="margin:10px 0"><div class="stat"><b id="pCustCount">0</b><span>عدد عملاء الحفلات</span></div><div class="stat"><b id="pCustTotal">0</b><span>إجمالي فواتير الحفلات (ج.م)</span></div></div><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>العميل</th><th>التليفون</th><th>عدد الحفلات</th><th>الحفلات المطلوبة</th><th>آخر موعد</th><th>إجمالي المدفوع</th></tr></thead><tbody id="pCustTable"></tbody></table></div></div></section>
+<section id="monthly" class="panel"><div class="card"><h2>تقفيل الشهر</h2><p class="small">يقوم التقفيل بحفظ تقرير الشهر وأرصدة المخزون وسجل الحركة في أرشيف داخل التطبيق، ثم يبدأ سجل حركة جديدًا دون تغيير أرصدة الخامات. نزّل نسخة احتياطية قبل التقفيل لزيادة الأمان.</p><label>اسم الفترة / الشهر</label><input id="monthLabel" placeholder="مثال: أكتوبر 2026"><div id="monthlySummary"></div><button id="closeMonth" class="primary" style="width:100%;margin-top:12px">حفظ التقفيل وأرشفة الحركة</button></div><div class="card"><h2>الأرشيف السابق</h2><div id="archivesTable" class="tablewrap"></div></div></section>
+
+<section id="expenses" class="panel"></section>
+<section id="audit" class="panel"><div class="card"><div class="sectionhead"><h2>سجل التعديلات</h2><button id="refreshAudit" class="secondary mini" type="button">تحديث السجل</button></div><p class="small">يعرض آخر 100 عملية محفوظة على الخادم. يسجل الخادم اسم الموظف والوقت ورقم الإصدار، ويحفظ تفاصيل الحالة قبل التعديل وبعده في سجل المراجعة المحمي.</p><div id="auditTable" class="tablewrap"><div class="empty">افتح هذا القسم لتحميل سجل التعديلات من الخادم.</div></div></div></section>
+<section id="drinkProduce" class="panel"><div class="card"><h2>إنتاج المشروبات</h2><div id="drinkProduceBody"><div class="pm-po-empty">جارٍ التحميل…</div></div></div></section>
+<section id="drinkQueue" class="panel"><div class="card"><h2>حسب الطلب</h2><div id="drinkQueueBody"><div class="pm-po-empty">جارٍ التحميل…</div></div></div></section>
+<section id="parties" class="panel"><div class="card"><h2>الحفلات: النواقص والأوردرات والأوامر</h2><div id="partiesBody"><div class="pm-po-empty">جارٍ التحميل…</div></div></div></section>
+<section id="partyInvoices" class="panel"><div class="card"><h2>فواتير الحفلات</h2><p class="small">الفاتورة بتتسجل تلقائي لما كل أصناف الحفلة تتسلم. دي منفصلة عن فواتير المنيو العادية.</p><input id="partyInvSearch" type="search" placeholder="ابحث باسم العميل أو الحفلة أو رقم الفاتورة" oninput="pmPartyInvRender()"><div id="partyInvBody" style="margin-top:12px"></div></div></section>
+<section id="partyTemplate" class="panel"><div class="card"><h2>هيكل فاتورة الحفلات</h2><p class="small">البيانات دي بتظهر في أعلى فواتير الحفلات بس. أي خانة تسيبها فاضية هتاخد البيانات من هيكل الفاتورة العادية.</p><label>اسم المحل</label><input id="pmPT_shopName" placeholder="اسم المحل"><label>العنوان</label><input id="pmPT_address" placeholder="العنوان"><label>رقم الهاتف</label><input id="pmPT_phone" placeholder="رقم الهاتف"><label>البطاقة الضريبية</label><input id="pmPT_taxCard" placeholder="رقم البطاقة الضريبية"><label>السجل التجاري</label><input id="pmPT_commercialReg" placeholder="رقم السجل التجاري"><label>نص أسفل الفاتورة</label><input id="pmPT_footer" placeholder="نص أسفل الفاتورة"><div class="actions" style="margin-top:10px"><button type="button" class="primary" onclick="pmPartySaveTpl()">حفظ هيكل فاتورة الحفلات</button></div><h3 style="margin:16px 0 8px">معاينة</h3><div id="pmPTPreview"></div></div></section>
+<section id="backup" class="panel"><div class="card"><h2>النسخ الاحتياطي ونقل البيانات</h2><p class="small">نسخة Excel للاستخدام والمراجعة، ونسخة JSON كاملة للاستعادة السريعة كما هي. ننصح بتنزيل نسخة قبل الاستيراد أو إعادة البيانات الأصلية.</p><div class="actions"><button id="exportBackup" class="primary">تنزيل نسخة Excel</button><button id="exportJsonBackup" class="secondary">تنزيل نسخة استرداد JSON</button></div><div class="actions"><label class="secondary" style="text-align:center;cursor:pointer;margin:0;padding-top:13px">استعادة نسخة Excel<input id="importBackup" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" style="display:none"></label><label class="secondary" style="text-align:center;cursor:pointer;margin:0;padding-top:13px">استعادة نسخة JSON<input id="importJsonBackup" type="file" accept=".json,application/json" style="display:none"></label></div><p class="small">قبل استعادة أي نسخة، سيُنزّل التطبيق نسخة استرداد JSON تلقائيًا. احتفظ بالنسخ خارج الموبايل أيضًا.</p><p class="small">تُحفظ التعديلات محليًا أولًا، وتُضاف قائمة مزامنة دائمة عند تعذر الاتصال. عند عودة الإنترنت وبعد تسجيل الدخول بالحساب نفسه، يحاول التطبيق رفع التعديلات تلقائيًا. إذا اكتشف تعارض إصدار، يحتفظ بالنسخة المحلية ولا يكتب فوق بيانات جهاز آخر. احتفظ بنسخة JSON احتياطية أيضًا.</p></div><div class="card"><h2>معلومات النسخة الحالية</h2><div id="aboutData" class="tablewrap"></div></div></section>
+<section id="analytics" class="panel active"><div id="anRoot"></div></section><footer>© <span>2026</span> جميع حقوق الطبع والنشر محفوظة لـ <b>Pastry Chef Mohamed Yousry</b></footer></main>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script defer src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1"></script>
+<script src="./supabase-config.js"></script>
+<script src="js/006-inline.js"></script>
+<script src="js/007-pmui-script.js"></script>
+
+<script src="js/008-pm-pro-script.js"></script>
+
+
+<link rel="stylesheet" href="css/040-pm-pastry-theme.css">
+<link rel="stylesheet" href="css/041-pm-polish-2-6-9-10.css">
+<link rel="stylesheet" href="css/042-pm-live-css.css">
+<script src="js/009-pm-live-js.js"></script>
+<link rel="stylesheet" href="css/043-pm-labels-fix.css">
+<link rel="stylesheet" href="css/044-pm-cloud-actions.css">
+<link rel="stylesheet" href="css/045-pm-cloud-row.css">
+<link rel="stylesheet" href="css/046-pm-tab-labels.css">
+<link rel="stylesheet" href="css/047-pm-categories.css">
+<script src="js/010-pm-categories-js.js"></script>
+<script src="js/011-pm-login-errors.js"></script>
+<script src="js/012-pm-sales-role.js"></script>
+<link rel="stylesheet" href="css/048-pm-invoices-css.css">
+<script src="js/013-pm-close-clean.js"></script>
+<script src="js/014-pm-sales-archive.js"></script>
+
+<link rel="stylesheet" href="css/049-pm-tabs-icons.css">
+<script src="js/015-pm-excel-export.js"></script>
+<script src="js/016-pm-multiuser.js"></script>
+<script src="js/017-pm-presence-ui.js"></script>
+<script src="js/018-pm-home-v2.js"></script>
+<script src="js/019-inline.js"></script>
+<script src="js/020-pm-tour-cleanup.js"></script>
+<script src="js/021-pm-logout-fix.js"></script>
+<script src="js/022-pm-topbar-js.js"></script>
+<script src="js/023-pm-wipe-js.js"></script>
+<script src="js/024-pm-tap-guard.js"></script>
+<script src="js/025-pm-fullscreen-js.js"></script>
+<script src="js/026-pm-link-js.js"></script>
+
+<script src="js/027-pm-ready-js.js"></script>
+<script src="js/028-pm-invoice-js.js"></script>
+<script src="js/029-pm-showinv-js.js"></script>
+
+<script src="js/030-pm-messages-js.js"></script>
+
+<script src="js/031-pm-pres-icon-js.js"></script>
+
+<link rel="stylesheet" href="css/050-pm-launcher.css">
+<script src="js/032-inline.js"></script>
+
+<link rel="stylesheet" href="css/051-pm-login-v2.css">
+<script src="js/033-pm-login-v2-js.js"></script>
+
+<link rel="stylesheet" href="css/052-pm-menu-v2.css">
+<script src="js/034-pm-menu-v2-js.js"></script>
+
+<link rel="stylesheet" href="css/053-pm-dock-2026.css">
+<nav class="pm-dock" id="pmDock" aria-label="التنقل السريع">
+  <button type="button" data-act="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>الرئيسية</button>
+  <button type="button" data-act="cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>المبيعات</button>
+  <button type="button" data-act="stock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/></svg>المخزون</button>
+  <button type="button" data-act="devices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="13" height="10" rx="2"/><path d="M7 20h5M9.5 14v6"/><rect x="17" y="8" width="4" height="12" rx="1.5"/></svg>الأجهزة</button>
+</nav>
+<div class="pm-devsheet" id="pmDevSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pmDevTitle">
+    <div class="grab"></div>
+    <h3 id="pmDevTitle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E4728" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="13" height="10" rx="2"/><path d="M7 20h5M9.5 14v6"/><rect x="17" y="8" width="4" height="12" rx="1.5"/></svg>الأجهزة المتصلة</h3>
+    <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg></span><div><b id="pmDevPres">—</b><small>عدد الحسابات المتصلة الآن</small></div></div>
+    <div id="pmDevList"></div>
+    <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></svg></span><div><b>حالة المزامنة</b><small id="pmDevSync">—</small></div></div>
+    <button class="close" id="pmDevClose" type="button">إغلاق</button>
+  </div>
+</div>
+<script src="js/035-pm-dock-js.js"></script>
+
+<link rel="stylesheet" href="css/054-pm-bento-2026.css">
+<script src="js/036-pm-bento-js.js"></script>
+
+
+
+
+<link rel="stylesheet" href="css/055-pm-login-msgs-2026.css">
+<script src="js/037-pm-toast-queue-js.js"></script>
+
+<link rel="stylesheet" href="css/056-pm-menu-full-2026.css">
+<script src="js/038-pm-menu-full-2026-js.js"></script>
+
+
+
+<script src="js/039-pm-autologin-js.js"></script>
+
+<link rel="stylesheet" href="css/057-pm-login-shake.css">
+<script src="js/040-pm-login-remember-js.js"></script>
+<link rel="stylesheet" href="css/058-pm-hide-acc-icon.css">
+
+<link rel="stylesheet" href="css/059-pm-dock-icons.css">
+<script src="js/041-pm-dock-icons-js.js"></script>
+
+
+
+
+<link rel="stylesheet" href="css/060-pm-sheet-fix.css">
+<script src="js/042-pm-sheet-fix-js.js"></script>
+<link rel="stylesheet" href="css/061-pm-hide-unlock-btn.css">
+
+<link rel="stylesheet" href="css/062-pm-ticks-css.css">
+<script src="js/043-pm-ticks-js.js"></script>
+<link rel="stylesheet" href="css/063-pm-admin-no-notif.css">
+
+<link rel="stylesheet" href="css/064-pm-msgcard-css.css">
+<script src="js/044-pm-msgcard-move-js.js"></script>
+<link rel="stylesheet" href="css/065-pm-hide-fab-on-sheet.css">
+<script src="js/045-pm-hide-fab-on-sheet-js.js"></script>
+<link rel="stylesheet" href="css/066-pm-sales-lock.css">
+<link rel="stylesheet" href="css/067-pm-sales-lock2.css">
+<script src="js/046-pm-sales-lock-js.js"></script>
+
+
+
+<link rel="stylesheet" href="css/068-pm-archive-fix.css">
+<link rel="stylesheet" href="css/069-pm-expenses-tab.css">
+<link rel="stylesheet" href="css/070-pm-dock-match.css">
+<link rel="stylesheet" href="css/071-pm-dock-align.css">
+<script src="js/047-pm-customers-js.js"></script>
+<link rel="stylesheet" href="css/072-pm-menu-5col.css">
+<script src="js/048-pm-audit-filter.js"></script>
+<script src="js/049-pm-back-nav.js"></script>
+<link rel="stylesheet" href="css/073-pm-order-2x2.css">
+<link rel="stylesheet" href="css/074-pm-audit-pro.css">
+<button type="button" id="cartFab" aria-label="السلة" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6"/></svg><span id="cartFabN">0</span></button>
+<div id="drawerOverlay" class="drawer-overlay" hidden></div>
+<aside id="sideDrawer" class="side-drawer" aria-hidden="true">
+  <div class="sd-head"><b dir="ltr">RMY PRO</b><button type="button" id="drawerClose" aria-label="إغلاق">✕</button></div>
+  <section id="drawerBasket" class="drawer-basket" hidden>
+    <h3>🧺 السلة</h3>
+    <div id="cartItems"></div>
+    <label for="cartPhone">رقم التليفون (اختياري)</label><input id="cartPhone" type="tel" inputmode="tel" placeholder="01xxxxxxxxx"><label for="cartNote">اسم العميل (اختياري)</label><input id="cartNote" placeholder="اسم العميل"><label for="cartAddr">عنوان التسليم (للحفلات)</label><input id="cartAddr" placeholder="العنوان">
+    <div class="sale-total">الإجمالي: <b id="cartTotal">0 ج.م</b></div>
+    <div class="actions">
+      <button id="cartClear" class="secondary mini" type="button" onclick="pmCartClear()">تفريغ</button>
+      <button id="cartCheckout" class="primary" type="button" onclick="pmCartCheckout()">إتمام البيع</button>
+    </div>
+  </section>
+  <div class="sd-title">أدوات</div>
+  <div id="drawerTools"></div>
+</aside>
+<script src="js/050-pm-drawer-cart-js.js"></script>
+<script src="js/051-pm-header-scroll-js.js"></script>
+<script src="js/052-pm-sales-no-invoices-js.js"></script>
+<script src="js/053-pm-costing-auto-js.js"></script>
+<script src="js/054-pm-parties-js.js"></script>
+<link rel="stylesheet" href="css/075-pm-parties-tab.css">
+
+<link rel="stylesheet" href="css/076-pm-party-v3.css">
+<script src="js/055-pm-party-v3-js.js"></script>
+<link rel="stylesheet" href="css/077-pm-sales-invoices.css">
+<script src="js/056-pm-sales-invoices-js.js"></script>
+<script src="js/057-pm-drink-queue.js"></script>
+<script src="js/058-pm-manual-invoice-close-fixed.js"></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="css/078-pm-analytics-page.css">
+<script src="js/059-pm-analytics-page-js.js"></script>
+<link rel="stylesheet" href="css/079-pm-menu-qty-css.css">
+<script src="js/060-pm-menu-qty-js.js"></script>
+<link rel="stylesheet" href="css/080-pm-menu-grid-fix.css">
+<link rel="stylesheet" href="css/081-pm-menu-square.css">
+<link rel="stylesheet" href="css/082-pm-menu-square-tune.css">
+<link rel="stylesheet" href="css/083-pm-menu-2026.css">
+<link rel="stylesheet" href="css/084-pm-barista-recipes.css">
+<link rel="stylesheet" href="css/085-pm-toast-v2-css.css">
+
+<script src="js/061-pm-toast-v2.js"></script>
+<link rel="stylesheet" href="css/086-pm-dock-v3.css">
+<script src="js/062-pm-dock-v3-js.js"></script>
+
+<script src="js/063-pm-order-alerts-js.js"></script>
+
+<script src="js/064-pm-open-invoices-badge-js.js"></script>
+
+
+
+
+<script src="js/065-pm-save-timeout-js.js"></script>
+
+<script src="js/066-pm-phone-autofill-js.js"></script>
+
+
+<script src="js/067-pm-address-scope-js.js"></script>
+
+<script src="js/068-pm-chime-js.js"></script>
+<link rel="stylesheet" href="css/087-pm-dock-home-css.css">
+<link rel="stylesheet" href="css/088-pm-dock-home-css-v2.css">
+<script src="js/069-pm-dock-home-js.js"></script>
+
+<link rel="stylesheet" href="css/089-pm-nav-filter-css.css">
+<script src="js/070-pm-nav-filter-js.js"></script>
+<link rel="stylesheet" href="css/090-pm-hide-sales-invoices.css">
+<link rel="stylesheet" href="css/091-pm-cust-manage-css.css">
+
+
+<script src="js/071-pm-cust-sync-js.js"></script>
+<script src="js/072-pwa-register.js"></script>
+<link rel="stylesheet" href="css/092-pm-view-only-3.css">
+<script src="js/073-pm-view-only-3-js.js"></script>
+<link rel="stylesheet" href="css/093-pm-sales-menu-no-back.css">
+<link rel="stylesheet" href="css/094-pm-maint-css.css">
+<div id="pmMaint" role="alertdialog" aria-modal="true" aria-labelledby="pmMaintTitle" aria-describedby="pmMaintMsg">
+  <div class="pmm-card">
+    <span class="pmm-badge"><i aria-hidden="true"></i>وضع الصيانة مفعّل</span>
+    <div class="pmm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+    <h1 id="pmMaintTitle">البرنامج تحت التحديث</h1>
+    <p id="pmMaintMsg"></p>
+    <div id="pmMaintSince" class="pmm-since"></div>
+    <div id="pmMaintCount" class="pmm-count" hidden>
+  <div id="pmMaintCountLabel" class="pmm-count-label">باقي على انتهاء الصيانة</div>
+  <div class="pmm-count-grid">
+    <div id="pmC_dw"><b id="pmC_d">00</b><span>يوم</span></div>
+    <div><b id="pmC_h">00</b><span>ساعة</span></div>
+    <div><b id="pmC_m">00</b><span>دقيقة</span></div>
+    <div><b id="pmC_s">00</b><span>ثانية</span></div>
+  </div>
+</div>
+    <div class="pmm-bar" aria-hidden="true"></div>
+    <button type="button" id="pmMaintOut">تسجيل خروج</button>
+    <div class="pmm-foot">شكرًا لصبرك، هنرجع قريب 🤍</div>
+  </div>
+</div>
+<link rel="stylesheet" href="css/095-pm-switch-css.css">
+
+<script src="js/074-pm-maint-js.js"></script>
+
+<link rel="stylesheet" href="css/096-pm-dock-groups.css">
+
+
+<link rel="stylesheet" href="css/097-pm-diag-css.css">
+<script src="js/075-pm-diag-js.js"></script>
+
+<script src="js/076-pm-accountant.js"></script>
+
+
+<script src="js/077-pm-accountant-2.js"></script>
+
+
+<script src="js/078-pm-selfcheck.js"></script>
+
+
+<link rel="stylesheet" href="css/098-pm-tools-group-css.css">
+<script src="js/079-pm-tools-group-js.js"></script>
+<script src="js/080-pm-admin-only-tools.js"></script>
+<link rel="stylesheet" href="css/099-pm-dark-analytics.css">
+<link rel="stylesheet" href="css/100-pm-datetime-ltr.css">
+<link rel="stylesheet" href="css/101-pm-design-cocoa-night.css">
+<link rel="stylesheet" href="css/102-pm-theme-harmony.css">
+<link rel="stylesheet" href="css/103-pm-dark-inline-fix.css">
+<link rel="stylesheet" href="css/104-pm-final-theme.css">
+<script src="js/081-pm-theme-label.js"></script>
+<link rel="stylesheet" href="css/105-pm-analytics-clean.css">
+<script src="js/082-pm-dark-contrast.js"></script>
+<link rel="stylesheet" href="css/106-pm-invoice-lang-css.css">
+<script src="js/083-pm-invoice-lang.js"></script>
+<link rel="stylesheet" href="css/107-pm-en-names-css.css">
+<script src="js/084-pm-en-names.js"></script>
+<link rel="stylesheet" href="css/108-pm-notif-bell-css.css">
+<script src="js/085-pm-notif-bell.js"></script>
+
+<script src="js/086-pm-settings-fold.js"></script>
+<link rel="stylesheet" href="css/109-pm-final-dock.css">
+<link rel="stylesheet" href="css/110-pm-drawer-layout.css">
+<link rel="stylesheet" href="css/111-pm-badges-icons.css">
+<script src="js/087-pm-auto-cloud-restore.js"></script>
+<link rel="stylesheet" href="css/112-pm-inv-fold-css.css">
+<script src="js/088-pm-inv-fold.js"></script>
+<link rel="stylesheet" href="css/113-pm-maint-fold-css.css">
+<script src="js/089-pm-maint-fold.js"></script>
+<link rel="stylesheet" href="css/114-pm-folds-same-style.css">
+<script src="js/090-pm-folds-place.js"></script>
+<link rel="stylesheet" href="css/115-pm-fold-spacing.css">
+<link rel="stylesheet" href="css/116-pm-maint-fold-admin-only.css">
+</body></html>
