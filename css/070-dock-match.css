@@ -1,0 +1,4 @@
+/* الرسايل والإعدادات في الشريط السفلي: نفس شكل باقي الأيقونات (من غير خلفية أو مربع) */
+html body #pmDock #pmMsgWrap>button,html body #pmDock #pmGearWrap>button{width:100%!important;min-width:0!important;height:auto!important;background:none!important;color:#7E6F66!important;box-shadow:none!important;border:0!important;border-radius:18px!important;padding:7px 0!important;flex-direction:column!important;gap:4px!important;justify-content:center!important;align-items:center!important}
+html body #pmDock #pmMsgWrap>button svg,html body #pmDock #pmGearWrap>button svg{width:22px!important;height:22px!important}
+html[data-theme="dark"] body #pmDock #pmMsgWrap>button,html[data-theme="dark"] body #pmDock #pmGearWrap>button{background:none!important;color:#B9A497!important}

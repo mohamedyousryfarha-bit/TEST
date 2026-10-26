@@ -1,0 +1,5 @@
+.pmv-lang{display:flex;gap:8px;justify-content:center;margin:10px 0 4px}
+.pmv-lang button{border:1px solid #D6C3B5;background:#fff;color:#3E2415;border-radius:10px;padding:8px 16px;font:inherit;font-weight:800;cursor:pointer}
+.pmv-lang button.on{background:#7E4728;color:#fff;border-color:#7E4728}
+.inv[dir="ltr"],.inv[dir="ltr"] *{direction:ltr}
+.inv[dir="ltr"] th,.inv[dir="ltr"] td,.inv[dir="ltr"] .nm{text-align:left!important}

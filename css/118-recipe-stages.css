@@ -1,0 +1,42 @@
+/* صف مكون الوصفة: الاسم في سطر كامل، والكمية والوحدة والمرحلة وزر الحذف في سطر تحته */
+.lineitem.has-stage{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 40px}
+.lineitem.has-stage > .cname,
+.lineitem.has-stage > span:first-child{grid-column:1 / -1}
+.lineitem.has-stage select.cstage{min-width:0;padding:8px;font-size:12px}
+.lineitem.has-stage input.cqty,
+.lineitem.has-stage select.cunit{min-width:0}
+
+/* ورقة الوصفة القابلة للطي (شاشة المطبخ والبار) */
+details.recipe-sheet{margin-top:6px}
+details.recipe-sheet > summary{cursor:pointer;list-style:none;font-weight:800;font-size:18px;padding:6px 0 10px;color:var(--brown,#4a2c17);display:flex;align-items:center;justify-content:space-between}
+details.recipe-sheet > summary::-webkit-details-marker{display:none}
+details.recipe-sheet > summary::after{content:"▲";font-size:12px;opacity:.6}
+details.recipe-sheet:not([open]) > summary::after{content:"▼"}
+details.recipe-sheet:not([open]) > .tablewrap{display:none}
+tr.stage-head td{user-select:none}
+
+/* مطابقة شكل شاشة الشيف للتصميم المعتمد */
+details.recipe-sheet{background:#fff;border:1px solid #e8d9c5;border-radius:18px;padding:14px;box-shadow:0 4px 16px rgba(60,35,15,.06)}
+details.recipe-sheet > summary{font-size:19px;color:#4a2c17;padding:4px 0 10px}
+details.recipe-sheet .tablewrap{border:1px solid #e8d9c5;border-radius:12px;margin-top:6px;overflow-x:auto}
+details.recipe-sheet table{width:100%;border-collapse:collapse;font-size:14px;min-width:300px}
+details.recipe-sheet th{background:#f5efe6;color:#4a2c17;font-weight:700;padding:10px;border-bottom:1px solid #e8d9c5;text-align:right}
+details.recipe-sheet td{padding:10px;border-bottom:1px solid #e8d9c5;text-align:right}
+details.recipe-sheet tr:last-child td{border-bottom:0}
+
+/* ===== شاشة إدخال الوصفة للمدير (تبويبات المراحل) ===== */
+#recipeEditor .stage-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:sticky;top:0;background:#fff;padding:6px 0;z-index:5;margin:10px 0 4px}
+#recipeEditor .stage-tabs .stage-btn{border:1px solid #e8d9c5;background:#fff;border-radius:12px;padding:9px 4px;font-size:13px;font-weight:700;color:#3a2716}
+#recipeEditor .stage-tabs .stage-btn.active{background:#6b3e1f;color:#fff;border-color:#6b3e1f}
+#recipeEditor .stage-panel{display:none}
+#recipeEditor .stage-panel.active{display:block}
+#recipeEditor .ph{font-weight:800;padding:8px 10px;border-radius:10px;margin:8px 0}
+#recipeEditor .sg-chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+#recipeEditor .sg-chip{border:1px solid #e8d9c5;background:#fff;border-radius:999px;padding:6px 11px;font-size:13px;cursor:pointer;color:#3a2716}
+#recipeEditor .comp-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 40px;gap:6px;margin:6px 0}
+#recipeEditor .comp-row > .cname{grid-column:1 / -1}
+#recipeEditor .comp-row button.comp-del{border:0;border-radius:10px;height:40px;background:#fdecea;color:#b3261e;font-size:18px}
+#recipeEditor .add-row{width:100%;border:1px dashed #8c5a33;background:#fff;color:#6b3e1f;border-radius:12px;padding:11px;font-weight:700;margin:6px 0 10px}
+#recipeEditor .stepper{display:flex;align-items:center;gap:6px}
+#recipeEditor .stepper button{width:40px;height:40px;border:1px solid #e8d9c5;background:#fff;border-radius:10px;font-size:16px}
+#recipeEditor .stepper input{text-align:center}

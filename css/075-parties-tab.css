@@ -1,0 +1,27 @@
+/* تبويب الحفلات كقسم كامل: ظاهر للمطبخ والمبيعات والمدير */
+body[data-role="kitchen"] nav.tabs #partiesGroup, body[data-role="sales"] nav.tabs #partiesGroup, body.role-sales nav.tabs #partiesGroup, body.role-kitchen nav.tabs #partiesGroup{display:block!important}
+body[data-role="kitchen"] nav.tabs #partiesGroup .tab, body[data-role="sales"] nav.tabs #partiesGroup .tab, body.role-sales nav.tabs #partiesGroup .tab, body.role-kitchen nav.tabs #partiesGroup .tab{display:flex!important}
+body[data-role="kitchen"] #parties.panel.active, body[data-role="sales"] #parties.panel.active, body.role-sales #parties.panel.active{display:block!important}
+/* زر الرجوع للقائمة ظاهر للمبيعات زي باقي الأقسام */
+body.role-sales #pmBackBar, body.role-sales .pm-back-bar{display:flex!important}
+.pm-po-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.pm-po-h{margin:18px 0 8px;font-size:15px;color:var(--navy)}
+.pm-po-meta{font-size:12px;color:#726056;margin-top:5px;line-height:1.5}
+.pm-po-tablewrap{overflow:auto;width:100%;border:1px solid var(--line);border-radius:12px}
+.pm-po-tablewrap table{min-width:100%;margin:0}
+.pm-po-tablewrap th,.pm-po-tablewrap td{padding:8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+.pm-po-note{background:#FFF8E6;border:1px solid #F1D28B;color:#6B4700;border-radius:10px;padding:10px;font-size:12px;margin:8px 0;line-height:1.6}
+.pm-po-ok{background:#EAF7EF;color:#145C38;border:1px solid #B7E2C7;border-radius:10px;padding:10px;font-size:12px;margin:8px 0}
+.pm-po-list{display:grid;gap:10px;margin-top:8px}
+.pm-po-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.pm-po-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pm-po-materials{margin-top:10px;font-size:13px;line-height:1.7}
+.pm-po-short{color:#B42318;font-weight:700}
+.pm-po-actions{display:flex;justify-content:flex-start;margin-top:10px}
+.pm-po-actions button{min-height:40px}
+.pm-po-actions button:disabled{opacity:.5;cursor:not-allowed}
+.pm-po-empty{padding:18px;text-align:center;color:#667;font-size:13px}
+[data-theme="dark"] .pm-po-card{background:#2D1E16;border-color:#3C2D25}
+[data-theme="dark"] .pm-po-meta{color:#C2AEA3}
+[data-theme="dark"] .pm-po-note{background:#2A2110;border-color:#6B5320;color:#F0D79A}
+[data-theme="dark"] .pm-po-ok{background:#12281D;border-color:#245C38;color:#8FE0B0}

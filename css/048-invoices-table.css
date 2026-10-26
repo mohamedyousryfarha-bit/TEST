@@ -1,0 +1,23 @@
+/* ===== السلة والفواتير: جدول الفواتير القابل للطي ===== */
+.inv-table{min-width:0;width:100%}
+.inv-table thead th{position:static}
+.inv-table .inv-row{cursor:pointer}
+.inv-table .inv-row td{background:var(--white);vertical-align:middle}
+.inv-table .inv-row:hover td{background:color-mix(in srgb,var(--blue) 8%,var(--white))}
+.inv-table .inv.open .inv-row td{background:color-mix(in srgb,var(--blue) 12%,var(--white))}
+.inv-table .inv-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.inv-table .inv-no b{display:block;font-size:14px;color:var(--navy)}
+.inv-table .inv-row .small{display:block;margin-top:2px}
+.inv-table .inv-by{font-weight:800;font-size:13px;color:var(--ink)}
+.inv-table .inv-tot{font-weight:800;color:var(--blue);white-space:nowrap}
+.inv-table .inv-chev{width:30px;text-align:center;color:var(--muted);transition:transform .18s ease}
+.inv-table .inv.open .inv-chev{transform:rotate(180deg)}
+.inv-table .inv:not(.open) .inv-detail{display:none}
+.inv-table .inv-detail>td{padding:10px 8px 14px;background:color-mix(in srgb,var(--blue) 4%,var(--white))}
+.inv-items{min-width:0}
+.inv-meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.inv-meta b{color:var(--ink)}
+#cartpage #invPeriodNote .mini{margin-top:6px}
+@media print {
+  .inv-table .inv-detail{display:table-row!important}
+}

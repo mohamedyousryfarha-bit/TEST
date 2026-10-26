@@ -1,0 +1,7 @@
+/* الصلاحيات: كل حاجة حساسة تظهر للمدير بس */
+body:not([data-role="admin"]) .pm-owner-only,
+body:not([data-role="admin"]) .pm-owner-card,
+body:not([data-role="admin"]) #menuAdminCard,
+body:not([data-role="admin"]) #pmPresChip,
+body:not([data-role="admin"]) #pmPresMenu{display:none!important}
+body[data-role] .qa button[data-qa]:not([data-vis="1"]){display:none!important}

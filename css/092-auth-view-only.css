@@ -1,0 +1,6 @@
+html body[data-role="sales"] #appNav .tab[data-tab="cartpage"]{display:flex!important}
+html body[data-role="kitchen"] #appNav #partiesGroup{display:block!important}
+html body[data-role="kitchen"] #appNav #partiesGroup .tab[data-tab="parties"]{display:flex!important}
+html body[data-role="kitchen"] #partiesBody [data-po-deliverbk],
+html body[data-role="kitchen"] #partiesBody [data-po-cancelbk],
+html body[data-role="kitchen"] #partiesBody [data-po-pay]{display:none!important}

@@ -1,0 +1,15 @@
+/* ===== الإشعارات v2: تنزل من الهيدر وتطلع لفوق بنفس الطريقة، وكلها تتكدس بشكل منظم ===== */
+html body .toast-stack{position:fixed!important;top:var(--toast-top,96px)!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(94vw,460px)!important;max-height:calc(100dvh - var(--toast-top,96px) - 14px);overflow-y:auto;overflow-x:hidden;display:flex!important;flex-direction:column!important;gap:10px!important;padding:2px 4px 22px!important;pointer-events:none!important;scrollbar-width:none;z-index:13000!important}
+html body .toast-stack::-webkit-scrollbar{display:none}
+html body .toast-stack .toast{pointer-events:auto!important;flex:0 0 auto;margin:0;animation:pmDropIn .62s cubic-bezier(.2,.9,.25,1.12) backwards!important;will-change:transform,opacity}
+@keyframes pmDropIn{
+  0%{opacity:0;transform:translateY(calc(-1 * var(--toast-top,96px) - 70px)) scale(.97)}
+  55%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+html body .toast-stack .toast.out{animation:none!important}
+html body .toast-stack .toast .toast-progress{animation-play-state:running}
+html body .toast-stack .toast:hover .toast-progress{animation-play-state:paused}
+html body .toast-stack .toast-count{min-width:22px;text-align:center}
+html body .toast-stack .toast{background-color:#fff!important;box-shadow:0 16px 34px -14px rgba(50,28,15,.38),0 2px 6px rgba(50,28,15,.08)!important}
+html[data-theme="dark"] body .toast-stack .toast{background-color:#2E2018!important}
