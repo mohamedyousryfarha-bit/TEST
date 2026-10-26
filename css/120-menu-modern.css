@@ -1,0 +1,69 @@
+/* 120-menu-modern.css: شكل المنيو الحديث (تصنيفات، حركة ظهور، تفاصيل بصرية).
+   الألوان محايدة (rgba) عشان تشتغل في الوضع الفاتح والداكن. */
+
+/* شريط التصنيفات: أفقي، قابل للتمرير باللمس، بدون سكرول بار ظاهر */
+html body #menu .mxm-cats{
+  display:flex!important;gap:8px!important;overflow-x:auto!important;
+  scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  padding:4px 2px 12px!important;margin:6px 0 4px!important;
+}
+html body #menu .mxm-cats::-webkit-scrollbar{display:none}
+html body #menu .mxm-cats[hidden]{display:none!important}
+
+html body #menu .mxm-chip{
+  flex:0 0 auto!important;scroll-snap-align:start;
+  display:inline-flex!important;align-items:center;gap:7px!important;
+  min-height:42px!important;padding:8px 14px!important;border-radius:999px!important;
+  border:1px solid rgba(127,127,127,.28)!important;background:rgba(127,127,127,.10)!important;
+  color:inherit!important;font:inherit!important;font-size:14px!important;font-weight:700!important;
+  white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background .2s ease,color .2s ease,transform .15s ease,border-color .2s ease!important;
+}
+html body #menu .mxm-chip[hidden]{display:none!important}
+html body #menu .mxm-chip:active{transform:scale(.94)!important}
+html body #menu .mxm-chip:focus-visible{outline:2px solid #B9774A;outline-offset:2px}
+
+html body #menu .mxm-dot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+html body #menu .mxm-n{
+  font-size:11px!important;font-weight:800!important;min-width:22px;padding:2px 7px;
+  border-radius:99px;background:rgba(127,127,127,.18);text-align:center;line-height:1.4;
+}
+
+html body #menu .mxm-chip.on{
+  background:linear-gradient(135deg,#9A6540 0%,#4A2A17 100%)!important;
+  border-color:transparent!important;color:#fff!important;
+  box-shadow:0 10px 20px -12px rgba(74,42,23,.9)!important;
+}
+html body #menu .mxm-chip.on .mxm-n{background:rgba(255,255,255,.22);color:#fff}
+html body #menu .mxm-chip.on .mxm-dot{box-shadow:0 0 0 2px rgba(255,255,255,.5)}
+
+/* إخفاء الكروت خارج التصنيف المختار */
+html body #menu #menuGrid .mx-card.mxm-hide{display:none!important}
+
+/* حركة ظهور متدرجة للكروت (backwards: ما بتأثرش على :active) */
+@keyframes mxmIn{
+  from{opacity:0;transform:translateY(12px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+html body #menu #menuGrid .mx-card:not(.mxm-hide){
+  animation:mxmIn .42s cubic-bezier(.2,.8,.2,1) backwards;
+  animation-delay:calc(var(--mxm-i,1) * 30ms);
+}
+
+/* السعر كـ pill أنيق */
+html body #menu #menuGrid .mx-price{
+  display:inline-block;padding:4px 10px;border-radius:99px;
+  background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
+  font-size:13px!important;color:#fff!important;
+}
+
+/* رسالة فراغ داخل القسم */
+html body #menu .mxm-empty{
+  grid-column:1/-1;text-align:center;padding:28px 12px;opacity:.7;font-size:14px;
+}
+html body #menu .mxm-empty[hidden]{display:none!important}
+
+@media (prefers-reduced-motion:reduce){
+  html body #menu #menuGrid .mx-card{animation:none!important}
+  html body #menu .mxm-chip{transition:none!important}
+}
