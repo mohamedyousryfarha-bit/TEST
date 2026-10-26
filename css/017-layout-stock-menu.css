@@ -1,0 +1,12 @@
+/* ===== شاشة المخزون والمنيو: ترتيب جديد بـ CSS بس ===== */
+#stock.active{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+#stock.active>.card:first-child{grid-column:span 4;position:sticky;top:12px;margin:0 !important}
+#stock.active>.card:last-child{grid-column:span 8;margin:0 !important}
+#menu.active{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+#menu.active>.card:first-child{grid-column:span 8;margin:0 !important}
+
+#menu.active>#menuAdminCard{grid-column:span 4;position:sticky;top:12px;margin:0 !important}
+@media (max-width:880px){
+  #stock.active>.card:first-child,#stock.active>.card:last-child,
+  #menu.active>.card:first-child,#menu.active>#menuAdminCard{grid-column:span 12;position:static}
+}

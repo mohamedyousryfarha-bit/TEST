@@ -1,0 +1,10 @@
+/* ===== شاشة المبيعات والسلة: ترتيب جديد بـ CSS بس ===== */
+#sales.active{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+#sales.active>.card{grid-column:span 6;margin:0 !important}
+#cartpage.active{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+
+#cartpage.active>#invoicesCard{grid-column:span 12;margin:0 !important}
+@media (max-width:880px){
+  #sales.active>.card{grid-column:span 12}
+  #cartpage.active>#invoicesCard{grid-column:span 12;position:static}
+}
