@@ -14,6 +14,14 @@
     'أخرى': '#B49F92'
   };
   var order = [ALL, 'كيك', 'تورتات', 'بسكويت', 'معجنات', 'أخرى'];
+  /* رسومات توضيحية للأصناف اللي ملهاش صورة، حسب التصنيف */
+  var ART = {
+    'كيك': '<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><polygon points="16,74 104,74 60,16" fill="#F4B6C8"/><polygon points="16,74 104,74 94,60 26,60" fill="#FFF4F7"/><circle cx="60" cy="16" r="5" fill="#FFF4F7"/><circle cx="50" cy="40" r="4" fill="#D9455F"/><circle cx="66" cy="50" r="4" fill="#D9455F"/></svg>',
+    'تورتات': '<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><polygon points="16,74 104,74 60,16" fill="#C9A3E0"/><polygon points="16,74 104,74 94,60 26,60" fill="#F7EEFF"/><circle cx="60" cy="16" r="5" fill="#F7EEFF"/><circle cx="50" cy="40" r="4" fill="#7E4FB0"/><circle cx="66" cy="50" r="4" fill="#7E4FB0"/></svg>',
+    'بسكويت': '<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="60" cy="45" r="34" fill="#E9C58A"/><circle cx="48" cy="36" r="5" fill="#7A4B22"/><circle cx="70" cy="40" r="5" fill="#7A4B22"/><circle cx="60" cy="58" r="5" fill="#7A4B22"/></svg>',
+    'معجنات': '<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M12 62 Q60 6 108 62 Q98 52 86 58 Q60 30 34 58 Q22 52 12 62Z" fill="#E9A85B"/><path d="M34 58 Q60 40 86 58" fill="none" stroke="#B9722E" stroke-width="2"/></svg>',
+    'أخرى': '<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="60" cy="45" r="36" fill="#E7E2DA"/><circle cx="60" cy="45" r="24" fill="#F7F5F1"/></svg>'
+  };
   var active = ALL;
   var pending = false;
 
@@ -81,6 +89,11 @@
       var k = catOf(nameOf(cards[i]));
       cardCats.push(k);
       counts[k] = (counts[k] || 0) + 1;
+      var ph = cards[i].querySelector('.mx-noimg');
+      if (ph && ph.getAttribute('data-cat') !== k) {
+        ph.setAttribute('data-cat', k);
+        ph.innerHTML = ART[k] || ART['أخرى'];
+      }
     }
 
     if (active !== ALL && !counts[active]) active = ALL;
