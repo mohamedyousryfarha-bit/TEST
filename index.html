@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3E2415"><meta name="description" content="RMY: الوصفات والتكلفة والمشتريات والمبيعات والمخزون."><title>PastryMY Pro 3.4.3 | تطويرات التشغيل والتقارير</title>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#08A8B7"><meta name="description" content="RMY: الوصفات والتكلفة والمشتريات والمبيعات والمخزون."><title>RMY | نظام الإدارة</title>
 <link rel="stylesheet" href="css/001-base-app.css"><meta name="application-version" content="3.4.3"><meta name="application-updated" content="2026-10-21"><script src="js/001-core-boot.js"></script>
 
 <link rel="stylesheet" href="css/002-base-ui-icons.css">
@@ -76,7 +76,8 @@
 <link rel="icon" type="image/png" sizes="192x192" href="ICONS/icon-192.png">
 <link rel="stylesheet" href="css/038-header-logo-var.css">
 <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="css/039-stock-upgrade.css">
-</head><body class="auth-required"><header><button type="button" id="drawerBtn" aria-label="القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="hrow"><div class="brand"><div class="mark"><span class="pm-logo-img" role="img" aria-label="RMY"></span></div></div><p id="headerBismillah" style="display:none"></p></div></header><div id="messageDialog" class="msg-overlay" role="dialog" aria-modal="true" aria-labelledby="messageTitle" aria-describedby="messageText"><div id="messageBox" class="msg-box"><div id="messageSymbol" class="msg-symbol">✓</div><h2 id="messageTitle" class="msg-title">تمت العملية بنجاح</h2><p id="messageText" class="msg-text"></p><button id="messageOk" class="msg-ok" type="button">تمام</button></div></div>
+<link rel="stylesheet" href="css/122-rmy-brand-system.css">
+</head><body class="auth-required"><header><button type="button" id="drawerBtn" aria-label="القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="hrow"><div class="brand"><div class="mark"><span class="pm-logo-img" role="img" aria-label="RMY"></span></div></div><p id="headerBismillah" style="display:none"></p></div><div id="headerDateTime" class="header-date-time" aria-label="التاريخ والوقت"><span id="headerDate">--/--/----</span><strong id="headerTime">--:--:--</strong></div></header><div id="messageDialog" class="msg-overlay" role="dialog" aria-modal="true" aria-labelledby="messageTitle" aria-describedby="messageText"><div id="messageBox" class="msg-box"><div id="messageSymbol" class="msg-symbol">✓</div><h2 id="messageTitle" class="msg-title">تمت العملية بنجاح</h2><p id="messageText" class="msg-text"></p><button id="messageOk" class="msg-ok" type="button">تمام</button></div></div>
 <section id="loginScreen" class="login-screen" aria-labelledby="loginTitle"><div class="sweet-bg" aria-hidden="true"><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="swDonut" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#E9B98A"/><circle cx="24" cy="24" r="16" fill="#F7A6C1"/><circle cx="24" cy="24" r="6" fill="#F7F2EF"/><path d="M10 14 q4 -3 6 0 M30 30 q4 -2 6 1 M32 12 q3 -1 4 2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
 <symbol id="swCupcake" viewBox="0 0 48 48"><path d="M12 26h24l-4 16H16z" fill="#F3C98B"/><path d="M7 27c0-10 8-17 17-17s17 7 17 17z" fill="#F7A6C1"/><path d="M12 22h24" stroke="#fff" stroke-width="2" opacity=".6"/><circle cx="24" cy="8" r="4" fill="#D6336C"/></symbol>
@@ -170,7 +171,7 @@
 
 
 </div></div>
-<section id="order" class="panel"><div class="card"><h2>تجهيز طلب إنتاج</h2><div class="grid2"><div><label>اختر الصنف</label><select id="orderProduct"></select></div><div><label>عدد الوزنات</label><input id="orderQty" type="number" min="0.01" step="any" value="1"></div></div><div class="actions"><button id="addOrder" class="primary">إضافة صنف</button><button id="clearOrder" class="secondary">مسح الطلب</button></div><div id="orderItems"></div><div class="actions"><button id="calcOrder" class="secondary">حساب المكونات</button><button id="printOrder" class="secondary">طباعة كشف الطلب</button><button id="showPurchases" class="secondary">قائمة النواقص</button><button id="deductOrder" class="primary">تأكيد وخصم المخزون</button></div><div id="orderResult"></div><p class="small">لا يتم الخصم إذا كان أي مكون غير متوفر بالكمية المطلوبة. راجع النواقص قبل التأكيد. الوصفة الواحدة تعني وزنة أساسية كما هي مسجلة في Excel.</p></div></section>
+<section id="order" class="panel"><div class="card"><h2>تجهيز طلب إنتاج</h2><div class="grid2"><div><label>اختر الصنف</label><select id="orderProduct"></select></div><div><label>عدد الوزنات</label><input id="orderQty" type="number" min="0.01" step="any" value="1"></div></div><div class="actions"><button id="addOrder" class="primary">إضافة صنف</button><button id="clearOrder" class="secondary">مسح الطلب</button></div><div id="orderItems"></div><div class="actions"><button id="calcOrder" class="secondary">حساب المكونات</button><button id="printOrder" class="secondary">طباعة كشف الطلب</button><button id="showPurchases" class="secondary">قائمة النواقص</button></div><div id="orderResult"></div><p class="small">لا يتم الخصم إذا كان أي مكون غير متوفر بالكمية المطلوبة. راجع النواقص قبل التأكيد. الوصفة الواحدة تعني وزنة أساسية كما هي مسجلة في Excel.</p></div></section>
 <section id="recipes" class="panel"><div class="card"><div class="sectionhead"><h2>قاعدة الوصفات</h2><button class="secondary mini" id="newRecipe">+ صنف جديد</button></div><label>اختيار الصنف</label><select id="editProduct"></select><div id="recipeEditor"></div><div class="actions"><button id="saveRecipe" class="primary">حفظ الوصفة</button><button id="deleteRecipe" class="danger">حذف الصنف</button></div><p class="small">كل صنف له مكوناته المستقلة. يمكنك إضافة أو حذف مكون وتحديد الوحدة والحرارة والوقت. حذف الصنف لا يمسح حركات المخزون القديمة.</p></div></section>
 <section id="stock" class="panel"><div class="card"><h2>إضافة رصيد لخامة</h2><label>الخامة</label><select id="stockIngredient"></select><div class="grid2"><div><label>الكمية المضافة</label><input id="stockAddQty" type="number" min="0.001" step="any" placeholder="مثال: 500"></div><div><label>الوحدة</label><select id="stockAddUnit"></select></div></div><button class="primary" id="addStock" style="width:100%;margin-top:12px">تسجيل الإضافة</button></div><div class="card"><div class="sectionhead"><h2>أرصدة المخزون</h2><button class="secondary mini" onclick="exportExcelTable('inventory')">تصدير Excel</button></div><label>بحث عن خامة</label><input id="stockSearch" placeholder="اكتب اسم الخامة..."><div id="stockTable" class="tablewrap"></div></div></section>
 <section id="prices" class="panel"><div class="card"><h2>أسعار شراء الخامات</h2><p class="small">هذا القسم لتسجيل سعر العبوة وحجمها فقط؛ يستخدم التطبيق هذه البيانات لحساب تكلفة مكونات الوصفات. حد تنبيه المخزون يُدار من هنا أيضًا حتى لا يتكرر في أكثر من مكان.</p><label>اختر الخامة</label><select id="priceIngredient"></select><div class="grid2"><div><label>سعر شراء العبوة (جنيه)</label><input id="pricePurchase" type="number" min="0" step="any"></div><div><label>حجم العبوة</label><input id="pricePackSize" type="number" min="0" step="any"></div><div><label>وحدة العبوة</label><select id="pricePackUnit"></select></div><div><label>حد إعادة الطلب بوحدة المخزون</label><input id="priceReorder" type="number" min="0" step="any"></div></div><div id="pricePreview" class="small"></div><button id="savePrice" class="primary" style="width:100%;margin-top:12px">حفظ السعر والتنبيه</button></div><div class="card"><h2>قائمة الأسعار والحالة</h2><div id="pricesTable" class="tablewrap"></div></div></section>
@@ -405,7 +406,6 @@
 <script src="js/059-reports-analytics.js"></script>
 <link rel="stylesheet" href="css/079-menu-qty.css">
 <script src="js/060-menu-qty.js"></script>
-<script src="js/093-menu-modern-categories.js"></script>
 <link rel="stylesheet" href="css/080-menu-grid.css">
 <link rel="stylesheet" href="css/081-menu-square.css">
 <link rel="stylesheet" href="css/082-menu-square-tune.css">
@@ -493,13 +493,13 @@
 <script src="js/080-admin-only-tools.js"></script>
 <link rel="stylesheet" href="css/099-theme-dark-analytics.css">
 <link rel="stylesheet" href="css/100-base-datetime-ltr.css">
-<link rel="stylesheet" href="css/101-theme-cocoa-night.css">
+
 <link rel="stylesheet" href="css/102-theme-harmony.css">
-<link rel="stylesheet" href="css/103-theme-dark-inline-fix.css">
+
 <link rel="stylesheet" href="css/104-theme-final.css">
-<script src="js/081-ui-theme-label.js"></script>
+
 <link rel="stylesheet" href="css/105-reports-analytics-clean.css">
-<script src="js/082-ui-dark-contrast.js"></script>
+
 <link rel="stylesheet" href="css/106-invoices-language.css">
 <script src="js/083-invoices-language.js"></script>
 <link rel="stylesheet" href="css/107-invoices-english-names.css">
@@ -518,11 +518,15 @@
 <script src="js/089-admin-maintenance-fold.js"></script>
 <link rel="stylesheet" href="css/114-ui-folds-style.css">
 <script src="js/090-ui-folds-placement.js"></script>
-<script src="js/091-ui-header-clock.js"></script>
 <link rel="stylesheet" href="css/115-ui-fold-spacing.css">
 <link rel="stylesheet" href="css/116-admin-maintenance-fold-only.css">
 <link rel="stylesheet" href="css/117-hide-dock-on-login.css">
 <link rel="stylesheet" href="css/118-recipe-stages.css">
-<link rel="stylesheet" href="css/119-ui-header-clock.css">
-<link rel="stylesheet" href="css/120-menu-modern.css">
+<link rel="stylesheet" href="css/119-header-date-time.css">
+<link rel="stylesheet" href="css/120-prep-board.css">
+<link rel="stylesheet" href="css/121-brand-polish.css">
+<script src="js/091-header-date-time.js"></script>
+<script src="js/121-prep-live.js"></script>
+<script src="js/092-brand-sounds.js"></script>
+<script src="js/122-rmy-force-day.js"></script>
 </body></html>

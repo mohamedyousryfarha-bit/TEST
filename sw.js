@@ -1,6 +1,6 @@
 // Service worker: لازم يكون فيه fetch handler عشان المتصفح يعتبر الموقع قابل للتثبيت.
 // الشبكة أولًا، ولو مفيش نت يرجع النسخة المخزنة (البيانات الحية ما بتتخزنش قديمة).
-const CACHE = 'rmy-shell-v38';
+const CACHE = 'rmy-pro-brand-v2';
 const SHELL = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const SHELL = [
   './ICONS/apple-touch-icon.png',
   './ICONS/favicon-32.png',
   './ICONS/rmy-logo.png',
+  './ICONS/rmy-app-icon-512.png',
   './css/001-base-app.css',
   './css/002-base-ui-icons.css',
   './css/003-base-panels-animation.css',
@@ -94,7 +95,6 @@ const SHELL = [
   './css/081-menu-square.css',
   './css/082-menu-square-tune.css',
   './css/083-menu-2026.css',
-  './css/120-menu-modern.css',
   './css/084-barista-recipes.css',
   './css/085-ui-toast-v2.css',
   './css/086-dock-v3.css',
@@ -129,7 +129,6 @@ const SHELL = [
   './css/116-admin-maintenance-fold-only.css',
   './css/117-hide-dock-on-login.css',
   './css/118-recipe-stages.css',
-  './css/119-ui-header-clock.css',
   './js/001-core-boot.js',
   './js/002-core-nav-helpers.js',
   './js/003-ui-nav-groups.js',
@@ -140,7 +139,6 @@ const SHELL = [
   './js/008-ui-smooth-nav.js',
   './js/009-cloud-live-presence.js',
   './js/010-menu-categories.js',
-  './js/093-menu-modern-categories.js',
   './js/011-auth-login-errors.js',
   './js/012-sales-menu-cart-roles.js',
   './js/013-invoices-close-clean.js',
@@ -199,6 +197,7 @@ const SHELL = [
   './js/066-customers-phone-autofill.js',
   './js/067-customers-address-scope.js',
   './js/068-ui-notification-sound.js',
+  './js/092-brand-sounds.js',
   './js/069-ui-dock-home.js',
   './js/070-ui-nav-filter-by-role.js',
   './js/071-customers-blocked-sync.js',
@@ -221,7 +220,11 @@ const SHELL = [
   './js/088-invoices-settings-fold.js',
   './js/089-admin-maintenance-fold.js',
   './js/090-ui-folds-placement.js',
-  './js/091-ui-header-clock.js'
+  './css/120-prep-board.css',
+  './css/121-brand-polish.css',
+  './css/122-rmy-brand-system.css',
+  './js/121-prep-live.js',
+  './js/122-rmy-force-day.js',
 ];
 
 self.addEventListener('install', (e) => {
@@ -255,5 +258,17 @@ self.addEventListener('fetch', (e) => {
         return res;
       })
       .catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
+  );
+});
+
+/* الضغط على إشعار النظام يفتح التطبيق، أو يرجّع التبويب اللي فيه التطبيق لو مفتوح */
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || './';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (const c of list) { if ('focus' in c) return c.focus(); }
+      return self.clients.openWindow(url);
+    })
   );
 });
