@@ -66,7 +66,7 @@
 
   var panel = document.createElement('div');
   panel.id = 'pmBellPanel';
-  panel.style.cssText = 'position:absolute;top:calc(100% + 8px);right:0;width:min(300px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:#fff;color:#261912;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:12px;direction:rtl;box-sizing:border-box;text-align:right';
+  panel.style.cssText = 'position:absolute;top:auto;bottom:calc(100% + 8px);right:0;width:min(300px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:#fff;color:#261912;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:12px;direction:rtl;box-sizing:border-box;text-align:right';
 
 
   var gearWrap = document.createElement('span');
@@ -100,7 +100,8 @@
   gearWrap.appendChild(gearMenu);
 
   wrap.appendChild(bell);
-  wrap.appendChild(panel);
+  // القايمة برا الشريط السفلي، عشان قواعد أزرار الشريط ما تأثرش على الفورم والفلاتر
+  document.body.appendChild(panel);
   var darkCss = document.createElement('style');
   darkCss.textContent = 'html[data-theme="dark"] #pmGearMenu{background:#2D1E16;color:#F6EDE8;border:1px solid #3C2D25}' +
     'html[data-theme="dark"] #pmGearMenu button{background:#3A281E!important;color:#F6EDE8!important;border-color:#4E3B30!important}' +
@@ -141,7 +142,7 @@
       '<div style="margin-top:6px;white-space:pre-wrap">'+esc3(m.body)+'</div></div>';
   }
   function renderPanel(){
-    var html = '<div style="font-weight:700;font-size:15px">الإشعارات</div>';
+    var html = '';
     if(!messages.length) html += '<div style="color:#7E6F66;padding:12px 0">مفيش رسايل في آخر 48 ساعة.</div>';
     else html += messages.map(itemHtml).join('');
     html += '<div style="font-size:11.5px;color:#B0A39B;margin-top:10px">'+WINDOW_NOTE+'</div>';
@@ -158,10 +159,23 @@
       return call({action:'mark_read',employee_name:name,pin:pin,id:m.id});
     }));
   }
+  function placePanel(){
+    var d=document.getElementById('pmDock');
+    var top=d ? d.getBoundingClientRect().top : window.innerHeight-90;
+    panel.style.position='fixed';
+    panel.style.top='auto';
+    panel.style.left='12px';
+    panel.style.right='12px';
+    panel.style.margin='0 auto';
+    panel.style.bottom=(window.innerHeight-top+8)+'px';
+    panel.style.zIndex='9000';
+  }
+  window.addEventListener('resize',function(){ if(panelOpen) placePanel() });
   function setPanel(open){
     panelOpen = open;
     panel.style.display = open ? 'block' : 'none';
     if(open){
+      placePanel();
       renderPanel();                 // أول فتحة بتعرض الجديد مميز، وبعدين بنعلّمه مقروء
       markRead(unread());
     }
@@ -181,7 +195,10 @@
   });
   bell.onclick = function(e){ e.stopPropagation(); if(gearOpen) setGear(false); setPanel(!panelOpen) };
   document.addEventListener('click', function(e){
-    if(panelOpen && !wrap.contains(e.target)) setPanel(false);
+    // composedPath: الضغط على زرار جوه القايمة (زي فلتر الرسايل) بيعيد رسم العنصر فبنحكم بالمسار الأصلي
+    var path=e.composedPath?e.composedPath():[];
+    var inside = path.indexOf(wrap)>=0 || path.indexOf(panel)>=0 || wrap.contains(e.target) || panel.contains(e.target);
+    if(panelOpen && !inside) setPanel(false);
   });
 
   /* ---------- مربع أول ما الحساب يفتح ---------- */

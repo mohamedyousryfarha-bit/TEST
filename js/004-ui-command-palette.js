@@ -3,7 +3,7 @@
   function esc2(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function money(v){return Number(v||0).toLocaleString('ar-EG')}
   function items(){return (typeof state!=='undefined'&&state&&Array.isArray(state.menu))?state.menu:[]}
-  function sig(){var role=(typeof cloudActorRole!=='undefined'?String(cloudActorRole||''):'')||(document.body&&document.body.dataset?String(document.body.dataset.role||''):'');return JSON.stringify([role,items().map(function(x){return [x.name,x.price,!!x.soldOut,x.image?x.image.length:0,x.active!==false]}),q,sel,Object.keys(window.__pmMenuSelected||{}).sort()])}
+  function sig(){var role=(typeof cloudActorRole!=='undefined'?String(cloudActorRole||''):'')||(document.body&&document.body.dataset?String(document.body.dataset.role||''):'');return JSON.stringify([role,items().map(function(x){return [x.name,x.price,!!x.soldOut,x.image?x.image.length:0,x.active!==false]}),q,sel,Object.keys(window.__pmMenuSelected||{}).sort(),(typeof state!=='undefined'&&state.readyStock)?state.readyStock:{}])}
   function thumb(x,cls){return x.image?'<img src="'+esc2(x.image)+'" alt="" class="'+cls+'">':'<span class="pm-tile-emoji">🍽️</span>'}
   function tile(i){
     var x=items()[i], chosen=!!((window.__pmMenuSelected||{})[i]);

@@ -138,16 +138,99 @@ function renderStock(){let q=($('stockSearch').value||'').trim().toLowerCase();l
 window.deleteStock=encoded=>{const name=decodeURIComponent(encoded),x=state.inventory.find(y=>y.name===name);if(!x)return;const recipeUses=Object.entries(state.recipes||{}).filter(([rn,cs])=>(cs||[]).some(c=>c.name===name)).map(([rn])=>rn);const msg=`حذف شامل للخامة «${name}»؟\n\nسيتم حذفها من المخزون والأسعار وسجل الحركات والمشتريات والأرشيفات الشهرية، وإزالتها من الطلبات/القوائم النشطة المرتبطة بها إن وجدت.\n\nلن تُحذف من الوصفات (${recipeUses.length} وصفة تستخدمها)، لذلك قد تظهر ضمن مكونات الوصفات وتحتاج إلى خامة مخزون جديدة عند الرغبة في استخدامها.\n\nهذا الإجراء لا يمكن التراجع عنه إلا باستعادة نسخة احتياطية.`;if(!confirm(msg))return;const before=clone(state);try{state.inventory=(state.inventory||[]).filter(y=>y.name!==name);if(state.prices)delete state.prices[name];state.history=(state.history||[]).filter(y=>y.name!==name);state.purchasesLog=(state.purchasesLog||[]).filter(y=>y.name!==name);state.monthlyArchives=(state.monthlyArchives||[]).map(a=>({...a,inventory:(a.inventory||[]).filter(y=>y.name!==name),history:(a.history||[]).filter(y=>y.name!==name),purchasesLog:(a.purchasesLog||[]).filter(y=>y.name!==name)}));save();renderAll();if(typeof toast==='function')toast({k:'success',t:'حذف الخامة',x:`تم حذف «${name}» من المخزون والأسعار والحركات والمشتريات والأرشيفات. بقيت مكونات الوصفات كما طلبت.`});else alert(`تم حذف «${name}» من جميع الأقسام عدا الوصفات.`)}catch(e){state=before;renderAll();alert('تعذر إكمال الحذف؛ تمت استعادة البيانات السابقة. '+(e.message||''))}};
 window.adjustStock=encoded=>{let name=decodeURIComponent(encoded),x=state.inventory.find(y=>y.name===name);if(!x)return;let v=prompt(`تعديل الرصيد الحالي لـ ${name} (${x.unit})`,String(x.qty));if(v===null)return;let q=Number(v);if(!Number.isFinite(q)||q<0){alert('أدخل رصيدًا صحيحًا لا يقل عن صفر.');return}let diff=q-x.qty;x.qty=q;if(diff!==0)state.history.unshift({date:formatDate(),name,add:diff>0?diff:0,deduct:diff<0?-diff:0,balance:q,unit:x.unit,note:'تعديل يدوي للرصيد'});save()};
 function renderOrder(){
-  const ST=[['new','جديد'],['doing','جاري التحضير'],['ready','جاهز']];
-  $('orderItems').innerHTML=state.orders.length?`<h3>الأصناف في الطلب</h3><div class="tablewrap"><table><tr><th>الصنف</th><th>الوزنات</th><th>الحالة</th><th>إجراء</th></tr>${state.orders.map((x,i)=>{const cur=x.status||'new';return `<tr><td>${esc(x.name)}</td><td>${nfmt(x.qty)}</td><td><select class="mini" style="min-height:36px;padding:6px" onchange="setOrderStatus(${i},this.value)">${ST.map(([v,t])=>`<option value="${v}"${v===cur?' selected':''}>${t}</option>`).join('')}</select></td><td><button class="danger mini" onclick="removeOrder(${i})">حذف</button></td></tr>`}).join('')}</table></div>`:'<div class="empty">لم تضف أصنافًا للطلب بعد.</div>'
+  /* مراحل التحضير: ثلاث مربعات تحت بعض، والصنف بيتنقل للمربع اللي تحته مع كل ضغطة */
+  const STAGES=[['new','جديد','بدء التحضير'],['doing','جاري التحضير','جاهز'],['ready','جاهز للتسليم','تسليم']];
+  const list=state.orders||[];
+  const boxes=STAGES.map(([st,title,btn])=>{
+    const rows=list.map((x,i)=>({x,i})).filter(({x})=>(x.status||'new')===st);
+    const body=rows.length?rows.map(({x,i})=>`<div class="prep-card"><div class="prep-info"><b>${esc(x.name)}</b><span>${nfmt(x.qty)} وزنة</span></div><div class="prep-acts"><button class="primary mini" onclick="pmPrepNext(${i})">${btn}</button>${st==="doing"?"":`<button class="danger mini" onclick="removeOrder(${i})">حذف</button>`}</div></div>`).join(''):'<div class="empty">لا يوجد أصناف في هذه المرحلة</div>';
+    return `<section class="prep-box prep-${st}"><div class="prep-head"><h3>${title}</h3><span class="prep-count">${rows.length}</span></div>${body}</section>`;
+  }).join('');
+  $('orderItems').innerHTML=`<div class="prep-board">${boxes}</div>`;
 }
+
 function setOrderStatus(i,v){ if(!state.orders[i]) return; state.orders[i].status=v; save(); renderOrder(); }
+/* خصم الخامات لأوردر واحد لما يبدأ التحضير، وباقي الأوردرات بتفضل زي ما هي */
+window.pmDeductOne=async function(i){
+  const o=state.orders[i]; if(!o) return false;
+  if(!cloudReady||!cloudActorName||!cloudActorPin){ alert('يلزم الاتصال بالسحابة قبل خصم الخامات.'); return false; }
+  /* فحص النواقص لهذا الأوردر بس */
+  const saved=state.orders; state.orders=[clone(o)];
+  const need=calculate().map(x=>({name:x.name,unit:x.unit,need:x.qty,have:getStock(x.name,x.unit)})).filter(x=>x.need>x.have+1e-9);
+  state.orders=saved;
+  if(need.length){
+    alert('المخزون لا يكفي لبدء «'+o.name+'». الخامات الناقصة:\n'+need.map(x=>'- '+x.name+': ناقص '+Number((x.need-x.have).toFixed(2))+' '+x.unit).join('\n'));
+    const sp=document.getElementById('showPurchases'); if(sp) sp.click();
+    return false;
+  }
+  const requestId=crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(16).slice(2);
+  const {data,error}=await apiCall({action:'confirm_production',orders:[{name:o.name,qty:o.qty}],ready:{[o.name]:0},request_id:requestId,employee_name:cloudActorName,pin:cloudActorPin,expected_revision:cloudRevision});
+  if(error){
+    const msg=String(error.message||'');
+    if(msg.includes('INSUFFICIENT_STOCK')) alert('المخزون على الخادم لا يكفي «'+o.name+'». حمّل آخر نسخة وراجع النواقص.');
+    else if(msg.includes('REVISION_CONFLICT')||(error.context&&error.context.status===409)) alert('تغيّرت البيانات على جهاز آخر. حمّل آخر نسخة سحابية ثم أعد المحاولة.');
+    else alert('لم يتم خصم الخامات. '+(msg||'تحقق من الاتصال ثم أعد المحاولة.'));
+    return false;
+  }
+  /* نحمّل المخزون الجديد من الخادم، ونحافظ على الطلبات الموجودة عندنا */
+  const {data:remote,error:loadError}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});
+  if(loadError||!remote?.state){ alert('تم خصم الخامات، لكن تعذر تحديث الشاشة. حمّل آخر نسخة سحابية.'); return true; }
+  const keep=clone(state.orders||[]);
+  cloudLoading=true;
+  state=migrateStateUnits(remote.state);
+  state.orders=keep;
+  if(!Array.isArray(state.history))state.history=[];
+  if(!Array.isArray(state.productionLog))state.productionLog=[];
+  if(!state.prices)state.prices={};
+  if(!state.recipeMeta)state.recipeMeta={};
+  cloudRevision=Number(remote.revision||data?.revision||cloudRevision);
+  cloudLastSavedHash=JSON.stringify(state);
+  cloudLoading=false;
+  return true;
+};
+
+window.pmPrepNext=function(i){
+  const o=state.orders[i]; if(!o) return;
+  const st=o.status||'new';
+  if(st==='new'){
+    if(window.__pmPrepBusy) return;
+    window.__pmPrepBusy=true;
+    Promise.resolve(window.pmDeductOne(i)).then(function(ok){
+      window.__pmPrepBusy=false;
+      if(!ok) return;
+      if(state.orders[i]&&state.orders[i].name===o.name){ state.orders[i].status='doing'; }
+      save();
+    }, function(e){ window.__pmPrepBusy=false; cloudLoading=false; alert('تعذر خصم الخامات: '+(e&&e.message||'')); });
+    return;
+  }
+  if(st==='doing'){ o.status='ready'; save(); return; }
+  /* تسليم: العدد اللي طلع بيتضاف للمنيو (readyStock) والصنف يتشال من الطلب */
+  const map=(typeof window.__pmAskReady==='function')?window.__pmAskReady([o]):null;
+  if(!map) return;
+  const n=Number(map[o.name])||0;
+  state.readyStock=state.readyStock||{};
+  state.readyStock[o.name]=(Number(state.readyStock[o.name])||0)+n;
+  state.orders.splice(i,1);
+  $('orderResult').innerHTML='';
+  if(!Array.isArray(state.productionPieces))state.productionPieces=[];
+  if(n>0)state.productionPieces.push({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(16).slice(2)),date:new Date().toISOString(),name:o.name,pieces:n,by:cloudActorName||''});
+  save();
+  /* القطع الجاهزة لازم تتسجل على السيرفر كفرق (مش قيمة كاملة) عشان المنيو يظهر عند الكل */
+  if(n>0&&cloudReady&&cloudActorName&&cloudActorPin){
+    apiCall({action:'add_ready_pieces',name:o.name,pieces:n,employee_name:cloudActorName,pin:cloudActorPin}).then(function(r){
+      if(r&&r.error) alert('تعذر إضافة القطع للمنيو على السحابة: '+(r.error.message||''));
+    });
+  }
+  if(typeof window.__pmSendNotice==='function'){
+    window.__pmSendNotice(['sales'],'تم تسليم '+o.name,o.name+' × '+n+' قطعة\nأضيفت للمنيو');
+  }
+};
 window.removeOrder=i=>{state.orders.splice(i,1);$('orderResult').innerHTML='';save()};
 
 function calculate(){let totals={};for(const it of state.orders){for(const c of (state.recipes[it.name]||[])){let u=unitBase(c.unit),key=c.name+'||'+u;if(!totals[key])totals[key]={name:c.name,unit:u,qty:0};totals[key].qty+=norm(c.qty,c.unit)*Number(it.qty)}}return Object.values(totals)}
 function costOf(name,unit,qty){let p=state.prices[name];if(!p||!(Number(p.purchasePrice)>0&&Number(p.packSize)>0))return null;let pack=norm(p.packSize,p.packUnit||unit);if(!pack)return null;let requestedUnit=unitBase(unit);if(requestedUnit!==unitBase(p.packUnit||unit))return null;return qty*Number(p.purchasePrice)/pack}
 function renderResult(){let t=calculate();if(!t.length){$('orderResult').innerHTML='<div class="empty">أضف صنفًا ثم اضغط حساب المكونات.</div>';return}let totalCost=0,unknown=0;let rows=t.map(x=>{let have=getStock(x.name,x.unit),short=Math.max(0,x.qty-have),cost=costOf(x.name,x.unit,x.qty),shown=formatAggregate(x.qty,x.unit);if(cost===null)unknown++;else totalCost+=cost;const scale=x.unit==='لتر'&&shown.unit!=='لتر'?factor(shown.unit):1;return {...x,have,short,cost,shown,shownHave:have/scale,shownShort:short/scale}});let shortages=rows.filter(x=>x.short>1e-9);$('orderResult').innerHTML=`<h3>إجمالي مكونات الطلب</h3>${shortages.length?`<div class="danger-note">يوجد عجز في ${shortages.length} خامة. لن يتم خصم الطلب حتى يتم توفيرها أو تعديل الكميات.</div>`:'<div class="notice-ok">المخزون الحالي يكفي الطلب حسب الأرصدة المسجلة.</div>'}<div class="tablewrap"><table><tr><th>الخامة</th><th>المطلوب</th><th>المتاح</th><th>العجز</th><th>الوحدة</th><th>تكلفة تقديرية</th></tr>${rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${nfmt(x.shown.qty)}</td><td>${nfmt(x.shownHave)}</td><td>${x.short>1e-9?`<span class="pill low">${nfmt(x.shownShort)}</span>`:'0'}</td><td>${esc(x.shown.unit)}</td><td>${x.cost===null?'غير محدد':moneyFmt(x.cost)+' ج.م'}</td></tr>`).join('')}</table></div><div class="stat" style="margin-top:10px"><b>${moneyFmt(totalCost)} ج.م</b><span>التكلفة التقديرية للخامات المسعّرة${unknown?` · ${unknown} مكون بلا سعر`:''}</span></div>`}
-async function deductOrder(){const produced=clone(state.orders||[]).map(({status,...r})=>r);if(!produced.length){alert('أضف أصنافًا للطلب أولًا.');return}{const __short=calculate().map(x=>({name:x.name,unit:x.unit,need:x.qty,have:getStock(x.name,x.unit)})).filter(x=>x.need>x.have+1e-9);if(__short.length){alert('المخزون لا يكفي هذا الإنتاج. الخامات الناقصة:\n'+__short.map(x=>'- '+x.name+': ناقص '+Number((x.need-x.have).toFixed(2))+' '+x.unit).join('\n'));const sp=document.getElementById('showPurchases');if(sp)sp.click();return}}if(!cloudReady||!cloudActorName||!cloudActorPin){alert('يلزم الاتصال بالسحابة قبل تأكيد الإنتاج.');return}if(!window.__pmSkipConfirm){if(!confirm('تأكيد الإنتاج؟ سيعيد الخادم التحقق من الوصفات والمخزون ثم يخصم الخامات مرة واحدة فقط.'))return;window.__pmRetried=false}var __pmReadyIsRetry=!!window.__pmSkipConfirm;window.__pmSkipConfirm=false;var __pmReadyMap=__pmReadyIsRetry?window.__pmPendingReady:window.__pmAskReady(produced);if(!__pmReadyMap)return;window.__pmPendingReady=__pmReadyMap;const beforeInventory=clone(state.inventory||[]),beforeHistory=clone(state.history||[]);const btn=$('deductOrder');if(btn)btn.disabled=true;try{const requestId=pendingProductionRequestId||(crypto.randomUUID?crypto.randomUUID():([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,c=>(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16)));pendingProductionRequestId=requestId;const {data,error}=await apiCall({action:'confirm_production',orders:produced,ready:__pmReadyMap,request_id:requestId,employee_name:cloudActorName,pin:cloudActorPin,expected_revision:cloudRevision});if(error){const msg=String(error.message||'');let body='';try{if(error.context&&typeof error.context.clone==='function'){const j=await error.context.clone().json();body=JSON.stringify(j||{})}}catch(_){}const all=msg+' '+body;if(all.includes('INSUFFICIENT_STOCK')){alert('المخزون لا يكفي هذا الإنتاج. هنعرض قائمة النواقص.');const sp=document.getElementById('showPurchases');if(sp)sp.click();return}if((error.context&&error.context.status===409)||all.includes('REVISION_CONFLICT')){if(!window.__pmRetried){window.__pmRetried=true;try{const {data:rr,error:re}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(!re&&rr){cloudRevision=Number(rr.revision||0);window.__pmSkipConfirm=true;return deductOrder()}}catch(x){}}setCloudStatus('تغيّرت بيانات السحابة من جهاز آخر. حمّل آخر نسخة قبل إعادة تأكيد الإنتاج.',true);alert('تغيّرت البيانات على جهاز آخر. حمّل آخر نسخة سحابية ثم راجع الطلب.');return}if(msg.includes('INSUFFICIENT_STOCK')){alert('المخزون على الخادم لا يكفي الطلب. حمّل آخر نسخة وراجع العجز.');return}throw error}const {data:remote,error:loadError}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(loadError)throw loadError;if(!remote?.state)throw new Error('لم يرجع الخادم الحالة بعد تأكيد الإنتاج.');cloudLoading=true;state=migrateStateUnits(remote.state);state.orders=[];if(!Array.isArray(state.history))state.history=[];if(!Array.isArray(state.productionLog))state.productionLog=[];if(!Array.isArray(state.monthlyArchives))state.monthlyArchives=[];if(!state.prices)state.prices={};if(!state.recipeMeta)state.recipeMeta={};cloudRevision=Number(remote.revision||data?.revision||cloudRevision);if(data&&data.readyWarning)alert('تم تأكيد الإنتاج، لكن تعذر تحديث عدد القطع الجاهزة. راجع المدير.');cloudLastSavedHash=JSON.stringify(state);pendingProductionRequestId='';cloudLoading=false;try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(KEY+'_savedAt',String(Date.now()));const auditKey=KEY+'_auditDetails';let audit=[];try{audit=JSON.parse(localStorage.getItem(auditKey)||'[]');if(!Array.isArray(audit))audit=[]}catch(_){}const productSummary=produced.map(x=>String(x.name||'صنف غير معروف')+' (عدد الوزنات: '+nfmt(x.qty)+')').join('، ');audit.unshift({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-production'),changed_at:new Date().toISOString(),actor_name:cloudActorName||'هذا الجهاز',action:'خصم مخزون بعد تأكيد الإنتاج',description:'تم تأكيد إنتاج '+productSummary+'، وخصم الخامات المطلوبة من أرصدة المخزون وتسجيل حركة الخصم.',revision:cloudRevision,source:'local',changed_sections:['inventory','history','productionLog'],changes:{inventory:{before:beforeInventory,after:clone(state.inventory||[])},history:{before:beforeHistory,after:clone(state.history||[])},production:{before:produced,after:[]}}});localStorage.setItem(auditKey,JSON.stringify(audit.slice(0,200)))}catch(e){}renderAll();if(cloudActorRole==='kitchen')applyRoleUI();$('orderResult').innerHTML='<div class="notice-ok">تم تأكيد الإنتاج وخصم الخامات من الخادم بنجاح.</div>';setCloudStatus(`تم تأكيد الإنتاج ومزامنته ✓ · الإصدار ${cloudRevision}`)}catch(e){cloudLoading=false;setCloudStatus('تعذر تأكيد الإنتاج على الخادم: '+(e.message||''),true);alert('لم يتم تأكيد الإنتاج. '+(e.message||'تحقق من الاتصال ثم راجع حالة المخزون قبل إعادة المحاولة.'))}finally{if(btn)btn.disabled=false}}
+async function deductOrder(){const produced=clone(state.orders||[]).map(({status,...r})=>r);if(!produced.length){alert('أضف أصنافًا للطلب أولًا.');return}{const __short=calculate().map(x=>({name:x.name,unit:x.unit,need:x.qty,have:getStock(x.name,x.unit)})).filter(x=>x.need>x.have+1e-9);if(__short.length){alert('المخزون لا يكفي هذا الإنتاج. الخامات الناقصة:\n'+__short.map(x=>'- '+x.name+': ناقص '+Number((x.need-x.have).toFixed(2))+' '+x.unit).join('\n'));const sp=document.getElementById('showPurchases');if(sp)sp.click();return}}if(!cloudReady||!cloudActorName||!cloudActorPin){alert('يلزم الاتصال بالسحابة قبل تأكيد الإنتاج.');return}if(!window.__pmSkipConfirm){if(!confirm('تأكيد الإنتاج؟ سيعيد الخادم التحقق من الوصفات والمخزون ثم يخصم الخامات مرة واحدة فقط.'))return;window.__pmRetried=false}var __pmReadyIsRetry=!!window.__pmSkipConfirm;window.__pmSkipConfirm=false;/* الخصم بس من المخزون: مش بنسأل عن عدد القطع ولا بنزود المنيو هنا، التسليم هو اللي بيزود المنيو */var __pmReadyMap=__pmReadyIsRetry?window.__pmPendingReady:(function(){var z={};produced.forEach(function(o){if(o&&o.name)z[String(o.name)]=0});return z})();if(!__pmReadyMap)return;window.__pmPendingReady=__pmReadyMap;const beforeInventory=clone(state.inventory||[]),beforeHistory=clone(state.history||[]);const btn=$('deductOrder');if(btn)btn.disabled=true;try{const requestId=pendingProductionRequestId||(crypto.randomUUID?crypto.randomUUID():([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,c=>(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16)));pendingProductionRequestId=requestId;const {data,error}=await apiCall({action:'confirm_production',orders:produced,ready:__pmReadyMap,request_id:requestId,employee_name:cloudActorName,pin:cloudActorPin,expected_revision:cloudRevision});if(error){const msg=String(error.message||'');let body='';try{if(error.context&&typeof error.context.clone==='function'){const j=await error.context.clone().json();body=JSON.stringify(j||{})}}catch(_){}const all=msg+' '+body;if(all.includes('INSUFFICIENT_STOCK')){alert('المخزون لا يكفي هذا الإنتاج. هنعرض قائمة النواقص.');const sp=document.getElementById('showPurchases');if(sp)sp.click();return}if((error.context&&error.context.status===409)||all.includes('REVISION_CONFLICT')){if(!window.__pmRetried){window.__pmRetried=true;try{const {data:rr,error:re}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(!re&&rr){cloudRevision=Number(rr.revision||0);window.__pmSkipConfirm=true;return deductOrder()}}catch(x){}}setCloudStatus('تغيّرت بيانات السحابة من جهاز آخر. حمّل آخر نسخة قبل إعادة تأكيد الإنتاج.',true);alert('تغيّرت البيانات على جهاز آخر. حمّل آخر نسخة سحابية ثم راجع الطلب.');return}if(msg.includes('INSUFFICIENT_STOCK')){alert('المخزون على الخادم لا يكفي الطلب. حمّل آخر نسخة وراجع العجز.');return}throw error}const {data:remote,error:loadError}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(loadError)throw loadError;if(!remote?.state)throw new Error('لم يرجع الخادم الحالة بعد تأكيد الإنتاج.');cloudLoading=true;state=migrateStateUnits(remote.state);state.orders=[];if(!Array.isArray(state.history))state.history=[];if(!Array.isArray(state.productionLog))state.productionLog=[];if(!Array.isArray(state.monthlyArchives))state.monthlyArchives=[];if(!state.prices)state.prices={};if(!state.recipeMeta)state.recipeMeta={};cloudRevision=Number(remote.revision||data?.revision||cloudRevision);if(data&&data.readyWarning)alert('تم تأكيد الإنتاج، لكن تعذر تحديث عدد القطع الجاهزة. راجع المدير.');cloudLastSavedHash=JSON.stringify(state);pendingProductionRequestId='';cloudLoading=false;try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(KEY+'_savedAt',String(Date.now()));const auditKey=KEY+'_auditDetails';let audit=[];try{audit=JSON.parse(localStorage.getItem(auditKey)||'[]');if(!Array.isArray(audit))audit=[]}catch(_){}const productSummary=produced.map(x=>String(x.name||'صنف غير معروف')+' (عدد الوزنات: '+nfmt(x.qty)+')').join('، ');audit.unshift({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-production'),changed_at:new Date().toISOString(),actor_name:cloudActorName||'هذا الجهاز',action:'خصم مخزون بعد تأكيد الإنتاج',description:'تم تأكيد إنتاج '+productSummary+'، وخصم الخامات المطلوبة من أرصدة المخزون وتسجيل حركة الخصم.',revision:cloudRevision,source:'local',changed_sections:['inventory','history','productionLog'],changes:{inventory:{before:beforeInventory,after:clone(state.inventory||[])},history:{before:beforeHistory,after:clone(state.history||[])},production:{before:produced,after:[]}}});localStorage.setItem(auditKey,JSON.stringify(audit.slice(0,200)))}catch(e){}renderAll();if(cloudActorRole==='kitchen')applyRoleUI();$('orderResult').innerHTML='<div class="notice-ok">تم تأكيد الإنتاج وخصم الخامات من الخادم بنجاح.</div>';setCloudStatus(`تم تأكيد الإنتاج ومزامنته ✓ · الإصدار ${cloudRevision}`)}catch(e){cloudLoading=false;setCloudStatus('تعذر تأكيد الإنتاج على الخادم: '+(e.message||''),true);alert('لم يتم تأكيد الإنتاج. '+(e.message||'تحقق من الاتصال ثم راجع حالة المخزون قبل إعادة المحاولة.'))}finally{if(btn)btn.disabled=false}}
 function recipeCost(name){
  const comps=state.recipes[name]||[];let total=0,unknown=[],details=[];
  for(const c of comps){if(!c.name||!(Number(c.qty)>0))continue;const base=unitBase(c.unit),qty=norm(c.qty,c.unit),cost=costOf(c.name,base,qty);if(cost===null){unknown.push(c.name);details.push({name:c.name,qty:c.qty,unit:c.unit,cost:null})}else{total+=cost;details.push({name:c.name,qty:c.qty,unit:c.unit,cost})}}
@@ -563,7 +646,7 @@ function download(name,content,type){const a=document.createElement('a');const u
 function exportExcelTable(which){if(typeof XLSX==='undefined'){alert('مكتبة Excel لم تُحمّل. افتح التطبيق مع اتصال بالإنترنت ثم أعد المحاولة.');return}const wb=XLSX.utils.book_new();wb.Props={Title:'RMY - تصدير Excel',Author:'RMY',CreatedDate:new Date()};if(which==='inventory'){sheetFromObjects(wb,'أرصدة المخزون',state.inventory.map(x=>({الخامة:x.name,الوحدة:x.unit,الرصيد:x.qty,...(state.prices[x.name]?{سعر_الشراء:state.prices[x.name].purchasePrice??0,حجم_العبوة:state.prices[x.name].packSize??0,وحدة_العبوة:state.prices[x.name].packUnit||''}:{})})));}else{sheetFromObjects(wb,'حركة المخزون',state.history.map(x=>({التاريخ:x.date||'',الخامة:x.name||'',إضافة:x.add??0,خصم:x.deduct??0,الرصيد:x.balance??'',الوحدة:x.unit||'',ملاحظة:x.note||''})));}XLSX.writeFile(wb,`RMY_${which}_${new Date().toISOString().slice(0,10)}.xlsx`,{bookType:'xlsx',compression:true,cellStyles:true})}
 function renderAll(){renderSelectors();renderHome();renderStock();renderOrder();renderHistory();renderPrices();renderMonthly();renderPurchases();if($('costing').classList.contains('active'))renderCosting();if($('sales').classList.contains('active'))renderSales();if($('purchases').classList.contains('active'))renderPurchases();if($('editProduct').value)renderRecipeEditor();if($('priceIngredient').value)loadPriceEditor()}
 $('purchaseIngredient').onchange=()=>{const x=state.inventory.find(x=>x.name===$('purchaseIngredient').value);if(x)$('purchaseUnit').value=x.unit;updatePurchasePreview()};$('purchaseQty').oninput=updatePurchasePreview;$('purchaseTotal').oninput=updatePurchasePreview;$('purchaseUnit').onchange=updatePurchasePreview;$('addPurchase').onclick=addPurchase;$('exportPurchaseLog').onclick=exportPurchaseLogCsv;$('refreshPurchases').onclick=()=>{renderPurchaseList();updatePurchasePreview()};$('printPurchases').onclick=()=>{go('purchases');window.print()};
-$('addOrder').onclick=()=>{let name=$('orderProduct').value,qty=Number($('orderQty').value);if(!name||!Number.isFinite(qty)||qty<=0){alert('اختر صنفًا واكتب عدد وزنات أكبر من صفر.');return}state.orders.push({name,qty});save();$('orderResult').innerHTML=''};$('clearOrder').onclick=()=>{state.orders=[];$('orderResult').innerHTML='';save()};$('calcOrder').onclick=renderResult;$('deductOrder').onclick=deductOrder;$('printOrder').onclick=()=>{renderResult();window.print()};$('stockSearch').oninput=renderStock;$('stockIngredient').onchange=()=>{let x=state.inventory.find(x=>x.name===$('stockIngredient').value);if(x)$('stockAddUnit').value=x.unit};$('addStock').onclick=()=>{let name=$('stockIngredient').value,qty=Number($('stockAddQty').value),unit=$('stockAddUnit').value;if(!name||!Number.isFinite(qty)||qty<=0){alert('اختر خامة وأدخل كمية أكبر من صفر.');return}let x=state.inventory.find(x=>x.name===name);if(!x){alert('الخامة غير موجودة.');return}if(!compatible(unit,x.unit)){alert(`وحدة الإضافة (${unit}) غير متوافقة مع وحدة المخزون (${x.unit}).`);return}let add=norm(qty,unit)/factor(x.unit);x.qty+=add;state.history.unshift({date:formatDate(),name,add,balance:x.qty,deduct:0,unit:x.unit,note:'إضافة رصيد'});$('stockAddQty').value='';save();alert('تم تسجيل الإضافة.');};
+$('addOrder').onclick=()=>{let name=$('orderProduct').value,qty=Number($('orderQty').value);if(!name||!Number.isFinite(qty)||qty<=0){alert('اختر صنفًا واكتب عدد وزنات أكبر من صفر.');return}state.orders.push({name,qty});save();$('orderResult').innerHTML=''};$('clearOrder').onclick=()=>{state.orders=[];$('orderResult').innerHTML='';save()};$('calcOrder').onclick=renderResult;$('printOrder').onclick=()=>{renderResult();window.print()};$('stockSearch').oninput=renderStock;$('stockIngredient').onchange=()=>{let x=state.inventory.find(x=>x.name===$('stockIngredient').value);if(x)$('stockAddUnit').value=x.unit};$('addStock').onclick=()=>{let name=$('stockIngredient').value,qty=Number($('stockAddQty').value),unit=$('stockAddUnit').value;if(!name||!Number.isFinite(qty)||qty<=0){alert('اختر خامة وأدخل كمية أكبر من صفر.');return}let x=state.inventory.find(x=>x.name===name);if(!x){alert('الخامة غير موجودة.');return}if(!compatible(unit,x.unit)){alert(`وحدة الإضافة (${unit}) غير متوافقة مع وحدة المخزون (${x.unit}).`);return}let add=norm(qty,unit)/factor(x.unit);x.qty+=add;state.history.unshift({date:formatDate(),name,add,balance:x.qty,deduct:0,unit:x.unit,note:'إضافة رصيد'});$('stockAddQty').value='';save();alert('تم تسجيل الإضافة.');};
 $('editProduct').onchange=renderRecipeEditor;$('newRecipe').onclick=createRecipe;$('saveRecipe').onclick=saveRecipe;$('deleteRecipe').onclick=deleteRecipe;$('priceIngredient').onchange=loadPriceEditor;['pricePurchase','pricePackSize','pricePackUnit'].forEach(id=>$(id).addEventListener('input',updatePricePreview));$('savePrice').onclick=savePrice;$('closeMonth').onclick=closeMonth;
 function sheetFromObjects(wb,name,rows){
  const data=rows&&rows.length?rows:[{ملاحظة:'لا توجد بيانات حالياً'}];
@@ -747,14 +830,22 @@ window.addEventListener('focus',()=>{if(navigator.onLine)scheduleQueuedSync(700)
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&navigator.onLine)scheduleQueuedSync(700)});
 async function persistCloudSnapshot(snapshot){
  if(!cloudReady||!cloudActorName||!cloudActorPin)throw new Error('لا يوجد اتصال مصادق عليه بالسحابة.');
- if(['kitchen','barista'].includes(cloudActorRole))return {ok:true,skipped:true,kitchen:true,revision:cloudRevision};
  const payload=clone(snapshot),hash=JSON.stringify(payload);clearTimeout(cloudSaveTimer);
  const task=cloudSaveChain.catch(()=>{}).then(async()=>{
   if(hash===cloudLastSavedHash)return {ok:true,skipped:true,revision:cloudRevision};
-  const expected=cloudRevision;
+  let expected=cloudRevision, body=payload;
   queueCloudSnapshot(payload,'حفظ تلقائي قبل الإرسال');
   if(!navigator.onLine)throw new Error('الإنترنت غير متاح؛ تم الاحتفاظ بالتعديلات للمزامنة لاحقًا.');
-  const {data,error}=await apiCall({action:'save_state',state:payload,employee_name:cloudActorName,pin:cloudActorPin,expected_revision:expected});
+  if(['kitchen','barista'].includes(cloudActorRole)){
+    /* حساب المطبخ/البار: action مخصص للأوردرات بس، ما يلمسش المخزون والأسعار والوصفات */
+    const {data:od,error:oe}=await apiCall({action:'save_orders',orders:payload.orders||[],employee_name:cloudActorName,pin:cloudActorPin});
+    if(oe)throw oe;
+    if(od&&od.revision!=null)cloudRevision=Number(od.revision);
+    cloudLastSavedHash=hash;
+    setCloudStatus('تم حفظ الأوردرات على السحابة ✓ · الإصدار '+cloudRevision);
+    return {ok:true,revision:cloudRevision,ordersOnly:true};
+  }
+  const {data,error}=await apiCall({action:'save_state',state:body,employee_name:cloudActorName,pin:cloudActorPin,expected_revision:expected});
   if(error){const msg=String(error.message||'');if((error.context&&error.context.status===409)||msg.includes('REVISION_CONFLICT')){setCloudStatus('تعارض إصدار: لم نكتب فوق بيانات جهاز آخر. احتفظ بالنسخة المحلية ثم حمّل آخر نسخة سحابية للمراجعة.',true);throw new Error('تعارض مع تعديل سحابي أحدث؛ لم يتم تأكيد الحفظ.')}if(error.context&&error.context.status===403){cloudReady=false;setCloudStatus('رفض الخادم التحقق من الموظف. أعد تسجيل الدخول قبل أي تعديل آخر.',true);document.body.classList.add('auth-required');$('loginScreen').classList.remove('hide');throw new Error('رفض الخادم صلاحية الموظف.')}throw new Error(msg||'تعذر حفظ البيانات على الخادم.');}
   if(!data||data.ok===false)throw new Error('لم يرجع الخادم تأكيدًا واضحًا للحفظ.');
   if(data.revision!==undefined&&Number.isFinite(Number(data.revision)))cloudRevision=Number(data.revision);
@@ -767,8 +858,7 @@ async function persistCloudSnapshot(snapshot){
 }
 function scheduleCloudSave(snapshot,immediate=false){
  if(!cloudReady||!cloudActorName||!cloudActorPin)return;
- if(['kitchen','barista'].includes(cloudActorRole)){setCloudStatus('هذا الحساب لا يحفظ الحالة العامة؛ العمليات تتم عبر الخادم.');return;}
- const payload=clone(snapshot);clearTimeout(cloudSaveTimer);
+  const payload=clone(snapshot);clearTimeout(cloudSaveTimer);
  setCloudStatus('تم الحفظ محليًا؛ جارٍ انتظار تأكيد الخادم…');
  const run=()=>persistCloudSnapshot(payload).catch(e=>{queueCloudSnapshot(payload,'تعذر الرفع');setCloudStatus('التعديل محفوظ محليًا؛ لم يؤكد الخادم الرفع. سيُعاد تلقائيًا عند عودة الاتصال. '+(e.message||''),true);if(navigator.onLine)scheduleQueuedSync(8000)});
  if(immediate)run();else cloudSaveTimer=setTimeout(run,650);
@@ -895,8 +985,31 @@ async function loadAuditLog(){
 })();
 }
 $('refreshAudit').addEventListener('click',loadAuditLog);
-async function pollCloudState(){if(!cloudReady||!cloudActorPin||cloudPollBusy)return;cloudPollBusy=true;try{const {data,error}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(error)throw error;const remoteRevision=Number(data.revision||0);if(!data.state||remoteRevision<=cloudRevision)return;const localHash=JSON.stringify(state);if(localHash!==cloudLastSavedHash){setCloudStatus('يوجد تحديث أحدث على جهاز آخر، لكن لديك تغييرات محلية غير مؤكدة. لم يتم استبدالها. راجعها ثم اضغط تحميل آخر نسخة سحابية.',true);return}const active=document.activeElement;if(active&&active.matches&&active.matches('input,textarea,select'))return;cloudLoading=true;state=migrateStateUnits(data.state);cloudRevision=remoteRevision;cloudLastSavedHash=JSON.stringify(state);cloudLoading=false;renderAll();setCloudStatus(`تمت المزامنة من جهاز آخر ✓ · الإصدار ${cloudRevision}`)}catch(e){setCloudStatus('تعذر فحص التحديثات السحابية: '+(e.message||''),true)}finally{cloudPollBusy=false}}
-function startCloudPolling(){if(cloudPollTimer)clearInterval(cloudPollTimer);cloudPollTimer=setInterval(function(){ if(document.visibilityState==='visible')pollCloudState(); },30000)}
+/* أقسام التشغيل اللي بتتغير من أجهزة تانية (المطبخ/البار/المبيعات). بنحدّثها تلقائيًا حتى لو عند الجهاز تعديلات محلية، طول ما الجهاز ما عدّلش القسم ده بنفسه. */
+var LIVE_SECTIONS=['readyStock','orders','inventory','history','productionLog','productionPieces','readyRequests','salesLog','drinkOrders','partyOrders','partyStock','drinkNames','menu','partyMenu'];
+function mergeLiveSections(remoteState,remoteRevision){
+  try{
+    var base=JSON.parse(cloudLastSavedHash||'{}')||{};
+    var remote=remoteState&&typeof remoteState==='object'?remoteState:{};
+    var changed=false;
+    cloudLoading=true;
+    LIVE_SECTIONS.forEach(function(k){
+      if(remote[k]===undefined) return;
+      if(JSON.stringify(state[k])===JSON.stringify(base[k])){
+        state[k]=JSON.parse(JSON.stringify(remote[k]));
+        base[k]=JSON.parse(JSON.stringify(remote[k]));
+        changed=true;
+      }
+    });
+    cloudRevision=remoteRevision;
+    cloudLastSavedHash=JSON.stringify(base);
+    cloudLoading=false;
+    if(changed){ renderAll(); if(typeof window.renderMenu==='function')window.renderMenu(); setCloudStatus('تم تحديث الأوردرات والمخزون والمنيو من السحابة ✓ · الإصدار '+cloudRevision); }
+    else setCloudStatus('يوجد تعديلات محلية غير محفوظة على هذا الجهاز · الإصدار السحابي '+cloudRevision,true);
+  }catch(e){ cloudLoading=false; }
+}
+async function pollCloudState(){if(!cloudReady||!cloudActorPin||cloudPollBusy)return;cloudPollBusy=true;try{const {data,error}=await apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin});if(error)throw error;const remoteRevision=Number(data.revision||0);if(!data.state||remoteRevision<=cloudRevision)return;const localHash=JSON.stringify(state);if(localHash!==cloudLastSavedHash){if(document.activeElement&&document.activeElement.matches&&document.activeElement.matches('input,textarea,select'))return;mergeLiveSections(data.state,remoteRevision);return}const active=document.activeElement;if(active&&active.matches&&active.matches('input,textarea,select'))return;cloudLoading=true;state=migrateStateUnits(data.state);cloudRevision=remoteRevision;cloudLastSavedHash=JSON.stringify(state);cloudLoading=false;renderAll();if(typeof window.renderMenu==='function')window.renderMenu();setCloudStatus(`تمت المزامنة من جهاز آخر ✓ · الإصدار ${cloudRevision}`)}catch(e){setCloudStatus('تعذر فحص التحديثات السحابية: '+(e.message||''),true)}finally{cloudPollBusy=false}}
+function startCloudPolling(){if(cloudPollTimer)clearInterval(cloudPollTimer);cloudPollTimer=setInterval(function(){ if(document.visibilityState==='visible')pollCloudState(); },5000)}
 async function signOutCloud(){if(!confirm('تسجيل الخروج من RMY؟ تأكد أن آخر تعديل تمت مزامنته قبل الخروج.'))return;try{ if(cloudReady&&cloudActorName&&cloudActorPin&&cloudActorRole==='admin'){ clearTimeout(cloudSaveTimer); if(JSON.stringify(state)!==cloudLastSavedHash) await persistCloudSnapshot(clone(state)); } }catch(e){}cloudReady=false;if(cloudPollTimer)clearInterval(cloudPollTimer);clearTimeout(cloudSaveTimer);cloudActorName='';cloudActorPin='';cloudActorRole='';pendingProductionRequestId='';cloudRevision=0;cloudLastSavedHash='';try{localStorage.removeItem('pm_emp')}catch(e){}document.body.classList.add('auth-required');$('loginScreen').classList.remove('hide');$('sharedLoginPane').classList.add('hide');$('employeePane').classList.remove('hide');$('employeePin').value='';try{await refreshEmployeeList()}catch(e){}setLoginMessage('تم تسجيل خروج الموظف. اختر اسمك وأدخل PIN للدخول.');setCloudStatus('تم تسجيل خروج الموظف؛ الحساب المشترك لسه مفتوح.',true)}
 async function initCloudAuth(){if(!isConfigured()){setLoginMessage('لم يتم إعداد Supabase بعد. افتح supabase-config.js وضع Project URL و anon/public key، ثم أكمل خطوات README_AR.md. لا توجد مزامنة فعالة الآن.','error');$('signInButton').disabled=true;return}cloudClient=window.supabase.createClient(PASTRY_CONFIG.url,PASTRY_CONFIG.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data:{session}}=await cloudClient.auth.getSession();if(session){$('sharedLoginPane').classList.add('hide');$('employeePane').classList.remove('hide');setLoginMessage('الجلسة المشتركة موجودة. تحقق من اسم الموظف وPIN لفتح التطبيق.');try{await refreshEmployeeList()}catch(e){setLoginMessage('تعذر تحميل أسماء الموظفين: '+(e.message||''),'error')}try{try{localStorage.removeItem('pm_emp')}catch(e){}const saved=null;if(saved&&saved.n&&saved.p){$('employeeName').value=saved.n;$('employeePin').value=saved.p;setLoginMessage('جارٍ استعادة جلسة الموظف…');for(var _t=0;_t<3&&!cloudReady;_t++){await new Promise(function(r){setTimeout(r,1500*(_t+1))});if(cloudReady)break;await unlockApp();}}}catch(e){}}}
 $('signInButton').addEventListener('click',signInShared);$('unlockButton').addEventListener('click',unlockApp);$('backToLoginButton').addEventListener('click',async()=>{try{localStorage.removeItem('pm_emp')}catch(e){}if(cloudClient)await cloudClient.auth.signOut();cloudActorName='';cloudActorPin='';cloudActorRole='';pendingProductionRequestId='';cloudReady=false;$('employeePane').classList.add('hide');$('sharedLoginPane').classList.remove('hide');$('employeePin').value='';setLoginMessage('سجّل الدخول بالحساب المشترك.');});$('sharedPassword').addEventListener('keydown',e=>{if(e.key==='Enter')signInShared()});$('employeePin').addEventListener('keydown',e=>{if(e.key==='Enter')unlockApp()});

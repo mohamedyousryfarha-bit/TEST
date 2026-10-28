@@ -27,7 +27,7 @@
     archives.forEach(function(a,i){
       out.push({key:'arc:'+i, label:'أرشيف: '+(a.label||('#'+(i+1))), live:false, src:{
         salesLog:arr(a.salesLog), expensesLog:arr(a.expensesLog), purchasesLog:arr(a.purchasesLog),
-        wasteLog:arr(a.wasteLog), productionLog:arr(a.productionLog), history:arr(a.history),
+        wasteLog:arr(a.wasteLog), productionLog:arr(a.productionPieces), history:arr(a.history),
         partyOrders:[], drinkOrders:[], inventory:arr(a.inventory), partyInvoices:arr(a.partyInvoices)}});
     });
     return out;

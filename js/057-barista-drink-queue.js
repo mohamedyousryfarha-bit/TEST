@@ -32,7 +32,11 @@
   };
   var DQ_BATCH=[];
   function dqNames(){ return Array.isArray(state.drinkNames)?state.drinkNames:[]; }
-  function dqInMenu(name){ return Array.isArray(state.menu)&&state.menu.some(function(x){return x&&x.name===name}); }
+  // المشروب اللي في قائمة المشروبات (drinkNames) يتعامل كأنه في المنيو: الباريستا ما بيستلمش state.menu
+  function dqInMenu(name){
+    if(dqNames().indexOf(name)>=0) return true;
+    return Array.isArray(state.menu)&&state.menu.some(function(x){return x&&x.name===name});
+  }
   function dqTotals(batch){
     var totals={};
     batch.forEach(function(it){

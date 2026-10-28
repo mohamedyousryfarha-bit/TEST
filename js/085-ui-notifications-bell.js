@@ -18,7 +18,7 @@
   wrap.id='pmNotifWrap';
   wrap.style.cssText='position:relative;display:flex;align-items:center;flex:0 0 auto';
   wrap.appendChild(btn);
-  var lbl=document.createElement('span'); lbl.className='pmd-lbl'; lbl.textContent='الإشعارات';
+  var lbl=document.createElement('span'); lbl.className='pmd-lbl'; lbl.textContent='';
   btn.appendChild(lbl);
   document.body.appendChild(panel);
   function placeInDock(){

@@ -15,7 +15,7 @@
     Object.keys(TITLES).forEach(function(id){
       var w=document.getElementById(id); if(!w) return;
       Array.prototype.forEach.call(w.children,function(ch){
-        if(ch.tagName!=='DIV' || ch.classList.contains('pm-sheet-s')) return;
+        if(ch.tagName!=='DIV' || ch.id==='pmBellPanel' || ch.classList.contains('pm-sheet-s')) return;
         ch.classList.add('pm-sheet-s');
         document.body.appendChild(ch);
         var st=ch.style;

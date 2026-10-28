@@ -153,6 +153,9 @@
     if(res.error) throw res.error;
     if(res.data && res.data.state){
       state.partyOrders=Array.isArray(res.data.state.partyOrders)?res.data.state.partyOrders:[];
+      // أسماء المشروبات والمنيو لازم تتحدّث عشان الحفلات تتوزع صح على الباريستا
+      if(Array.isArray(res.data.state.drinkNames)) state.drinkNames=res.data.state.drinkNames;
+      if(Array.isArray(res.data.state.menu)) state.menu=res.data.state.menu;
       // الأوردرات اللي اتقفلت مع شهر (من المدير): نحدّثها من الخادم عشان تختفي عند الكل
       if(Array.isArray(res.data.state.closedPartyOrderIds)) state.closedPartyOrderIds=res.data.state.closedPartyOrderIds;
       if(Array.isArray(res.data.state.partyInvoices)) state.partyInvoices=res.data.state.partyInvoices;
@@ -169,15 +172,21 @@
     }
   };
   /* ===== محطات الحفلات: الحلويات (الشيف) والعصائر والمشروبات (الباريستا) ===== */
-  function isBarItem(name){ return typeof isDrinkName==='function' && isDrinkName(String(name||'')); }
+  function isBarItem(name){
+    var n=String(name||'').trim();
+    if(typeof isDrinkName==='function' && isDrinkName(n)) return true;
+    var m=(state.menu||[]).find(function(x){return x&&String(x.name||'').trim()===n});
+    return !!(m && m.kind==='drink');
+  }
   function stationOfPartName(name){ return isBarItem(name)?'bar':'kitchen'; }
   function stationsOfOrder(o){
     if(Array.isArray(o.stations) && o.stations.length) return o.stations;
     var parts=(o.parts&&o.parts.length)?o.parts:(((state.menu||[]).find(function(x){return x&&x.name===o.name})||{}).parts||[]);
+    if(!parts.length) parts=[{name:o.name}];
     var s=[]; parts.forEach(function(p){ var st=stationOfPartName(p.name); if(s.indexOf(st)<0) s.push(st); });
     return s.length?s:['kitchen'];
   }
-  function doneOf(o,st){ return !!(o.doneStations && o.doneStations[st]===true); }
+  function doneOf(o,st){ if(o.status==='delivered') return true; return !!(o.doneStations && o.doneStations[st]===true); }
   function roleStation(){ return cloudActorRole==='barista'?'bar':(cloudActorRole==='kitchen'?'kitchen':null); }
   function canProduceStation(st){
     if(st==='kitchen') return cloudActorRole==='kitchen'||cloudActorRole==='admin';
@@ -258,7 +267,7 @@
     // 3) الأوامر: كارت لكل حجز، مقسوم لقسم حلويات وقسم مشروبات
     var books=(window.pmPartyBookings?window.pmPartyBookings(all):[]).filter(function(b){
       if(b.complete||b.cancelled) return false;
-      if(mine) return b.orders.some(function(o){return o.status==='pending' && stationsOfOrder(o).indexOf(mine)>=0 && !doneOf(o,mine)});
+      if(mine) return b.orders.some(function(o){return o.status!=='cancelled' && o.status!=='delivered' && stationsOfOrder(o).indexOf(mine)>=0 && !doneOf(o,mine)});
       return true;
     });
     window.__pmBkFirst=[];
@@ -324,9 +333,15 @@
         var requestId=crypto.randomUUID?crypto.randomUUID():('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16)}));
         var r=await apiCall({action:'party_order_action',party_action:'produce',order_id:id,station:st,request_id:requestId,employee_name:cloudActorName,pin:cloudActorPin});
         if(r.error) throw r.error;
+        // الخادم ممكن يرجّع الفشل جوه الـ data (HTTP 200) من غير error، فلازم نتأكد
+        var rd=r.data||{};
+        if(rd.ok===false||rd.error) throw new Error(rd.message||rd.error||'الخادم لم يسجّل التجهيز');
         await pmPartyWorkflowRefresh();
+        var still=(state.partyOrders||[]).some(function(x){return x&&x.id===id && x.status!=='cancelled' && !doneOf(x,st)});
+        if(still) throw new Error('التجهيز اتبعت للخادم بس مش مسجّل في الأوردر. حدّث الصفحة وحاول تاني.');
       }catch(e){
-        btn.disabled=false; btn.textContent='تأكيد التجهيز';
+        await pmSafeRefresh();
+        btn.disabled=false; btn.textContent='تأكيد تجهيز '+(st==='bar'?'المشروبات':'الحلويات')+' وخصم الخامات';
         alert('تعذر التجهيز: '+await pmErrText(e));
       }
     };});
@@ -337,6 +352,7 @@
   }
 
   // نافذة "تم التحصيل": المبلغ لازم يساوي المتبقي بالظبط (السيرفر بيتأكد برضه)
+  async function pmSafeRefresh(){ try{ await pmPartyWorkflowRefresh(); }catch(e){} }
   function pmCollectOpen(bi){
     var info=(window.__pmBkInfo||[])[bi];
     if(!info||!info.ids.length){ alert('الحجز مش متاح للتحصيل دلوقتي. حدّث الصفحة.'); return; }
@@ -366,6 +382,7 @@
         await pmPartyWorkflowRefresh();
         alert('تم تحصيل الحجز وتسليم الحفلة. الفاتورة موجودة في تبويب فواتير الحفلات.');
       }catch(e){
+        await pmSafeRefresh();
         btn.disabled=false; btn.textContent='تأكيد التحصيل والتسليم';
         var __m=await pmErrText(e);
         alert(String(__m).indexOf('INVALID_EMPLOYEE_PIN')>=0?'الـ PIN غلط. اكتب الـ PIN الشخصي بتاعك (نفس اللي بتدخل بيه التطبيق).':'تعذر التحصيل: '+__m);

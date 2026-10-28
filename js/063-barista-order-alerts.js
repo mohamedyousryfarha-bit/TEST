@@ -53,7 +53,7 @@
     if(b){ b.textContent=n>9?'9+':String(n); b.style.display=n?'inline-flex':'none'; }
     el.textContent='☕ عندك '+n+' طلب مشروبات في قائمة الانتظار، اضغط للعرض';
     el.style.display=(n&&!onQueueScreen())?'block':'none';
-    if(isBarista && lastCount>=0 && n>lastCount) beep();
+    if(isBarista && lastCount>=0 && n>lastCount){ beep(); if(window.pmNotify) window.pmNotify('طلب مشروبات جديد','عندك '+n+' طلب في قائمة الانتظار','drinks'); }
     lastCount=isBarista?n:-1;
   }
   function tick(){
@@ -76,6 +76,9 @@
       cloudClient.from(NOTIF_TABLE).insert({target:target,title:title,body:text||'',from_employee:cloudActorName||'',from_role:role()}).then(function(){},function(){});
     }catch(e){}
   }
+  window.__pmSendNotice=function(targets,title,text){
+    (Array.isArray(targets)?targets:[targets]).forEach(function(t){ sendNotice(t,title,text); });
+  };
   function partyStations(name){
     var m=(state.menu||[]).find(function(x){return x&&x.name===name});
     var parts=(m&&Array.isArray(m.parts)&&m.parts.length)?m.parts:[{name:name}];
@@ -130,12 +133,12 @@
             if(isOnDemand(x.name)){
               demandLines.push('- '+nm+' × '+Number(Number(x.qty||0).toFixed(2)));
             }else{
-              regularLines.push('- '+nm+(c!=null?': تم إضافة '+c+' للمنيو':' × '+Number(Number(x.qty||0).toFixed(2))));
+              regularLines.push('- '+nm+' × '+Number(Number(x.qty||0).toFixed(2)));
             }
           });
           onOk(function(){
             if(demandLines.length) sendNotice('sales','الأوردر جاهز',demandLines.join('\n'));
-            if(regularLines.length) sendNotice('sales','تم إضافة للمنيو',regularLines.join('\n'));
+            if(regularLines.length) sendNotice('sales','بدأ تحضير الإنتاج',regularLines.join('\n')+'\nخُصمت الخامات، والتسليم بيتم بعد اكتمال التحضير');
           });
         }
       }catch(e){}
@@ -171,6 +174,7 @@
         });
         localStorage.setItem(key,String(Math.max(newest,seen)));
         beep();
+        if(window.pmNotify){ var last=fresh[fresh.length-1]; window.pmNotify(fresh.length>1?'RMY · '+fresh.length+' إشعارات جديدة':'RMY · '+(last.title||'إشعار جديد'), fresh.length>1?'':(last.body||''), 'rmy-notice'); }
       }
       renderNotices();
     });

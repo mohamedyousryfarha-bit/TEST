@@ -317,7 +317,6 @@ function paletteItems(){
   out.push({ic:'cloud',t:'تحميل آخر نسخة سحابية',run:function(){ clickBtn('reloadCloudButton') }});
   out.push({ic:'print',t:'طباعة الشاشة الحالية',run:function(){ window.print() }});
   out.push({ic:'shield',t:'فحص وإصلاح البيانات',h:'يفحص الوصفات والمخزون والأسعار',run:function(){ openHealth() }});
-  out.push({ic:'chart',t:'تبديل الوضع الليلي / النهاري',run:function(){ toggleTheme() }});
   out.push({ic:'logout',t:'تسجيل الخروج',run:function(){ clickBtn('signOutButton') }});
   return out;
 }
@@ -500,17 +499,14 @@ window.__PM_HEALTH__=openHealth;
 
 /* ==================== 8) الوضع الليلي ==================== */
 function toggleTheme(){
-  var cur=document.documentElement.getAttribute('data-theme')||'light';
-  var nx=cur==='dark'?'light':'dark';
-  document.documentElement.setAttribute('data-theme',nx);
-  try{ localStorage.setItem('pmTheme',nx) }catch(e){}
-  toast({k:'success',t:'تبديل المظهر',x:nx==='dark'?'تم تشغيل الوضع الليلي المريح للعين.':'تم تشغيل الوضع النهاري.',d:2600});
+  document.documentElement.setAttribute('data-theme','light');
+  try{ localStorage.setItem('pmTheme','light'); }catch(e){}
+  toast({k:'success',t:'هوية RMY',x:'تم تثبيت الواجهة على الوضع النهاري.',d:2200});
 }
 window.__PM_THEME__=toggleTheme;
 (function(){
-  var t=null; try{ t=localStorage.getItem('pmTheme') }catch(e){}
-  if(!t){ try{ t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light' }catch(e){ t='light' } }
-  document.documentElement.setAttribute('data-theme',t);
+  try{ localStorage.setItem('pmTheme','light'); }catch(e){}
+  document.documentElement.setAttribute('data-theme','light');
 })();
 
 /* ==================== 10) أدوات الإدخال ==================== */
@@ -602,8 +598,7 @@ document.addEventListener('keydown',function(e){
   var items=[
     ['shield','فحص وإصلاح',function(){ openHealth() }],
     ['support','الدعم الفني',function(){ window.open('https://wa.me/201066297395?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20RMY','_blank','noopener,noreferrer') }],
-    ['database','نسخة استرداد',function(){ try{ call('downloadRecoverySnapshot','manual') }catch(e){} toast({k:'success',t:'نسخة استرداد',x:'تم تنزيل نسخة استرداد كاملة من بياناتك.',d:5000}) }],
-    ['chart','الوضع الليلي',function(){ toggleTheme() }]
+    ['database','نسخة استرداد',function(){ try{ call('downloadRecoverySnapshot','manual') }catch(e){} toast({k:'success',t:'نسخة استرداد',x:'تم تنزيل نسخة استرداد كاملة من بياناتك.',d:5000}) }]
   ];
   items.forEach(function(it){
     var b=document.createElement('button');
