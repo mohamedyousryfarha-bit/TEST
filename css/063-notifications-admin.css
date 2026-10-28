@@ -1,3 +1,2 @@
-/* المدير: شيل قسم الإشعارات والعداد، ويفضل قسم الرسايل اللي بعتها */
-body[data-role="admin"] #pmBellPanel > :not(#pmSentBox):not(#pmMsgCard){display:none!important}
+/* المدير: لا تخفِ محتويات قائمة الرسائل المنبثقة؛ اتركها مثل بقية المستخدمين. */
 body[data-role="admin"] #pmBellCount{display:none!important}

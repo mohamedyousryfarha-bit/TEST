@@ -1,0 +1,57 @@
+/* ===== تحسينات الهوية: الخطوط والمسافات، توحيد الأيقونات، التنبيهات، الحركات، شاشة الدخول ===== */
+
+/* 5) الخطوط والمسافات */
+html{-webkit-text-size-adjust:100%}
+body{font-size:15px;line-height:1.65;letter-spacing:.1px}
+h1,h2,h3{letter-spacing:0;line-height:1.35}
+main .card,.card{padding:18px 20px}
+.small{line-height:1.6}
+table td,table th{padding:10px 12px}
+@media (max-width:640px){
+  body{font-size:14.5px}
+  main .card,.card{padding:14px 14px}
+}
+
+/* 6) توحيد الأيقونات: لون واحد بنية الهوية (التنبيهات بتحتفظ بألوانها) */
+.ui-ico{--ic:#7E4728 !important}
+.toast .ui-ico,.toast-ico .ui-ico,.sync-pill .ui-ico{--ic:currentColor !important}
+
+/* 7) التنبيهات والحركات */
+.toast,.toast-stack .toast{
+  border-radius:16px !important;
+  box-shadow:0 14px 34px rgba(45,30,22,.22) !important;
+  backdrop-filter:blur(8px);
+  transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .32s ease !important;
+}
+.toast-title{font-weight:800;letter-spacing:.1px}
+.toast-text{font-size:13px;line-height:1.55}
+.toast-progress{height:3px;border-radius:3px}
+.toast-x{border-radius:50%;transition:background .2s ease}
+.toast-x:hover{background:rgba(255,255,255,.16)}
+.sync-pill{box-shadow:0 10px 26px rgba(45,30,22,.25)}
+button,.card,.tab,.dock-btn{transition:background-color .2s ease,border-color .2s ease,transform .15s ease,box-shadow .2s ease}
+button:active{transform:scale(.97)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* 8) شاشة تسجيل الدخول */
+body.auth-required .login-screen{
+  background:linear-gradient(160deg,#FCF9F8 0%,#F0DED3 55%,#E9CDBB 100%) !important;
+}
+body.auth-required .login-screen .login-button{
+  height:52px;border-radius:16px;font-size:16px;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 10px 22px rgba(126,71,40,.28);
+}
+body.auth-required .login-screen .login-button:active{transform:scale(.98)}
+body.auth-required .login-screen h1,
+body.auth-required .login-screen #loginTitle{
+  font-size:26px;font-weight:900;color:#3E2415;text-align:center;letter-spacing:.2px;
+}
+body.auth-required .login-screen input{
+  border-radius:14px;height:50px;font-size:16px;border:1px solid #DCCFC6;background:#fff;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+body.auth-required .login-screen input:focus{
+  outline:none;border-color:#7E4728;box-shadow:0 0 0 4px rgba(126,71,40,.14);
+}

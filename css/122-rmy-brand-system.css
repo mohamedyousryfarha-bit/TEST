@@ -1,0 +1,54 @@
+/* RMY PRO brand system — light mode only; corporate navy + teal */
+:root{
+ --rmy-navy:#073B70; --rmy-navy-deep:#052D56; --rmy-teal:#08A8B7; --rmy-teal-dark:#078A98;
+ --rmy-bg:#F3F8FB; --rmy-card:#FFFFFF; --rmy-ink:#183247; --rmy-muted:#657B8D; --rmy-line:#DCE8EF;
+ --bg:var(--rmy-bg)!important; --card:var(--rmy-card)!important; --ink:var(--rmy-ink)!important;
+ --muted:var(--rmy-muted)!important; --line:var(--rmy-line)!important; --navy:var(--rmy-navy)!important;
+ --blue:var(--rmy-teal)!important; --gold:#E9A23B; --copper:var(--rmy-teal);
+ --shadow:0 12px 32px -22px rgba(7,59,112,.28);
+ color-scheme:light;
+}
+html,html[data-theme="dark"],html[data-theme="light"]{color-scheme:light!important;background:var(--rmy-bg)!important;color:var(--rmy-ink)!important}
+html body{background:var(--rmy-bg)!important;color:var(--rmy-ink)!important;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+body>header,html body>header{background:linear-gradient(115deg,#FFFFFF 0%,#F8FCFE 72%,#EAF8FA 100%)!important;color:var(--rmy-navy)!important;border-radius:0 0 22px 22px!important;border-bottom:1px solid #D6EBF0!important;box-shadow:0 8px 26px rgba(7,59,112,.08)!important}
+body>header svg,body>header button{color:var(--rmy-navy)!important}
+html body .card,html body .login-card,html body .msg-box,html body .pm-sheet-box,html body .pm-pal-box{background:#fff!important;color:var(--rmy-ink)!important;border-color:var(--rmy-line)!important;box-shadow:0 12px 28px -20px rgba(7,59,112,.32)!important}
+html body h1,html body h2,html body h3,html body .card h2,html body .card h3{color:var(--rmy-navy)!important}
+html body .small,html body .muted,html body .empty,html body footer,html body .field-hint,html body .db-muted,html body .db-note{color:var(--rmy-muted)!important}
+html body input,html body select,html body textarea{background:#fff!important;color:var(--rmy-ink)!important;border:1px solid #C8DCE7!important;border-radius:12px!important;box-shadow:inset 0 1px 2px rgba(7,59,112,.025)}
+html body input:focus,html body select:focus,html body textarea:focus{outline:3px solid rgba(8,168,183,.15)!important;border-color:var(--rmy-teal)!important}
+html body button.primary,html body .primary,html body button.primary-btn{background:linear-gradient(135deg,var(--rmy-teal),var(--rmy-teal-dark))!important;color:#fff!important;border-color:transparent!important;box-shadow:0 7px 18px rgba(8,168,183,.2)!important}
+html body .secondary{background:#EAF5F8!important;color:var(--rmy-navy)!important;border:1px solid #D5E9EF!important}
+html body nav.tabs{background:rgba(255,255,255,.96)!important;border:1px solid var(--rmy-line)!important;box-shadow:0 8px 25px rgba(7,59,112,.08)!important}
+html body nav.tabs .tab,html body .tab{background:#fff!important;color:var(--rmy-navy)!important;border-color:var(--rmy-line)!important}
+html body nav.tabs .tab.active,html body .tab.active{background:linear-gradient(135deg,var(--rmy-navy),#0C548B)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 7px 16px rgba(7,59,112,.19)!important}
+html body th{background:#EAF5F8!important;color:var(--rmy-navy)!important}
+html body td{border-color:#E3EDF2!important;color:var(--rmy-ink)!important}
+html body .stat,html body .metric,html body .kpi,html body .db-kpi{background:#F5FAFC!important;border-color:#DCEAF0!important}
+html body .stat b,html body .metric b,html body .kpi b{color:var(--rmy-teal-dark)!important}
+html body .pill{border-radius:99px}
+html body .login-screen{background:radial-gradient(ellipse at 50% 0%,#E1F6F8 0%,#F5FAFC 42%,#EEF4F8 100%)!important}
+html body .login-card{border:1px solid rgba(8,168,183,.17)!important;border-radius:26px!important}
+html body .login-logo{background:#fff!important;border:1px solid #DCEAF0!important;box-shadow:0 8px 24px rgba(7,59,112,.08)!important}
+/* Use the new wide RMY wordmark in the header and login screen */
+:root{--pm-logo:url("../ICONS/rmy-logo.png")}
+html body>header .hrow{min-height:62px!important;justify-content:center!important}
+html body>header .brand{width:auto!important;justify-content:center!important}
+html body>header .mark{width:clamp(112px,20vw,168px)!important;height:44px!important;min-width:112px!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}
+html body>header .mark .pm-logo-img{background-size:contain!important;border-radius:0!important}
+html body .login-logo{width:min(250px,70vw)!important;height:70px!important;margin:0 auto 8px!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+html body .login-logo .pm-logo-img{background-size:contain!important;border-radius:0!important}
+html body .login-brand h1{display:none!important}
+html body .login-subtitle{color:var(--rmy-muted)!important}
+html body .pm-dock,html body #pmDock{background:rgba(255,255,255,.97)!important;border-color:#DCE8EF!important;box-shadow:0 10px 28px rgba(7,59,112,.12)!important;backdrop-filter:blur(18px)}
+html body #pmDock button.cur,html body #pmDock button.on{color:var(--rmy-teal-dark)!important;background:#E5F7F8!important}
+html body .pm-fabs .pm-mi{background:#fff!important;color:var(--rmy-navy)!important;border-color:var(--rmy-line)!important}
+html body .msg-overlay{background:rgba(7,35,59,.38)!important;backdrop-filter:blur(7px)!important}
+html body .danger{background:#FFF0EF!important;color:#A52D2A!important}
+@media(max-width:600px){
+ html body>header{border-radius:0 0 18px 18px!important}
+ html body>header .mark{width:112px!important;min-width:112px!important;height:38px!important}
+ html body .login-card{border-radius:22px!important}
+ html body .card{border-radius:16px!important}
+}
+@media(prefers-reduced-motion:no-preference){html body .card{transition:box-shadow .2s ease,transform .2s ease}html body .card:active{transform:scale(.997)}}
