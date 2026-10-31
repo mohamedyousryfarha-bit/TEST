@@ -1,5 +1,5 @@
 #pmMsgsSection #pmMsgCard{margin:0 0 12px!important}
-#pmMsgsSection #pmMsgCard h2{font-size:15px;margin:0 0 6px;color:#3E2415}
+#pmMsgsSection #pmMsgCard h2{font-size:15px;margin:0 0 6px;color:#1E3A5F}
 #pmMsgsSection #pmMsgCard textarea{width:100%;border:1px solid #DDD3CD;border-radius:10px;padding:10px;font:inherit}
 
 /* الكارت وقايمة المبعوت جوه القايمة المنبثقة للأيقونة (للمدير بس) */
@@ -12,7 +12,7 @@
 /* القايمة دلوقتي برا الشريط السفلي (في body)، فالتنسيق هنا بيتطبق عليها مباشرة */
 html body #pmBellPanel{width:auto!important;max-width:380px!important}
 html body #pmBellPanel button{flex:0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;min-width:0!important;margin:0!important;transform:none!important;box-shadow:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;line-height:1.2!important}
-html body #pmBellPanel button.pm-chip{padding:6px 12px!important;border:1px solid #DCD5D1!important;border-radius:99px!important;background:#fff!important;color:#514137!important;font-size:12px!important;font-weight:700!important}
-html body #pmBellPanel button.pm-chip.on{background:#7E4728!important;color:#fff!important;border-color:#7E4728!important}
+html body #pmBellPanel button.pm-chip{padding:6px 12px!important;border:1px solid #DCD5D1!important;border-radius:99px!important;background:#fff!important;color:#1E3A5F!important;font-size:12px!important;font-weight:700!important}
+html body #pmBellPanel button.pm-chip.on{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}
 html body #pmBellPanel #pmMsgSend{width:100%!important;min-height:48px!important;padding:12px!important;border-radius:14px!important;font-size:15px!important}
 html body #pmBellPanel .pm-filters{flex-wrap:wrap!important;justify-content:flex-start!important}

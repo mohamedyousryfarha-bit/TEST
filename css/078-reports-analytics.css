@@ -20,12 +20,12 @@ body.auth-required #analytics{display:none!important}
 #analytics .db-note{font-size:11px;color:var(--muted);margin:-4px 0 8px;line-height:1.6}
 #analytics .db-vb{display:flex;align-items:flex-end;gap:6px;height:170px;overflow-x:auto;padding-bottom:22px}
 #analytics .db-vc{flex:0 0 34px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
-#analytics .db-vc i{display:block;width:100%;background:linear-gradient(180deg,#7E4728,#3E2415);border-radius:6px 6px 0 0;min-height:3px}
+#analytics .db-vc i{display:block;width:100%;background:linear-gradient(180deg,#FFFDF6,#FFFDF6);border-radius:6px 6px 0 0;min-height:3px}
 #analytics .db-vc span{position:absolute;bottom:-20px;font-size:10px;color:var(--muted);white-space:nowrap}
 #analytics .db-hr{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr) auto;gap:8px;align-items:center;font-size:12px;margin:7px 0}
 #analytics .db-hr>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #analytics .db-track{height:10px;background:#F7F2EF;border-radius:99px;overflow:hidden}
-#analytics .db-track i{display:block;height:100%;background:linear-gradient(90deg,#7E4728,#B47049);border-radius:99px}
+#analytics .db-track i{display:block;height:100%;background:linear-gradient(90deg,#FFFDF6,#FFF1CC);border-radius:99px}
 #analytics .db-hr b{font-size:12px;color:var(--navy);white-space:nowrap}
 #analytics .db-split{display:flex;gap:8px}
 #analytics .db-split>div{flex:1;background:#FCF9F8;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;display:flex;flex-direction:column;gap:3px}

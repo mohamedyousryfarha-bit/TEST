@@ -1,0 +1,28 @@
+/* ===== زر "رجوع للقائمة": مكان واضح وشكل متناسق مع باقي الأزرار ===== */
+html body .pm-back-bar{margin:14px 0 18px;position:relative;z-index:2}
+html body .pm-back-bar button{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:42px;padding:9px 18px!important;
+  border-radius:999px!important;
+  border:1px solid #F0D9A3!important;
+  background:#FFFDF6!important;
+  color:#1E3A5F!important;
+  font-size:14px!important;font-weight:800!important;
+  box-shadow:0 3px 10px rgba(242,178,51,.16)!important;
+  transition:background .2s ease,transform .15s ease;
+}
+html body .pm-back-bar button:hover{background:#FFF1CC!important}
+html body .pm-back-bar button:active{transform:scale(.97)}
+
+/* شريط الحالة "جاري المزامنة": تحت، فوق الدوك، عشان ما يغطيش الأزرار */
+html body #pmTopBar{
+  top:auto!important;
+  bottom:calc(100px + env(safe-area-inset-bottom,0px))!important;
+  left:50%!important;right:auto!important;
+  transform:translateX(-50%)!important;
+  white-space:nowrap;
+  max-width:calc(100% - 24px);
+}
+@media (min-width:901px){
+  html body #pmTopBar{bottom:24px!important}
+}

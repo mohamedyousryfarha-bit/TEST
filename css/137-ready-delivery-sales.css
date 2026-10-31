@@ -1,0 +1,7 @@
+/* شاشة جاهز للتسليم ظاهرة للمبيعات (والمدير) بشكل صريح */
+body[data-role="sales"] nav.tabs #partiesGroup .tab[data-tab="readyDelivery"],
+body.role-sales nav.tabs #partiesGroup .tab[data-tab="readyDelivery"],
+body[data-role="admin"] nav.tabs #partiesGroup .tab[data-tab="readyDelivery"]{display:flex!important}
+body[data-role="sales"] #readyDelivery.panel.active,
+body.role-sales #readyDelivery.panel.active,
+body[data-role="admin"] #readyDelivery.panel.active{display:block!important}

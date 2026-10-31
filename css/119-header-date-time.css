@@ -1,6 +1,6 @@
 /* تاريخ ووقت واضحان في يمين الهيدر */
 html body > header{position:relative;}
-html body > header .header-date-time{position:absolute;right:18px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:118px;padding:9px 12px;border:1px solid rgba(255,255,255,.26);border-radius:12px;background:rgba(20,35,48,.24);color:#fff;text-align:center;direction:rtl;font-family:inherit;line-height:1.35;font-variant-numeric:tabular-nums;box-shadow:0 2px 9px rgba(0,0,0,.10);pointer-events:none}
+html body > header .header-date-time{position:absolute;right:18px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:118px;padding:9px 12px;border:1px solid rgba(255,255,255,.26);border-radius:12px;background:rgba(20,35,48,.24);color:#1E3A5F;text-align:center;direction:rtl;font-family:inherit;line-height:1.35;font-variant-numeric:tabular-nums;box-shadow:0 2px 9px rgba(0,0,0,.10);pointer-events:none}
 .header-date-time span{font-size:14px;font-weight:800;white-space:nowrap;letter-spacing:.2px}
 .header-date-time strong{font-size:19px;font-weight:900;white-space:nowrap;letter-spacing:.5px}
 @media(max-width:560px){html body > header .header-date-time{right:8px;min-width:0;padding:6px 7px;gap:2px;border-radius:9px} .header-date-time span{font-size:11px}.header-date-time strong{font-size:15px} html body > header .hrow{transform:scale(.88)}}

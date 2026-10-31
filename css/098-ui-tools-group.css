@@ -1,13 +1,13 @@
 #pmToolsGroup,#pmScreenGroup,#pmAboutGroup{background:#ffffff0d;border-radius:14px;padding:2px 4px;margin-top:2px}
-#pmToolsGroup>summary,#pmScreenGroup>summary,#pmAboutGroup>summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:12px;color:#F0DED3;font-weight:800;border-radius:12px}
+#pmToolsGroup>summary,#pmScreenGroup>summary,#pmAboutGroup>summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:12px;color:#1E3A5F;font-weight:800;border-radius:12px}
 #pmToolsGroup>summary::-webkit-details-marker,#pmScreenGroup>summary::-webkit-details-marker,#pmAboutGroup>summary::-webkit-details-marker{display:none}
 #pmToolsGroup>summary::after,#pmScreenGroup>summary::after,#pmAboutGroup>summary::after{content:'▾';margin-inline-start:auto;transition:transform .2s}
 #pmToolsGroup[open]>summary::after,#pmScreenGroup[open]>summary::after,#pmAboutGroup[open]>summary::after{transform:rotate(180deg)}
 #pmToolsGroup>summary:hover,#pmScreenGroup>summary:hover,#pmAboutGroup>summary:hover{background:#ffffff14}
 #pmToolsGroup .pm-tg-body,#pmScreenGroup .pm-tg-body,#pmAboutGroup .pm-tg-body{display:flex;flex-direction:column;gap:6px;padding:0 0 6px}
-#pmAboutGroup .pm-tg-body .card{color:#3E2415;margin:0 0 6px;padding:12px;border-radius:14px;background:#fff;box-shadow:none}
+#pmAboutGroup .pm-tg-body .card{color:#1E3A5F;margin:0 0 6px;padding:12px;border-radius:14px;background:#fff;box-shadow:none}
 #pmAboutGroup .pm-tg-body .card h2{display:none}
-#pmAboutGroup .pm-tg-body .card table{width:100%;font-size:12.5px;color:#3E2415;border-collapse:collapse}
-#pmAboutGroup .pm-tg-body .card th,#pmAboutGroup .pm-tg-body .card td{color:#3E2415;padding:6px 8px;text-align:start;border-bottom:1px solid #F0E2D8}
+#pmAboutGroup .pm-tg-body .card table{width:100%;font-size:12.5px;color:#1E3A5F;border-collapse:collapse}
+#pmAboutGroup .pm-tg-body .card th,#pmAboutGroup .pm-tg-body .card td{color:#1E3A5F;padding:6px 8px;text-align:start;border-bottom:1px solid #F0E2D8}
 #pmAboutGroup .pm-tg-body .card th{background:#FBF5F0;font-weight:800}
 #pmAboutGroup .pm-tg-body .card .tablewrap{max-height:320px;overflow:auto}

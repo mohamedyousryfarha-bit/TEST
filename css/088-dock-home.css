@@ -1,4 +1,4 @@
-#pmDock button[data-act="home"][data-pm-mode="up"]{background:linear-gradient(135deg,#3E2415,#7E4728)!important;color:#fff!important}
+#pmDock button[data-act="home"][data-pm-mode="up"]{background:linear-gradient(135deg,#FFFDF6,#FFFDF6)!important;color:#1E3A5F!important}
 #pmDock button[data-act="home"][data-pm-mode="up"] svg{stroke:#fff}
 /* إلغاء أي دايرة بيضا أو خلفية تظهر جوه زرار الرئيسية وهو في وضع السهم */
 #pmDock button[data-act="home"][data-pm-mode="up"]::before,#pmDock button[data-act="home"][data-pm-mode="up"]::after{content:none!important;display:none!important}

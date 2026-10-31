@@ -1,35 +1,35 @@
 /* ===== المنيو: الضغط على الصنف يضيفه، والكمية تتحدد من الرقم ===== */
 html body #menu .mx-card{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 html body #menu .mx-card[data-sold="1"]{cursor:default}
-html body #menu .mx-card:not([data-sold="1"]):active{transform:scale(.97);border-color:#7E4728}
+html body #menu .mx-card:not([data-sold="1"]):active{transform:scale(.97);border-color:#F0D9A3}
 html body #menu .mx-step{align-items:center}
-html body #menu .mx-step .mx-minus{width:34px;height:34px;border-radius:11px;border:0;background:transparent;color:#37251A;font-size:18px;font-weight:800}
-html body #menu .mx-qty{min-width:36px;height:34px;padding:0 8px;border-radius:11px;border:0;background:#fff;color:#7E4728;font:inherit;font-weight:900;font-size:14px;box-shadow:0 2px 6px -3px rgba(62,36,21,.35);cursor:pointer}
-html body #menu .mx-card .mx-plus{width:34px;height:34px;border-radius:11px;border:0;background:linear-gradient(135deg,#7E4728,#A8643C);color:#fff;font-size:18px;font-weight:800}
+html body #menu .mx-step .mx-minus{width:34px;height:34px;border-radius:11px;border:0;background:transparent;color:#1E3A5F;font-size:18px;font-weight:800}
+html body #menu .mx-qty{min-width:36px;height:34px;padding:0 8px;border-radius:11px;border:0;background:#fff;color:#1E3A5F;font:inherit;font-weight:900;font-size:14px;box-shadow:0 2px 6px -3px rgba(62,36,21,.35);cursor:pointer}
+html body #menu .mx-card .mx-plus{width:34px;height:34px;border-radius:11px;border:0;background:linear-gradient(135deg,#FFFDF6,#FFF1CC);color:#1E3A5F;font-size:18px;font-weight:800}
 html body #menu .mx-card .mx-plus:disabled{opacity:.3}
 
 /* نافذة اختيار الكمية */
 .pm-qp-ov{position:fixed;inset:0;z-index:12000;background:rgba(39,21,11,.55);display:flex;align-items:flex-end;justify-content:center;padding:12px}
-.pm-qp-box{width:min(100%,460px);background:#fff;border-radius:26px;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 50px -20px rgba(39,21,11,.45);color:#37251A;max-height:86vh;overflow:auto}
-.pm-qp-title{font-weight:900;font-size:17px;color:#3E2415;text-align:center}
-.pm-qp-sub{font-size:12px;color:#7E6F66;text-align:center;margin:4px 0 14px}
+.pm-qp-box{width:min(100%,460px);background:#fff;border-radius:26px;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 50px -20px rgba(39,21,11,.45);color:#1E3A5F;max-height:86vh;overflow:auto}
+.pm-qp-title{font-weight:900;font-size:17px;color:#1E3A5F;text-align:center}
+.pm-qp-sub{font-size:12px;color:#1E3A5F;text-align:center;margin:4px 0 14px}
 .pm-qp-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.pm-qp-n{min-height:48px;border:1px solid #EAE2DD;border-radius:14px;background:#FCF9F8;color:#3E2415;font:inherit;font-weight:850;font-size:15px;cursor:pointer}
+.pm-qp-n{min-height:48px;border:1px solid #EAE2DD;border-radius:14px;background:#FCF9F8;color:#1E3A5F;font:inherit;font-weight:850;font-size:15px;cursor:pointer}
 .pm-qp-n:first-child{grid-column:span 5;background:#FFF0EE;color:#B42318;border-color:#F2C3BE}
-.pm-qp-n.on{background:linear-gradient(135deg,#3E2415,#7E4728);color:#fff;border-color:transparent}
+.pm-qp-n.on{background:linear-gradient(135deg,#FFFDF6,#FFFDF6);color:#1E3A5F;border-color:transparent}
 .pm-qp-row{display:flex;gap:8px;margin-top:14px}
 .pm-qp-row input{flex:1;min-height:48px;border:1px solid #DDD3CD;border-radius:14px;padding:10px;font:inherit;font-size:16px;text-align:center}
-.pm-qp-ok{min-height:48px;padding:0 20px;border:0;border-radius:14px;background:#7E4728;color:#fff;font:inherit;font-weight:850}
-.pm-qp-x{width:100%;margin-top:10px;min-height:44px;border:0;border-radius:14px;background:#F7F2EF;color:#3E2415;font:inherit;font-weight:800}
+.pm-qp-ok{min-height:48px;padding:0 20px;border:0;border-radius:14px;background:#FFFDF6;color:#1E3A5F;font:inherit;font-weight:850}
+.pm-qp-x{width:100%;margin-top:10px;min-height:44px;border:0;border-radius:14px;background:#F7F2EF;color:#1E3A5F;font:inherit;font-weight:800}
 
 /* ===== الشريط السفلي: شكل أنضف ومتساوي ===== */
 html body #pmDock{bottom:max(12px,env(safe-area-inset-bottom,0px))!important;width:min(96vw,460px)!important;padding:7px!important;gap:3px!important;border-radius:30px!important;background:rgba(255,255,255,.94)!important;border:1px solid #EFE7E3!important;box-shadow:0 22px 44px -18px rgba(62,36,21,.42)!important;align-items:center!important}
-html body #pmDock button,html body #pmDock #pmMsgWrap>button,html body #pmDock #pmGearWrap>button{flex:1 1 0!important;min-width:0!important;width:auto!important;height:auto!important;min-height:58px!important;border:0!important;border-radius:22px!important;padding:6px 2px!important;background:transparent!important;color:#7E6F66!important;box-shadow:none!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;font-size:10.5px!important;font-weight:800!important;transition:background .2s ease,color .2s ease,transform .15s ease!important}
+html body #pmDock button,html body #pmDock #pmMsgWrap>button,html body #pmDock #pmGearWrap>button{flex:1 1 0!important;min-width:0!important;width:auto!important;height:auto!important;min-height:58px!important;border:0!important;border-radius:22px!important;padding:6px 2px!important;background:transparent!important;color:#1E3A5F!important;box-shadow:none!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;font-size:10.5px!important;font-weight:800!important;transition:background .2s ease,color .2s ease,transform .15s ease!important}
 html body #pmDock button svg,html body #pmDock #pmMsgWrap>button svg,html body #pmDock #pmGearWrap>button svg{width:21px!important;height:21px!important;flex:0 0 auto}
 html body #pmDock button:active{transform:scale(.94)}
-html body #pmDock button.on,html body #pmDock #pmMsgWrap>button.on,html body #pmDock #pmGearWrap>button.on{background:linear-gradient(135deg,#3E2415,#7E4728)!important;color:#fff!important;box-shadow:0 10px 20px -10px #7E4728!important}
+html body #pmDock button.on,html body #pmDock #pmMsgWrap>button.on,html body #pmDock #pmGearWrap>button.on{background:linear-gradient(135deg,#FFFDF6,#FFFDF6)!important;color:#1E3A5F!important;box-shadow:0 10px 20px -10px #7E4728!important}
 html body #pmDock button.on svg{stroke:#fff}
 html body #pmDock .pmd-lbl{font-size:10.5px!important;line-height:1.1!important;white-space:nowrap!important;margin:0!important}
-html[data-theme="dark"] body #pmDock,html[data-theme="dark"] html body #pmDock{background:rgba(45,30,22,.94)!important;border-color:#3C2D25!important}
-html[data-theme="dark"] body #pmDock button,html[data-theme="dark"] body #pmDock #pmMsgWrap>button,html[data-theme="dark"] body #pmDock #pmGearWrap>button{color:#B9A497!important}
-html[data-theme="dark"] body #pmDock button.on,html[data-theme="dark"] body #pmDock #pmMsgWrap>button.on,html[data-theme="dark"] body #pmDock #pmGearWrap>button.on{background:linear-gradient(135deg,#7E4728,#A8643C)!important;color:#fff!important}
+html[data-theme="dark"] body #pmDock,html[data-theme="dark"] html body #pmDock{background:rgba(45,30,22,.94)!important;border-color:#F0D9A3!important}
+html[data-theme="dark"] body #pmDock button,html[data-theme="dark"] body #pmDock #pmMsgWrap>button,html[data-theme="dark"] body #pmDock #pmGearWrap>button{color:#1E3A5F!important}
+html[data-theme="dark"] body #pmDock button.on,html[data-theme="dark"] body #pmDock #pmMsgWrap>button.on,html[data-theme="dark"] body #pmDock #pmGearWrap>button.on{background:linear-gradient(135deg,#FFFDF6,#FFF1CC)!important;color:#1E3A5F!important}

@@ -1,9 +1,9 @@
 /* أقسام محطات الحفلات (حلويات / مشروبات) + الدفع + نافذة التحصيل */
 .pm-po-section{margin-top:10px;padding-top:6px;border-top:1px dashed #E7DCD5}
-.pm-po-section h4{margin:6px 0 4px;font-size:15px;color:#3E2415}
-.pm-po-pay{font-size:13px;margin:8px 0;padding:6px 10px;border-radius:10px;background:#FFF6DF;color:#6B4A12}
+.pm-po-section h4{margin:6px 0 4px;font-size:15px;color:#1E3A5F}
+.pm-po-pay{font-size:13px;margin:8px 0;padding:6px 10px;border-radius:10px;background:#FFF6DF;color:#1E3A5F}
 .pm-po-pay .mini{margin-inline-start:6px}
 #pcAmt,#pcPin{font-size:16px;font-weight:700;letter-spacing:.5px}
-[data-theme="dark"] .pm-po-section{border-top-color:#3A2A22}
-[data-theme="dark"] .pm-po-section h4{color:#F2E4DA}
-[data-theme="dark"] .pm-po-pay{background:#2B2214;color:#F5D98A}
+[data-theme="dark"] .pm-po-section{border-top-color:#F0D9A3}
+[data-theme="dark"] .pm-po-section h4{color:#1E3A5F}
+[data-theme="dark"] .pm-po-pay{background:#FFFDF6;color:#1E3A5F}

@@ -1,33 +1,33 @@
 #auditTable .al-wrap{display:grid;gap:12px}
 #auditTable .al-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 #auditTable .al-stat{background:linear-gradient(135deg,#FCF9F8,#FAF3EF);border:1px solid #EAE2DD;border-radius:14px;padding:12px;min-width:0}
-#auditTable .al-stat b{display:block;font-size:18px;color:#7E4728;line-height:1.3;overflow-wrap:anywhere}
-#auditTable .al-stat span{font-size:11px;color:#7E6F66}
+#auditTable .al-stat b{display:block;font-size:18px;color:#1E3A5F;line-height:1.3;overflow-wrap:anywhere}
+#auditTable .al-stat span{font-size:11px;color:#4A6583}
 #auditTable .al-search{width:100%;min-height:44px;border-radius:14px;border:1px solid #DDD3CD;padding:10px 14px;background:#fff;font:inherit}
 #auditTable .al-day{margin-top:4px}
-#auditTable .al-daylabel{font-size:12px;font-weight:800;color:#3E2415;background:#FAF3EF;display:inline-block;padding:5px 12px;border-radius:99px;margin:6px 0 4px}
+#auditTable .al-daylabel{font-size:12px;font-weight:800;color:#1E3A5F;background:#FAF3EF;display:inline-block;padding:5px 12px;border-radius:99px;margin:6px 0 4px}
 #auditTable .al-list{list-style:none;margin:0;padding:0}
 #auditTable .al-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed #EFE7E3}
 #auditTable .al-item:last-child{border-bottom:0}
-#auditTable .al-av{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:850;font-size:14px;flex:0 0 auto}
+#auditTable .al-av{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#1E3A5F;font-weight:850;font-size:14px;flex:0 0 auto}
 #auditTable .al-body{flex:1;min-width:0}
 #auditTable .al-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-#auditTable .al-title{font-weight:800;color:#37251A;font-size:14px;line-height:1.5}
-#auditTable .al-rev{font-size:10.5px;font-weight:800;color:#7E4728;background:#FDF2EC;padding:2px 8px;border-radius:99px}
-#auditTable .al-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;font-size:11.5px;color:#7E6F66}
-#auditTable .al-meta span+span::before{content:"·";margin-inline-end:6px;color:#B4A59D}
+#auditTable .al-title{font-weight:800;color:#1E3A5F;font-size:14px;line-height:1.5}
+#auditTable .al-rev{font-size:10.5px;font-weight:800;color:#1E3A5F;background:#FDF2EC;padding:2px 8px;border-radius:99px}
+#auditTable .al-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;font-size:11.5px;color:#4A6583}
+#auditTable .al-meta span+span::before{content:"·";margin-inline-end:6px;color:#1E3A5F}
 #auditTable .al-src{color:#16794B;font-weight:700}
 #auditTable .al-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
-#auditTable .al-chip{font-size:11px;background:#F8F4F2;color:#5A4437;padding:3px 9px;border-radius:99px}
+#auditTable .al-chip{font-size:11px;background:#F8F4F2;color:#1E3A5F;padding:3px 9px;border-radius:99px}
 #auditTable .al-body .audit-row-details{margin-top:6px}
 #auditTable .al-body .audit-row-details summary{font-size:12px}
 #auditTable .al-item.hide,#auditTable .al-day.hide{display:none!important}
-#auditTable .al-empty{text-align:center;color:#7E6F66;padding:16px;font-size:13px}
+#auditTable .al-empty{text-align:center;color:#1E3A5F;padding:16px;font-size:13px}
 @media(max-width:480px){#auditTable .al-stat b{font-size:15px}}
-[data-theme="dark"] #auditTable .al-stat{background:#36241A;border-color:#3D2B21}
-[data-theme="dark"] #auditTable .al-stat b,[data-theme="dark"] #auditTable .al-daylabel{color:#EEC0A5}
-[data-theme="dark"] #auditTable .al-daylabel{background:#432C1F}
-[data-theme="dark"] #auditTable .al-title{color:#EAE7E6}
-[data-theme="dark"] #auditTable .al-search{background:#281A12;color:#EAE7E6;border-color:#3D2B21}
-[data-theme="dark"] #auditTable .al-chip{background:#432C1F;color:#F0DED3}
-[data-theme="dark"] #auditTable .al-item{border-color:#3D2B21}
+[data-theme="dark"] #auditTable .al-stat{background:#FFFDF6;border-color:#F0D9A3}
+[data-theme="dark"] #auditTable .al-stat b,[data-theme="dark"] #auditTable .al-daylabel{color:#1E3A5F}
+[data-theme="dark"] #auditTable .al-daylabel{background:#FFFDF6}
+[data-theme="dark"] #auditTable .al-title{color:#1E3A5F}
+[data-theme="dark"] #auditTable .al-search{background:#FFFDF6;color:#1E3A5F;border-color:#F0D9A3}
+[data-theme="dark"] #auditTable .al-chip{background:#FFFDF6;color:#1E3A5F}
+[data-theme="dark"] #auditTable .al-item{border-color:#F0D9A3}

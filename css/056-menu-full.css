@@ -1,14 +1,14 @@
 /* ===== شاشة المنيو: الشكل الداكن (شبكة كروت) ===== */
-#menu > .card:not(#menuAdminCard){background:#fff!important;border:1px solid #EAE2DD!important;border-radius:26px!important;color:#37251A!important;box-shadow:0 14px 30px -22px rgba(62,36,21,.25)!important;padding:16px!important}
-#menu > .card:not(#menuAdminCard) h2{color:#3E2415!important}
-#menu > .card:not(#menuAdminCard) > .small{color:#7E6F66!important}
-#menu .menu-search{background:#fff!important;border:1px solid #DDD3CD!important;color:#37251A!important;border-radius:16px!important;min-height:48px}
-#menu .menu-search::placeholder{color:#A3958D}
+#menu > .card:not(#menuAdminCard){background:#fff!important;border:1px solid #EAE2DD!important;border-radius:26px!important;color:#1E3A5F!important;box-shadow:0 14px 30px -22px rgba(62,36,21,.25)!important;padding:16px!important}
+#menu > .card:not(#menuAdminCard) h2{color:#1E3A5F!important}
+#menu > .card:not(#menuAdminCard) > .small{color:#4A6583!important}
+#menu .menu-search{background:#fff!important;border:1px solid #DDD3CD!important;color:#1E3A5F!important;border-radius:16px!important;min-height:48px}
+#menu .menu-search::placeholder{color:#4A6583}
 #menu #menuGrid.menu-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin-top:12px}
 @media (min-width:650px){#menu #menuGrid.menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media (min-width:960px){#menu #menuGrid.menu-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
-#menu .mx-card{position:relative;background:#FCF9F8;border:1px solid #EAE2DD;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;text-align:start;color:#37251A;min-width:0;transition:transform .15s ease,border-color .2s ease}
-#menu .mx-card:hover{border-color:#CAB2A4}
+#menu .mx-card{position:relative;background:#FCF9F8;border:1px solid #EAE2DD;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;text-align:start;color:#1E3A5F;min-width:0;transition:transform .15s ease,border-color .2s ease}
+#menu .mx-card:hover{border-color:#F0D9A3}
 #menu .mx-card.sold{opacity:.45}
 #menu .mx-thumb{height:108px;display:grid;place-items:center;background:linear-gradient(135deg,#F7F0EB,#EEE0D8);font-size:40px;overflow:hidden}
 #menu .mx-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -18,16 +18,16 @@
 #menu .mx-stock{font-size:11px;padding:2px 8px;border-radius:99px;background:#E8F7EF;color:#16794B}
 #menu .mx-stock.low{background:#FFF6DF;color:#9A5B00}
 #menu .mx-stock.zero{background:#FFF0EE;color:#B42318}
-#menu .mx-inc{font-size:11px;padding:2px 8px;border-radius:99px;background:#FDF2EC;color:#7E4728}
+#menu .mx-inc{font-size:11px;padding:2px 8px;border-radius:99px;background:#FDF2EC;color:#1E3A5F}
 #menu .mx-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px}
 #menu .mx-price{direction:ltr;color:#16794B;font-size:14.5px}
 #menu .mx-step{display:flex;align-items:center;gap:3px;background:#F7F2EF;border-radius:14px;padding:3px}
-#menu .mx-step button{width:34px;height:34px;border-radius:11px;border:0;background:transparent;color:#37251A;font-size:18px;font-weight:800;cursor:pointer;touch-action:manipulation}
-#menu .mx-step .mx-plus{background:linear-gradient(135deg,#7E4728,#A8643C);color:#fff}
+#menu .mx-step button{width:34px;height:34px;border-radius:11px;border:0;background:transparent;color:#1E3A5F;font-size:18px;font-weight:800;cursor:pointer;touch-action:manipulation}
+#menu .mx-step .mx-plus{background:linear-gradient(135deg,#FFFDF6,#FFF1CC);color:#1E3A5F}
 #menu .mx-step .mx-plus:disabled{opacity:.3}
-#menu .mx-step span{min-width:18px;text-align:center;font-weight:850;font-size:14px;color:#37251A}
+#menu .mx-step span{min-width:18px;text-align:center;font-weight:850;font-size:14px;color:#1E3A5F}
 #menu .mx-card:active{transform:scale(.98)}
-#menu .mx-tag{position:absolute;top:9px;inset-inline-start:9px;z-index:1;background:#FDF2EC;color:#7E4728;font-size:11px;font-weight:800;padding:4px 9px;border-radius:99px}
+#menu .mx-tag{position:absolute;top:9px;inset-inline-start:9px;z-index:1;background:#FDF2EC;color:#1E3A5F;font-size:11px;font-weight:800;padding:4px 9px;border-radius:99px}
 /* الأكثر طلبًا: كارت عريض بيمتد على الشبكة كلها */
 #menu .mx-card.mx-feat{grid-column:1/-1;flex-direction:row;min-height:138px;background:linear-gradient(135deg,#FBF5F1,#F4E8E1)}
 #menu .mx-card.mx-feat .mx-thumb{width:40%;height:auto;min-height:138px;flex:0 0 40%}

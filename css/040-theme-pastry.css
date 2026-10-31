@@ -1,14 +1,14 @@
 /* ===== ثيم الحلويات لكل التطبيق: زجاج، ألوان دافية، موجة عند الضغط ===== */
 html:not([data-theme="dark"]) body{background:radial-gradient(1000px 520px at 85% -10%,#F7EFEA 0%,transparent 60%),radial-gradient(800px 480px at -5% 105%,#FAF6F4 0%,transparent 55%),var(--bg)}
-html:not([data-theme="dark"]) header{background:linear-gradient(135deg,#3E2415 0%,#3E2415 55%,#7E4728 100%)}
+html:not([data-theme="dark"]) header{background:linear-gradient(135deg,#FFFDF6 0%,#FFFDF6 55%,#FFFDF6 100%)}
 html:not([data-theme="dark"]) .card{background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);border-color:rgba(255,255,255,.8);box-shadow:0 10px 30px -14px rgba(62,36,21,.16)}
 html:not([data-theme="dark"]) .stat, html:not([data-theme="dark"]) .metric{background:rgba(252,249,248,.85)}
-html:not([data-theme="dark"]) .tab.active{background:linear-gradient(135deg,#7E4728 0%,#3E2415 100%);box-shadow:0 6px 16px -6px rgba(62,36,21,.35)}
-html:not([data-theme="dark"]) .primary{background:linear-gradient(135deg,#7E4728 0%,#7E4728 100%);color:#fff;box-shadow:0 10px 20px -10px rgba(62,36,21,.35)}
-html:not([data-theme="dark"]) .secondary{background:#F6EFE4;color:#3E2415}
+html:not([data-theme="dark"]) .tab.active{background:linear-gradient(135deg,#FFFDF6 0%,#FFFDF6 100%);box-shadow:0 6px 16px -6px rgba(62,36,21,.35)}
+html:not([data-theme="dark"]) .primary{background:linear-gradient(135deg,#FFFDF6 0%,#FFFDF6 100%);color:#1E3A5F;box-shadow:0 10px 20px -10px rgba(62,36,21,.35)}
+html:not([data-theme="dark"]) .secondary{background:#F6EFE4;color:#1E3A5F}
 html:not([data-theme="dark"]) .danger{background:#FDECEA}
-html:not([data-theme="dark"]) input:focus, html:not([data-theme="dark"]) select:focus, html:not([data-theme="dark"]) textarea:focus{border-color:#7E4728;box-shadow:0 0 0 3px rgba(126,71,40,.16)}
-html:not([data-theme="dark"]) .pill{background:#FAF3EF;color:#7E4728}
+html:not([data-theme="dark"]) input:focus, html:not([data-theme="dark"]) select:focus, html:not([data-theme="dark"]) textarea:focus{border-color:#F0D9A3;box-shadow:0 0 0 3px rgba(126,71,40,.16)}
+html:not([data-theme="dark"]) .pill{background:#FAF3EF;color:#1E3A5F}
 html:not([data-theme="dark"]) .pill.low{background:#FFF0EE;color:#B42318}
 html:not([data-theme="dark"]) .pill.warn{background:#FFF3E0;color:#9A5B00}
 /* موجة خفيفة عند الضغط على الأزرار */

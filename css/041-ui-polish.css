@@ -3,7 +3,7 @@ nav.tabs .tab svg{stroke-width:1.9;flex:0 0 auto}
 .tab .ui-ico svg, button .ui-ico svg{width:20px;height:20px;stroke-width:1.9;flex:0 0 auto}
 /* 6) فاصل واضح تحت عنوان كل قسم */
 .card h2{padding-bottom:9px;margin-bottom:12px;border-bottom:1px solid #F3ECE7}
-html[data-theme="dark"] .card h2{border-bottom-color:#3C2D25}
+html[data-theme="dark"] .card h2{border-bottom-color:#F0D9A3}
 /* 9) انتقال ناعم عند فتح أي تبويب */
 .panel.active{animation:pmPanelIn .2s ease-out both}
 @keyframes pmPanelIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}

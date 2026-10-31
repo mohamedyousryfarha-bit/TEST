@@ -4,11 +4,11 @@ html body #pmDock{justify-content:space-between!important;gap:2px!important;padd
 html body #pmDock button,html body #pmDock #pmMsgWrap>button,html body #pmDock #pmGearWrap>button{min-height:56px!important;height:auto!important;font-size:10px!important;line-height:1.2!important;text-align:center!important;padding:6px 1px!important;gap:3px!important;word-break:keep-all!important}
 html body #pmDock button svg,html body #pmDock #pmMsgWrap>button svg,html body #pmDock #pmGearWrap>button svg{width:20px!important;height:20px!important}
 html body #pmDock .pmd-txt{display:block;white-space:normal}
-html body #pmDock button.cur:not(.pm-center),html body #pmDock #pmMsgWrap>button.cur,html body #pmDock #pmGearWrap>button.cur{color:#7E4728!important;background:rgba(126,71,40,.11)!important}
-html body #pmDock button.pm-center{flex:0 0 74px!important;width:74px!important;min-width:74px!important;height:66px!important;min-height:66px!important;margin:-16px 4px 0!important;border-radius:24px!important;background:linear-gradient(135deg,#3E2415,#7E4728)!important;color:#fff!important;box-shadow:0 14px 26px -10px rgba(126,71,40,.8)!important;font-size:10.5px!important;font-weight:850!important}
+html body #pmDock button.cur:not(.pm-center),html body #pmDock #pmMsgWrap>button.cur,html body #pmDock #pmGearWrap>button.cur{color:#1E3A5F!important;background:rgba(126,71,40,.11)!important}
+html body #pmDock button.pm-center{flex:0 0 74px!important;width:74px!important;min-width:74px!important;height:66px!important;min-height:66px!important;margin:-16px 4px 0!important;border-radius:24px!important;background:linear-gradient(135deg,#FFFDF6,#FFFDF6)!important;color:#1E3A5F!important;box-shadow:0 14px 26px -10px rgba(126,71,40,.8)!important;font-size:10.5px!important;font-weight:850!important}
 html body #pmDock button.pm-center svg{width:24px!important;height:24px!important;stroke:#fff!important}
-html body #pmDock button.pm-center.on{background:linear-gradient(135deg,#3E2415,#7E4728)!important}
-html[data-theme="dark"] body #pmDock button.cur:not(.pm-center){color:#E6A783!important;background:rgba(230,167,131,.14)!important}
+html body #pmDock button.pm-center.on{background:linear-gradient(135deg,#FFFDF6,#FFFDF6)!important}
+html[data-theme="dark"] body #pmDock button.cur:not(.pm-center){color:#1E3A5F!important;background:rgba(230,167,131,.14)!important}
 body[data-role="sales"] #pmDock [data-act="customers"],body[data-role="sales"] #pmDock [data-act="purchases"],body[data-role="sales"] #pmDock [data-act="devices"],
 body.role-sales #pmDock [data-act="customers"],body.role-sales #pmDock [data-act="purchases"],body.role-sales #pmDock [data-act="devices"]{display:none!important}
 body[data-role="kitchen"] #pmDock [data-act="menu"],body[data-role="kitchen"] #pmDock [data-act="customers"],body[data-role="kitchen"] #pmDock [data-act="purchases"],

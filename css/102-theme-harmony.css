@@ -1,26 +1,26 @@
 /* ===== توحيد الوضع النهاري والليلي: نفس الهوية، وتباين واضح في الاتنين ===== */
 /* ---- النهاري ---- */
-html:not([data-theme="dark"]){--bg:#FAF5F2;--card:#FFFFFF;--ink:#341F13;--muted:#6F5A4D;--line:#E6D6CA;--navy:#3E2415;--blue:#7E4728}
-html:not([data-theme="dark"]) body{background:#FAF5F2!important;color:#341F13!important}
-html:not([data-theme="dark"]) body .card{background:#FFFFFF!important;border:1px solid #E6D6CA!important;box-shadow:0 10px 24px -18px rgba(62,36,21,.35)!important;color:#341F13!important}
-html:not([data-theme="dark"]) body h2,html:not([data-theme="dark"]) body h3{color:#3E2415!important}
-html:not([data-theme="dark"]) body .small,html:not([data-theme="dark"]) body .muted,html:not([data-theme="dark"]) body .empty,html:not([data-theme="dark"]) body .db-muted,html:not([data-theme="dark"]) body .db-note,html:not([data-theme="dark"]) body .stat span,html:not([data-theme="dark"]) body .metric span,html:not([data-theme="dark"]) body .field-hint,html:not([data-theme="dark"]) body footer{color:#6F5A4D!important}
-html:not([data-theme="dark"]) body label{color:#3E2415!important}
-html:not([data-theme="dark"]) body input,html:not([data-theme="dark"]) body select,html:not([data-theme="dark"]) body textarea{background:#FFFFFF!important;border-color:#D6C3B5!important;color:#341F13!important}
-html:not([data-theme="dark"]) body th{background:#F7EFE9!important;color:#3E2415!important}
-html:not([data-theme="dark"]) body td{color:#341F13!important;border-color:#EFE4DB!important}
-html:not([data-theme="dark"]) body .tab{background:#FFFFFF!important;color:#3E2415!important;border-color:#E6D6CA!important}
-html:not([data-theme="dark"]) body .tab.active{background:linear-gradient(135deg,#3E2415,#7E4728)!important;color:#FFFFFF!important}
-html:not([data-theme="dark"]) body .secondary{background:#F3EAE4!important;color:#3E2415!important}
-html:not([data-theme="dark"]) body .primary{background:#7E4728!important;color:#FFFFFF!important}
-html:not([data-theme="dark"]) body .msg-box,html:not([data-theme="dark"]) body .pm-sheet-box,html:not([data-theme="dark"]) body .pm-pal-box{background:#FFFFFF!important;color:#341F13!important}
+html:not([data-theme="dark"]){--bg:#FAF5F2;--card:#FFFFFF;--ink:#1E3A5F;--muted:#1E3A5F;--line:#E6D6CA;--navy:#1E3A5F;--blue:#2F7DB8}
+html:not([data-theme="dark"]) body{background:#FAF5F2!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body .card{background:#FFFFFF!important;border:1px solid #E6D6CA!important;box-shadow:0 10px 24px -18px rgba(62,36,21,.35)!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body h2,html:not([data-theme="dark"]) body h3{color:#1E3A5F!important}
+html:not([data-theme="dark"]) body .small,html:not([data-theme="dark"]) body .muted,html:not([data-theme="dark"]) body .empty,html:not([data-theme="dark"]) body .db-muted,html:not([data-theme="dark"]) body .db-note,html:not([data-theme="dark"]) body .stat span,html:not([data-theme="dark"]) body .metric span,html:not([data-theme="dark"]) body .field-hint,html:not([data-theme="dark"]) body footer{color:#4A6583!important}
+html:not([data-theme="dark"]) body label{color:#1E3A5F!important}
+html:not([data-theme="dark"]) body input,html:not([data-theme="dark"]) body select,html:not([data-theme="dark"]) body textarea{background:#FFFFFF!important;border-color:#F0D9A3!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body th{background:#F7EFE9!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body td{color:#1E3A5F!important;border-color:#EFE4DB!important}
+html:not([data-theme="dark"]) body .tab{background:#FFFFFF!important;color:#1E3A5F!important;border-color:#E6D6CA!important}
+html:not([data-theme="dark"]) body .tab.active{background:linear-gradient(135deg,#FFFDF6,#FFFDF6)!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body .secondary{background:#F3EAE4!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body .primary{background:#FFFDF6!important;color:#1E3A5F!important}
+html:not([data-theme="dark"]) body .msg-box,html:not([data-theme="dark"]) body .pm-sheet-box,html:not([data-theme="dark"]) body .pm-pal-box{background:#FFFFFF!important;color:#1E3A5F!important}
 
 /* ---- الليلي (نفس درجات تصميم ليل الكاكاو) ---- */
-html[data-theme="dark"]{--bg:#1B120D;--card:#2A1D15;--ink:#F6EEE9;--muted:#C4B2A6;--line:#43312A;--navy:#F0DED3;--blue:#E8A93A}
-html[data-theme="dark"] body .card{background:#2A1D15!important;border:1px solid #43312A!important;color:#F6EEE9!important}
-html[data-theme="dark"] body .small,html[data-theme="dark"] body .muted,html[data-theme="dark"] body .empty,html[data-theme="dark"] body .db-muted,html[data-theme="dark"] body .db-note,html[data-theme="dark"] body .stat span,html[data-theme="dark"] body .metric span,html[data-theme="dark"] body .field-hint,html[data-theme="dark"] body footer{color:#C4B2A6!important}
-html[data-theme="dark"] body label{color:#F0DED3!important}
-html[data-theme="dark"] body th{background:#241711!important;color:#E8A93A!important}
-html[data-theme="dark"] body td{color:#F6EEE9!important;border-color:#3A2A21!important}
-html[data-theme="dark"] body .msg-box,html[data-theme="dark"] body .pm-sheet-box,html[data-theme="dark"] body .pm-pal-box{background:#2A1D15!important;color:#F6EEE9!important}
-html[data-theme="dark"] body .msg-text{color:#D9C7BB!important}
+html[data-theme="dark"]{--bg:#FFFDF6;--card:#FFFDF6;--ink:#1E3A5F;--muted:#1E3A5F;--line:#F0D9A3;--navy:#1E3A5F;--blue:#E8A93A}
+html[data-theme="dark"] body .card{background:#FFFDF6!important;border:1px solid #F0D9A3!important;color:#1E3A5F!important}
+html[data-theme="dark"] body .small,html[data-theme="dark"] body .muted,html[data-theme="dark"] body .empty,html[data-theme="dark"] body .db-muted,html[data-theme="dark"] body .db-note,html[data-theme="dark"] body .stat span,html[data-theme="dark"] body .metric span,html[data-theme="dark"] body .field-hint,html[data-theme="dark"] body footer{color:#1E3A5F!important}
+html[data-theme="dark"] body label{color:#1E3A5F!important}
+html[data-theme="dark"] body th{background:#FFFDF6!important;color:#1E3A5F!important}
+html[data-theme="dark"] body td{color:#1E3A5F!important;border-color:#F0D9A3!important}
+html[data-theme="dark"] body .msg-box,html[data-theme="dark"] body .pm-sheet-box,html[data-theme="dark"] body .pm-pal-box{background:#FFFDF6!important;color:#1E3A5F!important}
+html[data-theme="dark"] body .msg-text{color:#1E3A5F!important}

@@ -1,15 +1,15 @@
 /* تطبيق التصميم 2 (ليل الكاكاو): ألوان الوضع الليلي بالكامل */
-html[data-theme="dark"]{--bg:#1B120D;--card:#2A1D15;--ink:#F6EEE9;--muted:#B9A497;--line:#43312A;--navy:#F0DED3;--blue:#E8A93A;--gold:#E8A93A;--copper:#D18559}
-html[data-theme="dark"] body{background:radial-gradient(900px 500px at 80% -10%,#4A2C19 0%,transparent 60%),#1B120D!important;color:#F6EEE9!important}
-html[data-theme="dark"] header,html[data-theme="dark"] body > header{background:linear-gradient(135deg,#2A1A10,#4A2C19 70%,#6B3A1E)!important;border-bottom:1px solid #E8A93A55!important;box-shadow:0 10px 26px -14px rgba(0,0,0,.7)!important}
-html[data-theme="dark"] body .card{background:#2A1D15!important;border:1px solid #43312A!important;box-shadow:0 12px 28px -16px rgba(0,0,0,.6)!important}
-html[data-theme="dark"] body .card h2,html[data-theme="dark"] body .card h3{color:#E8A93A!important}
-html[data-theme="dark"] body .stat,html[data-theme="dark"] body .metric,html[data-theme="dark"] body .kpi{background:#241711!important;border-color:#43312A!important}
-html[data-theme="dark"] body .primary{background:linear-gradient(135deg,#E8A93A,#D18559)!important;color:#2A1A10!important;font-weight:800}
-html[data-theme="dark"] body .secondary{background:#33241A!important;color:#F0DED3!important;border:1px solid #43312A}
-html[data-theme="dark"] body input,html[data-theme="dark"] body select,html[data-theme="dark"] body textarea{background:#231811!important;border-color:#4C392E!important;color:#F6EEE9!important}
-html[data-theme="dark"] body .tab.active{background:linear-gradient(135deg,#E8A93A,#D18559)!important;color:#2A1A10!important}
-html[data-theme="dark"] body .tab{background:#2A1D15!important;color:#F0DED3!important;border-color:#43312A!important}
-html[data-theme="dark"] body th{background:#241711!important;color:#E8A93A!important}
-html[data-theme="dark"] body .pm-mi{background:#2A1D15!important;color:#F0DED3!important;border-color:#43312A!important}
-html[data-theme="dark"] body .pm-fab{background:linear-gradient(135deg,#E8A93A,#D18559)!important;color:#2A1A10!important}
+html[data-theme="dark"]{--bg:#FFFDF6;--card:#FFFDF6;--ink:#1E3A5F;--muted:#1E3A5F;--line:#F0D9A3;--navy:#1E3A5F;--blue:#E8A93A;--gold:#1E3A5F;--copper:#1E3A5F}
+html[data-theme="dark"] body{background:radial-gradient(900px 500px at 80% -10%,#FFFDF6 0%,transparent 60%),#FFFDF6!important;color:#1E3A5F!important}
+html[data-theme="dark"] header,html[data-theme="dark"] body > header{background:linear-gradient(135deg,#FFFDF6,#FFFDF6 70%,#FFFDF6)!important;border-bottom:1px solid #E8A93A55!important;box-shadow:0 10px 26px -14px rgba(0,0,0,.7)!important}
+html[data-theme="dark"] body .card{background:#FFFDF6!important;border:1px solid #F0D9A3!important;box-shadow:0 12px 28px -16px rgba(0,0,0,.6)!important}
+html[data-theme="dark"] body .card h2,html[data-theme="dark"] body .card h3{color:#1E3A5F!important}
+html[data-theme="dark"] body .stat,html[data-theme="dark"] body .metric,html[data-theme="dark"] body .kpi{background:#FFFDF6!important;border-color:#F0D9A3!important}
+html[data-theme="dark"] body .primary{background:linear-gradient(135deg,#FFF1CC,#FFF1CC)!important;color:#1E3A5F!important;font-weight:800}
+html[data-theme="dark"] body .secondary{background:#FFFDF6!important;color:#1E3A5F!important;border:1px solid #F0D9A3}
+html[data-theme="dark"] body input,html[data-theme="dark"] body select,html[data-theme="dark"] body textarea{background:#FFFDF6!important;border-color:#F0D9A3!important;color:#1E3A5F!important}
+html[data-theme="dark"] body .tab.active{background:linear-gradient(135deg,#FFF1CC,#FFF1CC)!important;color:#1E3A5F!important}
+html[data-theme="dark"] body .tab{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}
+html[data-theme="dark"] body th{background:#FFFDF6!important;color:#1E3A5F!important}
+html[data-theme="dark"] body .pm-mi{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}
+html[data-theme="dark"] body .pm-fab{background:linear-gradient(135deg,#FFF1CC,#FFF1CC)!important;color:#1E3A5F!important}

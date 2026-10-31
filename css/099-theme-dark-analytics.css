@@ -1,11 +1,11 @@
-html[data-theme="dark"] #analytics .db-card,html[data-theme="dark"] #analytics .db-kpi{background:#291C14;border-color:#3D2B21}
-html[data-theme="dark"] #analytics .db-btn{background:#39281E;color:#F0DED3}
-html[data-theme="dark"] #analytics .db-track{background:#3A2A20}
-html[data-theme="dark"] #analytics .db-split>div{background:#251912;border-color:#3C2D25}
-html[data-theme="dark"] #analytics th{background:#251912;color:#E9C5B0}
-html[data-theme="dark"] #analytics td{border-color:#372921;color:#F6EEE9}
-html[data-theme="dark"] #analytics .db-pill{background:#12281D;color:#8FE0B0}
-html[data-theme="dark"] #analytics .db-pill.low{background:#2C1412;color:#F3A79F}
-html[data-theme="dark"] #analytics .db-kpi b,html[data-theme="dark"] #analytics .db-split b{color:#EAAF8E}
-html[data-theme="dark"] #analytics .db-hr b{color:#F0DED3}
-html[data-theme="dark"] #analytics .db-vc span{color:#B9A497}
+html[data-theme="dark"] #analytics .db-card,html[data-theme="dark"] #analytics .db-kpi{background:#FFFDF6;border-color:#F0D9A3}
+html[data-theme="dark"] #analytics .db-btn{background:#FFFDF6;color:#1E3A5F}
+html[data-theme="dark"] #analytics .db-track{background:#FFFDF6}
+html[data-theme="dark"] #analytics .db-split>div{background:#FFFDF6;border-color:#F0D9A3}
+html[data-theme="dark"] #analytics th{background:#FFFDF6;color:#1E3A5F}
+html[data-theme="dark"] #analytics td{border-color:#F0D9A3;color:#1E3A5F}
+html[data-theme="dark"] #analytics .db-pill{background:#FFFDF6;color:#8FE0B0}
+html[data-theme="dark"] #analytics .db-pill.low{background:#FFFDF6;color:#1E3A5F}
+html[data-theme="dark"] #analytics .db-kpi b,html[data-theme="dark"] #analytics .db-split b{color:#1E3A5F}
+html[data-theme="dark"] #analytics .db-hr b{color:#1E3A5F}
+html[data-theme="dark"] #analytics .db-vc span{color:#1E3A5F}

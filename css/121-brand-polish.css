@@ -13,7 +13,7 @@ table td,table th{padding:10px 12px}
 }
 
 /* 6) توحيد الأيقونات: لون واحد بنية الهوية (التنبيهات بتحتفظ بألوانها) */
-.ui-ico{--ic:#7E4728 !important}
+.ui-ico{--ic:#2F7DB8 !important}
 .toast .ui-ico,.toast-ico .ui-ico,.sync-pill .ui-ico{--ic:currentColor !important}
 
 /* 7) التنبيهات والحركات */
@@ -46,12 +46,12 @@ body.auth-required .login-screen .login-button{
 body.auth-required .login-screen .login-button:active{transform:scale(.98)}
 body.auth-required .login-screen h1,
 body.auth-required .login-screen #loginTitle{
-  font-size:26px;font-weight:900;color:#3E2415;text-align:center;letter-spacing:.2px;
+  font-size:26px;font-weight:900;color:#1E3A5F;text-align:center;letter-spacing:.2px;
 }
 body.auth-required .login-screen input{
   border-radius:14px;height:50px;font-size:16px;border:1px solid #DCCFC6;background:#fff;
   transition:border-color .2s ease,box-shadow .2s ease;
 }
 body.auth-required .login-screen input:focus{
-  outline:none;border-color:#7E4728;box-shadow:0 0 0 4px rgba(126,71,40,.14);
+  outline:none;border-color:#F0D9A3;box-shadow:0 0 0 4px rgba(126,71,40,.14);
 }

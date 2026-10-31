@@ -1,7 +1,7 @@
 #pmDiagOv{position:fixed;inset:0;z-index:50000;background:rgba(39,21,11,.6);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
-#pmDiagOv .pdg-box{width:min(100%,460px);max-height:100%;overflow:auto;background:#fff;border-radius:20px;padding:18px 16px;direction:rtl;text-align:right;color:#37251A;box-sizing:border-box;box-shadow:0 28px 80px #061a2b50}
+#pmDiagOv .pdg-box{width:min(100%,460px);max-height:100%;overflow:auto;background:#fff;border-radius:20px;padding:18px 16px;direction:rtl;text-align:right;color:#1E3A5F;box-sizing:border-box;box-shadow:0 28px 80px #061a2b50}
 #pmDiagOv h3{margin:0 0 6px;color:#B42318;font-size:16px}
-#pmDiagOv p{font-size:12.5px;line-height:1.6;color:#593B29;margin:6px 0}
-#pmDiagOv textarea{width:100%;min-height:200px;padding:10px;border:1px solid #DDD3CD;border-radius:10px;font:12px/1.6 ui-monospace,Consolas,monospace;direction:ltr;text-align:left;box-sizing:border-box;color:#37251A;background:#FCFAF8}
+#pmDiagOv p{font-size:12.5px;line-height:1.6;color:#1E3A5F;margin:6px 0}
+#pmDiagOv textarea{width:100%;min-height:200px;padding:10px;border:1px solid #DDD3CD;border-radius:10px;font:12px/1.6 ui-monospace,Consolas,monospace;direction:ltr;text-align:left;box-sizing:border-box;color:#1E3A5F;background:#FCFAF8}
 #pmDiagOv .pdg-acts{display:flex;gap:8px;margin-top:12px}
 #pmDiagOv .pdg-acts button{flex:1;min-height:44px;border:0;border-radius:12px;font:inherit;font-weight:800;cursor:pointer}

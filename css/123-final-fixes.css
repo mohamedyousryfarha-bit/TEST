@@ -1,0 +1,20 @@
+/* ===== إصلاحات نهائية: الوضع النهاري فقط، الرسم البياني، زر الخروج، الدوك الرئيسي ===== */
+
+/* 1) الرسم البياني للمبيعات اليومية: أعمدة ذهبية واضحة فوق الكارت الكريمي */
+html body #analytics .db-vc i{background:linear-gradient(180deg,#F7CB5E,#F2B233)!important;border-radius:6px 6px 0 0!important}
+html body #analytics .db-vc span{color:#1E3A5F!important}
+
+/* 2) زر تسجيل الخروج: أحمر واضح بنص أبيض */
+html body #signOutButton,
+html body #localSaveStatus button#signOutButton{background:#B42318!important;color:#FFFDF6!important;border:1px solid #B42318!important;font-weight:800!important}
+
+/* 3) زر الرئيسية في الدوك: الأيقونة والنص كحلي واضح */
+html body #pmDock .pm-center{background:#FFFDF6!important;color:#1E3A5F!important}
+html body #pmDock .pm-center svg{stroke:#1E3A5F!important;color:#1E3A5F!important}
+html body #pmDock .pm-center.on,
+html body #pmDock button.pm-center.on{background:#F2B233!important;color:#1E3A5F!important;border-color:#F2B233!important}
+html body #pmDock .pm-center.on svg{stroke:#1E3A5F!important}
+html body #pmDock .pm-center span,html body #pmDock .pm-center small{color:#1E3A5F!important}
+
+/* 4) باقي أزرار الدوك النشطة */
+html body #pmDock button.on svg{stroke:#1E3A5F!important}

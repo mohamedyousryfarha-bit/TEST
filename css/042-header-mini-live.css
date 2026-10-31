@@ -6,10 +6,10 @@ header{transition:padding .35s ease,border-radius .35s ease}
 /* التبويبات تتحول لأيقونات فقط مع التصغير */
 /* شريط حالة التحديث والحسابات المتصلة */
 .pm-live{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
-.pm-live-chip{display:flex;align-items:flex-start;gap:8px;flex:1 1 260px;min-width:0;background:rgba(255,255,255,.8);border:1px solid #EFE7E3;border-radius:12px;padding:8px 11px;font-size:12px;color:#593B29;line-height:1.6}
+.pm-live-chip{display:flex;align-items:flex-start;gap:8px;flex:1 1 260px;min-width:0;background:rgba(255,255,255,.8);border:1px solid #EFE7E3;border-radius:12px;padding:8px 11px;font-size:12px;color:#1E3A5F;line-height:1.6}
 .pm-live-chip span:last-child{overflow-wrap:anywhere;min-width:0}
 .pm-dot{width:8px;height:8px;margin-top:6px;border-radius:50%;background:#16794B;flex:0 0 auto;box-shadow:0 0 0 3px #DFF3E8}
 .pm-live-chip.err{border-color:#F2C3BE;background:#FFF7F6}
 .pm-live-chip.err .pm-dot{background:#B42318;box-shadow:0 0 0 3px #FBE3E0}
-.pm-live-chip.pres .pm-dot{background:#7E4728;box-shadow:0 0 0 3px #F7ECE5}
-html[data-theme="dark"] .pm-live-chip{background:#2D1E16;border-color:#3C2D25;color:#E2CBBD}
+.pm-live-chip.pres .pm-dot{background:#FFFDF6;box-shadow:0 0 0 3px #F7ECE5}
+html[data-theme="dark"] .pm-live-chip{background:#FFFDF6;border-color:#F0D9A3;color:#1E3A5F}

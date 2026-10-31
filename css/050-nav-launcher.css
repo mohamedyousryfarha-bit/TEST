@@ -6,9 +6,9 @@ body.pm-view #appNav{display:none!important}
 body.pm-view .panel.active{display:block!important}
 .pm-back-bar{display:none;justify-content:flex-start;margin:0 0 14px}
 body.pm-view .pm-back-bar{display:flex}
-html body .pm-back-bar button{border:1px solid #E7DAD2!important;background:#fff!important;color:#412515!important;border-radius:12px!important;padding:9px 14px!important;font-weight:800!important;font-size:13.5px!important;cursor:pointer;min-height:40px;box-shadow:0 2px 6px rgba(52,31,19,.06)!important}
+html body .pm-back-bar button{border:1px solid #E7DAD2!important;background:#fff!important;color:#1E3A5F!important;border-radius:12px!important;padding:9px 14px!important;font-weight:800!important;font-size:13.5px!important;cursor:pointer;min-height:40px;box-shadow:0 2px 6px rgba(52,31,19,.06)!important}
 html body .pm-back-bar button:hover{background:#FBF4EF!important}
-html[data-theme="dark"] body .pm-back-bar button{background:#36241A!important;color:#EAE7E6!important;border-color:#4C392E!important}
+html[data-theme="dark"] body .pm-back-bar button{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}
 
 /* شريط التنقل الرئيسي مايظهرش في صفحة تسجيل الدخول (أعلى أولوية من القاعدة اللي بتفرضه فوق) */
 html body.auth-required #appNav{display:none!important}

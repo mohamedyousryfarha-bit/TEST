@@ -1,6 +1,6 @@
 /* ===== الأيقونات الملونة ===== */
 .ui-ico{color:var(--ic,currentColor)}
-.primary .ui-ico, .login-button .ui-ico, .tab.active .ui-ico{color:#fff}
+.primary .ui-ico, .login-button .ui-ico, .tab.active .ui-ico{color:#1E3A5F}
 .danger .ui-ico{color:inherit}
 /* ===== القوائم الرئيسية: صفين فوق بعض، أكبر، من غير سكرول ===== */
 nav.tabs{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important;flex-wrap:nowrap!important;scroll-snap-type:none!important;margin:12px 0!important;padding:4px 0 8px!important}

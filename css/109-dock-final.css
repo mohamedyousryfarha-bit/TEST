@@ -2,13 +2,13 @@
 html body #pmGearWrap,html body #pmDock #pmGearWrap,html body #pmDock [data-act="settings"]{display:none!important}
 /* الجرس بنفس شكل باقي زراير الشريط */
 html body #pmNotifWrap{flex:1 1 0!important;min-width:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;position:relative!important}
-html body #pmNotifWrap>button{flex:1 1 0!important;width:auto!important;min-width:0!important;height:auto!important;min-height:56px!important;position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:6px 1px!important;border:0!important;border-radius:18px!important;background:none!important;box-shadow:none!important;color:#7E6F66!important;font-size:10px!important;line-height:1.2!important;cursor:pointer}
+html body #pmNotifWrap>button{flex:1 1 0!important;width:auto!important;min-width:0!important;height:auto!important;min-height:56px!important;position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:6px 1px!important;border:0!important;border-radius:18px!important;background:none!important;box-shadow:none!important;color:#1E3A5F!important;font-size:10px!important;line-height:1.2!important;cursor:pointer}
 html body #pmNotifWrap>button svg{width:20px!important;height:20px!important}
 html body #pmNotifWrap .pmd-lbl{font-size:10px!important;white-space:nowrap!important;color:inherit!important}
 /* الإعدادات في القايمة الجانبية: نفس ألوان الدروار الداكن */
-html body #pmSettingsFold{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:16px!important;color:#F6EDE8!important;margin:12px 0!important;padding:10px 14px!important}
-html body #pmSettingsFold>summary{color:#F6EDE8!important;font-weight:800!important;font-size:15px!important}
-html body #pmSettingsBody button{background:rgba(255,255,255,.08)!important;color:#F6EDE8!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:12px!important}
+html body #pmSettingsFold{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:16px!important;color:#1E3A5F!important;margin:12px 0!important;padding:10px 14px!important}
+html body #pmSettingsFold>summary{color:#1E3A5F!important;font-weight:800!important;font-size:15px!important}
+html body #pmSettingsBody button{background:rgba(255,255,255,.08)!important;color:#1E3A5F!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:12px!important}
 /* الشريط السفلي: كل الأزرار بنفس العرض، والرئيسية في النص بالظبط (عدد الخانات بيتحدد من --pm-n في الجافاسكريبت) */
 html body #pmDock{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:0!important;padding:6px 6px!important}
 html body #pmDock .pm-dk-grp{flex:1 1 0!important;min-width:0!important;display:flex!important;justify-content:center!important;align-items:flex-end!important;gap:0!important}

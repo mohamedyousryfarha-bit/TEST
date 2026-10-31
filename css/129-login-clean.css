@@ -1,0 +1,2 @@
+/* ===== شاشة الدخول: إلغاء الحلويات المتحركة (الخلفية المتحركة) نهائياً ===== */
+.sweet-bg,.sweet,svg.sweet,[class*="sweet"]{display:none!important;animation:none!important}
