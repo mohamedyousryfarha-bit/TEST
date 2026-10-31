@@ -1,7 +1,0 @@
-/* الجداول على الموبايل: تتلم في عرض الشاشة من غير ما تتقص */
-@media (max-width:860px){
-  html body table{min-width:0!important;width:100%!important;table-layout:fixed!important}
-  html body th,html body td{font-size:12px!important;padding:7px 5px!important;line-height:1.4!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important}
-  html body th{font-size:11.5px!important}
-  html body .tablewrap{overflow-x:hidden!important}
-}

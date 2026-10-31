@@ -1,4 +1,0 @@
-/* مخفي = مش بيتلمس: شريط المزامنة المخفي كان بياخد الضغطات من تحته */
-.sync-pill:not(.show){visibility:hidden!important;pointer-events:none!important}
-/* إلغاء تأخير الضغط المزدوج على الموبايل: الضغطة بتتسجل من أول مرة */
-button, a, [role="button"], input, select, textarea, label, summary, .tab, .menu-item, .card, .pm-help{touch-action:manipulation}

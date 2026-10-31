@@ -1,7 +1,0 @@
-/* القائمة الجانبية: الحاوية نفسها ما تاخدش ضغطات، والزراير بس اللي تاخدها */
-.pm-fabs{pointer-events:none!important}
-.pm-fab, .pm-fabs .pm-fab{pointer-events:auto!important}
-.pm-menu{visibility:hidden;pointer-events:none!important}
-.pm-fabs.open .pm-menu{visibility:visible;pointer-events:auto!important}
-.pm-fabs .pm-mi{pointer-events:none}
-.pm-fabs.open .pm-mi{pointer-events:auto}

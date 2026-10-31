@@ -1,2 +1,0 @@
-/* الرسائل مابقتش ثابتة على الشاشة: بتظهر كإشعار واحد ورا التاني */
-#loginMessage, .login-hint, body.auth-required .login-screen .login-hint{display:none!important}

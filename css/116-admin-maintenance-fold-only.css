@@ -1,2 +1,0 @@
-/* ورقة وضع الصيانة للمدير بس */
-body:not([data-role="admin"]) #pmMaintFold{display:none!important}

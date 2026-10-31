@@ -1,3 +1,0 @@
-/* موظف المبيعات: المنيو والسلة بس. الكلاس بيتحط على الـ body من الجافاسكريبت تحت */
-body.role-sales nav.tabs .nav-group:not(:nth-child(2)){display:none!important}
-body.role-sales nav.tabs .nav-group:nth-child(2) .tab:not([data-tab="menu"]):not([data-tab="cartpage"]):not([data-tab="salesInvoices"]):not([data-tab="openInvoices"]){display:none!important}

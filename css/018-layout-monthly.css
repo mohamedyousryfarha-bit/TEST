@@ -1,8 +1,0 @@
-/* ===== شاشة تقفيل الشهر: ترتيب جديد بـ CSS بس ===== */
-#monthly.active{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
-#monthly.active>.card{margin:0 !important;grid-column:span 12}
-#monthly.active>.card:first-child{grid-column:span 7}
-#monthly.active>.card:nth-child(2){grid-column:span 5}
-@media (max-width:880px){
-  #monthly.active>.card:first-child,#monthly.active>.card:nth-child(2){grid-column:span 12}
-}

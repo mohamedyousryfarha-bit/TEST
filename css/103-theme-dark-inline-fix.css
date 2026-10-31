@@ -1,3 +1,0 @@
-/* الوضع الليلي: أي كارت/حقل متكتب بخلفية بيضا inline يتحول لبني داكن */
-html[data-theme="dark"] div[style*="background:#fff"],html[data-theme="dark"] label[style*="background:#fff"],html[data-theme="dark"] section[style*="background:#fff"],html[data-theme="dark"] span[style*="background:#fff"]{background:#FFFDF6!important;border-color:#F0D9A3!important}
-html[data-theme="dark"] [style*="color:#4A2A14"],html[data-theme="dark"] [style*="color:#3E2415"],html[data-theme="dark"] [style*="color:#37251A"]{color:#1E3A5F!important}

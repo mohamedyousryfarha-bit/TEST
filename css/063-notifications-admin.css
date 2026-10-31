@@ -1,2 +1,0 @@
-/* المدير: لا تخفِ محتويات قائمة الرسائل المنبثقة؛ اتركها مثل بقية المستخدمين. */
-body[data-role="admin"] #pmBellCount{display:none!important}

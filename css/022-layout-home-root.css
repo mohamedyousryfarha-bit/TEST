@@ -1,3 +1,0 @@
-/* السبب: الكود الأصلي بيحط الرئيسية كشبكة 12 عمود، فالحاوية الجديدة كانت بتاخد عمود واحد بس */
-html body #home.active{display:block!important;grid-template-columns:none!important;gap:0!important}
-html body #home.active > .pm-grid{grid-column:1 / -1!important;width:100%!important;max-width:100%!important;justify-self:stretch!important}

@@ -1,1 +1,0 @@
-body.role-sales:has(#menu.active) #pmBackBar,body[data-role="sales"]:has(#menu.active) #pmBackBar{display:none!important}

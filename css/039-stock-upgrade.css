@@ -1,8 +1,0 @@
-/* PastryMY Pro 3.4.3: targeted UI polish without changing stored data */
-#stock .pm-stock-low td{background:rgba(245,158,11,.055)}
-#stock .pm-stock-empty td{background:rgba(180,35,24,.055)}
-#stock .pill{white-space:nowrap}
-.pm-fin-export{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}
-#analytics .db-ctrl{flex-wrap:wrap}
-#analytics .db-ctrl button{min-height:40px}
-@media(max-width:640px){#analytics .db-head{align-items:stretch;gap:12px}#analytics .db-ctrl{display:grid;grid-template-columns:1fr 1fr;width:100%}#analytics .db-ctrl select{grid-column:1/-1;width:100%}#analytics .db-ctrl button{width:100%;white-space:normal}#stock .tablewrap{overflow-x:auto}}

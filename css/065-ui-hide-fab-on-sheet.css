@@ -1,2 +1,0 @@
-/* لما أي ورقة تفتح، زراير الإضافة (+ والقايمة) بتتخفي عشان ما تظهرش فوقها */
-body.pm-overlay-open .pm-fabs, body.pm-overlay-open #pmFabs{display:none!important}

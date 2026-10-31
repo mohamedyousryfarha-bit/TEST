@@ -1,8 +1,0 @@
-/* الثلاث ورقات تحت (ضبط الفواتير، وضع الصيانة، الإعدادات) بنفس تصميم أدوات فحص واختبار / إعدادات الشاشة / معلومات النسخة */
-html body #pmInvFold,html body #pmMaintFold,html body #pmSettingsFold{background:#ffffff0d!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:2px 4px!important;margin:2px 0 0!important;color:#1E3A5F!important;box-shadow:none!important}
-html body #pmInvFold>summary,html body #pmMaintFold>summary,html body #pmSettingsFold>summary{list-style:none!important;display:flex!important;align-items:center!important;gap:8px!important;cursor:pointer!important;padding:12px!important;color:#1E3A5F!important;font-weight:800!important;font-size:15px!important;border-radius:12px!important;margin:0!important}
-html body #pmInvFold>summary::-webkit-details-marker,html body #pmMaintFold>summary::-webkit-details-marker,html body #pmSettingsFold>summary::-webkit-details-marker{display:none!important}
-html body #pmInvFold>summary::after,html body #pmMaintFold>summary::after,html body #pmSettingsFold>summary::after{content:'▾';margin-inline-start:auto;transition:transform .2s}
-html body #pmInvFold[open]>summary::after,html body #pmMaintFold[open]>summary::after,html body #pmSettingsFold[open]>summary::after{transform:rotate(180deg)}
-html body #pmInvFold>summary:hover,html body #pmMaintFold>summary:hover,html body #pmSettingsFold>summary:hover{background:#ffffff14!important}
-html body #pmInvFoldBody,html body #pmMaintFoldBody,html body #pmSettingsBody{display:flex!important;flex-direction:column!important;gap:6px!important;padding:0 0 6px!important;margin:0!important}

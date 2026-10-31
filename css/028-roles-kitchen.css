@@ -1,9 +1,0 @@
-/* المطبخ (الشيف): يشوف قسم التحضير والوصفات والمخزون بس */
-body[data-role="kitchen"] nav.tabs .tab:not([data-tab="order"]):not([data-tab="recipes"]):not([data-tab="stock"]){display:none!important}
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(1),
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(2),
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(5),
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(6){display:none!important}
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(3),
-body[data-role="kitchen"] nav.tabs .nav-group:nth-child(4){display:block!important}
-body[data-role="kitchen"] .panel#home{display:none!important}

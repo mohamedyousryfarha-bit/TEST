@@ -1,4 +1,0 @@
-@media print{
-  body:not(:has(.pmv-ov)) > :not(main):not(script):not(style){display:none!important}
-  body:not(:has(.pmv-ov)) > main{display:block!important}
-}

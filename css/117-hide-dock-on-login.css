@@ -1,4 +1,0 @@
-/* إخفاء الشريط السفلي تماماً في شاشة تسجيل الدخول (يتغلب على قواعد 109 و 086 و 096) */
-html body.auth-required #pmDock,
-html body.auth-required nav.pm-dock,
-html body.auth-required .pm-dock{display:none!important;visibility:hidden!important;pointer-events:none!important}

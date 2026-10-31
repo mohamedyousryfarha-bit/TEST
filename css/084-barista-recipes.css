@@ -1,5 +1,0 @@
-/* الباريستا: جدول وصفات المشروبات للقراءة فقط */
-body[data-role="barista"] #recipes.panel.active{display:block!important}
-body[data-role="barista"] #recipes #newRecipe,body[data-role="barista"] #recipes #saveRecipe,body[data-role="barista"] #recipes #deleteRecipe{display:none!important}
-body[data-role="barista"] #recipes .actions{display:none!important}
-body[data-role="barista"] #recipes > .card > p.small{display:none!important}

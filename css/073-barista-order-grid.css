@@ -1,4 +1,0 @@
-@media (max-width:649px){
-  html body #order .actions{display:grid!important;grid-template-columns:1fr 1fr!important;flex-wrap:wrap!important;overflow:visible!important;gap:8px!important;padding:4px 0 8px!important}
-  html body #order .actions>*{flex:none!important;width:100%!important;min-width:0!important;white-space:normal!important}
-}
