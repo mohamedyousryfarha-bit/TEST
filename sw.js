@@ -1,6 +1,6 @@
 // Service worker: لازم يكون فيه fetch handler عشان المتصفح يعتبر الموقع قابل للتثبيت.
 // الشبكة أولًا، ولو مفيش نت يرجع النسخة المخزنة (البيانات الحية ما بتتخزنش قديمة).
-const CACHE = 'rmy-pro-brand-v2';
+const CACHE = 'rmy-shell-v82';
 const SHELL = [
   './',
   './index.html',
@@ -12,8 +12,15 @@ const SHELL = [
   './ICONS/apple-touch-icon.png',
   './ICONS/favicon-32.png',
   './ICONS/rmy-logo.png',
-  './ICONS/rmy-app-icon-512.png',
   './css/001-base-app.css',
+  './css/133-menu-text-contrast.css',
+  './css/134-contrast-fix.css',
+  './css/137-ready-delivery-sales.css',
+  './js/135-ready-delivery.js',
+  './js/136-cart-party-sheet.js',
+  './css/138-cart-party-sheet.css',
+  './css/139-toast-kind-contrast.css',
+  './css/140-active-tab-only.css',
   './css/002-base-ui-icons.css',
   './css/003-base-panels-animation.css',
   './css/004-ui-toast.css',
@@ -115,7 +122,6 @@ const SHELL = [
   './css/102-theme-harmony.css',
   './css/103-theme-dark-inline-fix.css',
   './css/104-theme-final.css',
-  './css/105-reports-analytics-clean.css',
   './css/106-invoices-language.css',
   './css/107-invoices-english-names.css',
   './css/108-ui-notifications-bell.css',
@@ -222,9 +228,7 @@ const SHELL = [
   './js/090-ui-folds-placement.js',
   './css/120-prep-board.css',
   './css/121-brand-polish.css',
-  './css/122-rmy-brand-system.css',
   './js/121-prep-live.js',
-  './js/122-rmy-force-day.js',
 ];
 
 self.addEventListener('install', (e) => {

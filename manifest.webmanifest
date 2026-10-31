@@ -1,31 +1,28 @@
 {
-  "name": "RMY",
+  "name": "RMY PRO",
   "short_name": "RMY",
-  "description": "RMY لإدارة الوصفات والإنتاج والمخزون والمشتريات والمبيعات.",
+  "description": "RMY PRO لإدارة المخبز: الوصفات وتكلفة الأصناف والمخزون والمشتريات والمبيعات وأوردرات الحفلات وتقفيل الشهر بتقارير مالية واضحة.",
   "start_url": "./index.html",
   "id": "./index.html",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#F3F8FB",
-  "theme_color": "#08A8B7",
+  "background_color": "#FFF8E7",
+  "theme_color": "#F2B233",
   "icons": [
     {
       "src": "ICONS/icon-192.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "ICONS/rmy-app-icon-512.png",
+      "src": "ICONS/rmy-logo.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "ICONS/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     }
   ]
 }

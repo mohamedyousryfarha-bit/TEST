@@ -3,35 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08A8B7">
+<meta name="theme-color" content="#1E3A5F">
 <meta name="robots" content="noindex">
 <title>RMY | البرنامج تحت التحديث</title>
-<style>html,body{margin:0;height:100%;background:#F3F8FB}</style>
+<style>html,body{margin:0;height:100%;background:#1E3A5F}</style>
 <style>
 #pmMaint{position:fixed;inset:0;z-index:30000;display:none;align-items:center;justify-content:center;padding:24px;overflow:hidden;
-  background:radial-gradient(900px 600px at 50% -12%,rgba(232,164,108,.28),transparent 62%),linear-gradient(160deg,#3E2415 0%,#5A3620 55%,#7E4728 100%);
-  color:#FFF8F3;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl}
+  background:radial-gradient(900px 600px at 50% -12%,rgba(232,164,108,.28),transparent 62%),linear-gradient(160deg,#1E3A5F 0%,#FFFDF6 55%,#2F7DB8 100%);
+  color:#FFF8E7;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl}
 #pmMaint.show{display:flex;animation:pmmIn .45s ease-out both}
 #pmMaint::before,#pmMaint::after{content:"";position:absolute;border-radius:50%;filter:blur(46px);opacity:.38;pointer-events:none}
-#pmMaint::before{width:340px;height:340px;background:#E8A46C;top:-130px;right:-110px;animation:pmmFloat 9s ease-in-out infinite}
+#pmMaint::before{width:340px;height:340px;background:#FFF1CC;top:-130px;right:-110px;animation:pmmFloat 9s ease-in-out infinite}
 #pmMaint::after{width:280px;height:280px;background:#9A5B00;bottom:-120px;left:-90px;animation:pmmFloat 12s ease-in-out infinite reverse}
 #pmMaint .pmm-card{position:relative;z-index:1;width:min(100%,440px);text-align:center;padding:34px 26px 26px;border-radius:30px;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   box-shadow:0 30px 80px -30px rgba(0,0,0,.55);animation:pmmRise .6s cubic-bezier(.2,.8,.2,1) both}
 .pmm-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;padding:6px 13px;border-radius:99px;
   background:rgba(232,164,108,.16);color:#FFD9B8;border:1px solid rgba(232,164,108,.34)}
-.pmm-badge i{width:7px;height:7px;border-radius:50%;background:#F5B27A;animation:pmmPulse 1.6s infinite}
+.pmm-badge i{width:7px;height:7px;border-radius:50%;background:#F2B233;animation:pmmPulse 1.6s infinite}
 .pmm-ico{position:relative;width:98px;height:98px;margin:22px auto 18px;display:grid;place-items:center;border-radius:30px;
-  background:linear-gradient(145deg,#F2B983,#9A5B00);box-shadow:0 18px 44px -14px rgba(232,164,108,.65)}
+  background:linear-gradient(145deg,#FFF1CC,#9A5B00);box-shadow:0 18px 44px -14px rgba(232,164,108,.65)}
 .pmm-ico::after{content:"";position:absolute;inset:-9px;border-radius:36px;border:1.5px dashed rgba(255,217,184,.35);animation:pmmSpin 24s linear infinite}
-.pmm-ico svg{width:44px;height:44px;color:#3E2415;animation:pmmSwing 3.6s ease-in-out infinite;transform-origin:50% 50%}
+.pmm-ico svg{width:44px;height:44px;color:#1E3A5F;animation:pmmSwing 3.6s ease-in-out infinite;transform-origin:50% 50%}
 #pmMaint h1{font-size:25px;margin:0 0 10px;font-weight:900;letter-spacing:-.2px}
 #pmMaintMsg{margin:0 0 8px;color:rgba(255,248,243,.93);line-height:1.85;font-weight:600;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
 .pmm-since{font-size:12.5px;color:rgba(255,248,243,.58);margin:0 0 22px;min-height:1.2em}
 .pmm-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 24px;position:relative}
-.pmm-bar::after{content:"";position:absolute;top:0;bottom:0;width:38%;border-radius:inherit;background:linear-gradient(90deg,transparent,#F5B27A,transparent);animation:pmmSlide 1.7s ease-in-out infinite}
+.pmm-bar::after{content:"";position:absolute;top:0;bottom:0;width:38%;border-radius:inherit;background:linear-gradient(90deg,transparent,#F2B233,transparent);animation:pmmSlide 1.7s ease-in-out infinite}
 #pmMaint button#pmMaintOut{width:100%;min-height:48px;border-radius:15px;padding:13px 16px;font-size:15px;font-weight:800;cursor:pointer;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);color:#FFF8F3;transition:background .2s,transform .15s}
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);color:#FFF8E7;transition:background .2s,transform .15s}
 #pmMaint button#pmMaintOut:hover{background:rgba(255,255,255,.2)}
 #pmMaint button#pmMaintOut:active{transform:scale(.985)}
 .pmm-foot{margin-top:16px;font-size:11.5px;color:rgba(255,248,243,.5)}
@@ -49,24 +49,10 @@
 .pmm-count-label{font-size:12.5px;color:rgba(255,248,243,.75);margin:0 0 10px;font-weight:700}
 .pmm-count-grid{display:flex;justify-content:center;align-items:stretch;gap:8px}
 .pmm-count-grid>div{flex:1 1 0;min-width:0;max-width:96px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:10px 4px;text-align:center}
-.pmm-count-grid b{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;color:#FFF8F3}
+.pmm-count-grid b{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;color:#FFF8E7}
 .pmm-count-grid span{font-size:11px;color:rgba(255,248,243,.6)}
 </style>
-
-<style>
-#pmMaint{background:radial-gradient(900px 600px at 50% -12%,rgba(8,168,183,.12),transparent 62%),linear-gradient(160deg,#F3F8FB 0%,#EAF5F8 55%,#FFFFFF 100%)!important;color:#183247!important}
-#pmMaint::before{background:#08A8B7!important;opacity:.10!important}#pmMaint::after{background:#073B70!important;opacity:.08!important}
-#pmMaint .pmm-card{background:rgba(255,255,255,.94)!important;border:1px solid #DCE8EF!important;box-shadow:0 24px 70px -35px rgba(7,59,112,.25)!important}
-#pmMaint .pmm-badge{background:#E5F7F8!important;color:#073B70!important;border-color:#BCE9ED!important}
-#pmMaint .pmm-badge i{background:#08A8B7!important}
-#pmMaint .pmm-ico{background:#FFFFFF!important;border:1px solid #DCE8EF!important;box-shadow:0 12px 30px rgba(7,59,112,.10)!important}
-#pmMaint .pmm-ico svg{display:none!important}
-#pmMaint .pmm-ico:before{content:"";display:block;width:78px;height:28px;background:url("ICONS/rmy-logo.png") center/contain no-repeat}
-#pmMaint h1{color:#073B70!important}#pmMaintMsg{color:#36566D!important}#pmMaint .pmm-since,#pmMaint .pmm-foot,#pmMaint .pmm-count-label,#pmMaint .pmm-count-grid span{color:#657B8D!important}
-#pmMaint .pmm-bar{background:#E1EEF3!important}#pmMaint .pmm-bar:after{background:linear-gradient(90deg,transparent,#08A8B7,transparent)!important}
-#pmMaint .pmm-count-grid>div{background:#F5FAFC!important;border-color:#DCE8EF!important}#pmMaint .pmm-count-grid b{color:#073B70!important}
-#pmMaint button#pmMaintOut{background:linear-gradient(135deg,#08A8B7,#078A98)!important;border:0!important;color:#fff!important}
-</style>
+<link rel="stylesheet" href="css/125-maintenance-palette.css">
 </head>
 <body>
 <div id="pmMaint" class="show" role="alertdialog" aria-modal="true" aria-labelledby="pmMaintTitle" aria-describedby="pmMaintMsg">
