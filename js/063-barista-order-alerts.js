@@ -22,7 +22,7 @@
     var b=t.querySelector('.pm-dq-badge');
     if(!b){
       b=document.createElement('span'); b.className='pm-dq-badge';
-      b.style.cssText='display:none;align-items:center;justify-content:center;margin-inline-start:6px;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#D92D20;color:#fff;font-size:11px;font-weight:700;box-sizing:border-box';
+      b.style.cssText='display:none;align-items:center;justify-content:center;margin-inline-start:6px;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#D92D20;color:#1E3A5F;font-size:11px;font-weight:700;box-sizing:border-box';
       t.appendChild(b);
     }
     return b;
@@ -31,7 +31,7 @@
     var el=document.getElementById('pmDqBanner');
     if(!el){
       el=document.createElement('div'); el.id='pmDqBanner';
-      el.style.cssText='display:none;position:fixed;top:10px;left:12px;right:12px;max-width:520px;margin:0 auto;z-index:9500;background:#3E2415;color:#fff;border-radius:14px;padding:12px 14px;font-weight:700;font-size:14px;text-align:center;box-shadow:0 10px 24px #0005;cursor:pointer';
+      el.style.cssText='display:none;position:fixed;top:10px;left:12px;right:12px;max-width:520px;margin:0 auto;z-index:9500;background:#FFFDF6;color:#1E3A5F;border-radius:14px;padding:12px 14px;font-weight:700;font-size:14px;text-align:center;box-shadow:0 10px 24px #0005;cursor:pointer';
       el.addEventListener('click',function(){ if(typeof window.go==='function') window.go('drinkQueue'); });
       document.body.appendChild(el);
     }

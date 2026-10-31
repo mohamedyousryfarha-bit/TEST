@@ -60,13 +60,13 @@
   var bell = document.createElement('button');
   bell.id = 'pmBell'; bell.type = 'button';
   bell.setAttribute('aria-label', 'الرسايل'); bell.title = 'الرسايل';
-  bell.style.cssText = 'position:relative;width:40px;height:40px;border-radius:50%;border:1px solid #DCD5D1;background:#fff;color:#7E4728;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.08)';
+  bell.style.cssText = 'position:relative;width:40px;height:40px;border-radius:50%;border:1px solid #DCD5D1;background:#fff;color:#1E3A5F;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.08)';
   bell.innerHTML = ((window.__PMUI__&&window.__PMUI__.ICONS.bell)||'') +
-    '<span id="pmBellCount" style="position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:10px;background:#D92D20;color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center;padding:0 5px;display:none;box-sizing:border-box"></span>';
+    '<span id="pmBellCount" style="position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:10px;background:#D92D20;color:#1E3A5F;font-size:11px;font-weight:700;align-items:center;justify-content:center;padding:0 5px;display:none;box-sizing:border-box"></span>';
 
   var panel = document.createElement('div');
   panel.id = 'pmBellPanel';
-  panel.style.cssText = 'position:absolute;top:auto;bottom:calc(100% + 8px);right:0;width:min(300px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:#fff;color:#261912;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:12px;direction:rtl;box-sizing:border-box;text-align:right';
+  panel.style.cssText = 'position:absolute;top:auto;bottom:calc(100% + 8px);right:0;width:min(300px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:#fff;color:#1E3A5F;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:12px;direction:rtl;box-sizing:border-box;text-align:right';
 
 
   var gearWrap = document.createElement('span');
@@ -76,12 +76,12 @@
   var gearBtn = document.createElement('button');
   gearBtn.id = 'pmGearBtn'; gearBtn.type = 'button';
   gearBtn.title = 'الإعدادات'; gearBtn.setAttribute('aria-label', 'الإعدادات');
-  gearBtn.style.cssText = 'width:40px;height:40px;border-radius:50%;border:1px solid #DCD5D1;background:#fff;color:#7E4728;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.08)';
+  gearBtn.style.cssText = 'width:40px;height:40px;border-radius:50%;border:1px solid #DCD5D1;background:#fff;color:#1E3A5F;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.08)';
   gearBtn.innerHTML = ((window.__PMUI__&&window.__PMUI__.ICONS.gear)||'');
 
   var gearMenu = document.createElement('div');
   gearMenu.id = 'pmGearMenu';
-  gearMenu.style.cssText = 'position:absolute;top:calc(100% + 8px);right:0;width:min(240px,calc(100vw - 24px));background:#fff;color:#261912;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:8px;direction:rtl;box-sizing:border-box';
+  gearMenu.style.cssText = 'position:absolute;top:calc(100% + 8px);right:0;width:min(240px,calc(100vw - 24px));background:#fff;color:#1E3A5F;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:9000;display:none;padding:8px;direction:rtl;box-sizing:border-box';
 
   // نقل الأزرار الثلاثة (بنفس العناصر والأحداث) من تحت الحالة للقائمة
   [['retryCloudButton', 'تحديث الصفحة'], ['reloadCloudButton', 'آخر نسخة سحابية'], ['signOutButton', 'تسجيل الخروج']]
@@ -89,7 +89,7 @@
       var b = document.getElementById(p[0]); if(!b) return;
       b.textContent = p[1];
       b.className = '';
-      b.style.cssText = 'display:block;width:100%;text-align:right;background:#FCF9F8;color:#261912;border:1px solid #DCD5D1;border-radius:10px;padding:10px 12px;margin:4px 0;font:inherit;font-size:14px;cursor:pointer';
+      b.style.cssText = 'display:block;width:100%;text-align:right;background:#FCF9F8;color:#1E3A5F;border:1px solid #DCD5D1;border-radius:10px;padding:10px 12px;margin:4px 0;font:inherit;font-size:14px;cursor:pointer';
       gearMenu.appendChild(b);
       if(p[0] === 'retryCloudButton'){
         b.addEventListener('click', function(){ setTimeout(function(){ b.textContent = 'تحديث الصفحة' }, 4000) });
@@ -103,9 +103,9 @@
   // القايمة برا الشريط السفلي، عشان قواعد أزرار الشريط ما تأثرش على الفورم والفلاتر
   document.body.appendChild(panel);
   var darkCss = document.createElement('style');
-  darkCss.textContent = 'html[data-theme="dark"] #pmGearMenu{background:#2D1E16;color:#F6EDE8;border:1px solid #3C2D25}' +
-    'html[data-theme="dark"] #pmGearMenu button{background:#3A281E!important;color:#F6EDE8!important;border-color:#4E3B30!important}' +
-    'html[data-theme="dark"] #pmGearBtn,html[data-theme="dark"] #pmBell{background:#2D1E16!important;color:#E2CBBD!important;border-color:#4E3B30!important}' +
+  darkCss.textContent = 'html[data-theme="dark"] #pmGearMenu{background:#FFFDF6;color:#1E3A5F;border:1px solid #F0D9A3}' +
+    'html[data-theme="dark"] #pmGearMenu button{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}' +
+    'html[data-theme="dark"] #pmGearBtn,html[data-theme="dark"] #pmBell{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}' +
     '#pmMsgWrap,#pmMsgWrap *,#pmGearWrap,#pmGearWrap *{pointer-events:auto!important}';
   document.head.appendChild(darkCss);
   // الأيقونتين في نفس صف "الحسابات المتصلة" جنبها
@@ -135,17 +135,17 @@
     b.style.display = n ? 'flex' : 'none';
   }
   function itemHtml(m){
-    var bg = m.read ? '#fff' : '#FDF5F0';
+    var bg = m.read ? '#fff' : '#1E3A5F';
     return '<div style="border:1px solid #DCD5D1;background:'+bg+';border-radius:10px;padding:10px;margin-top:8px">' +
-      '<div style="font-size:12px;color:#7E6F66">من: <b>'+esc3(m.from_employee||'الإدارة')+'</b> · '+esc3(fmtDate(m.created_at)) +
-      (m.read ? '' : ' · <b style="color:#854B29">جديدة</b>') + '</div>' +
+      '<div style="font-size:12px;color:#4A6583">من: <b>'+esc3(m.from_employee||'الإدارة')+'</b> · '+esc3(fmtDate(m.created_at)) +
+      (m.read ? '' : ' · <b style="color:#1E3A5F">جديدة</b>') + '</div>' +
       '<div style="margin-top:6px;white-space:pre-wrap">'+esc3(m.body)+'</div></div>';
   }
   function renderPanel(){
     var html = '';
-    if(!messages.length) html += '<div style="color:#7E6F66;padding:12px 0">مفيش رسايل في آخر 48 ساعة.</div>';
+    if(!messages.length) html += '<div style="color:#4A6583;padding:12px 0">مفيش رسايل في آخر 48 ساعة.</div>';
     else html += messages.map(itemHtml).join('');
-    html += '<div style="font-size:11.5px;color:#B0A39B;margin-top:10px">'+WINDOW_NOTE+'</div>';
+    html += '<div style="font-size:11.5px;color:#1E3A5F;margin-top:10px">'+WINDOW_NOTE+'</div>';
     var inbox = document.getElementById('pmInboxList');
     if(!inbox){ inbox = document.createElement('div'); inbox.id = 'pmInboxList'; panel.appendChild(inbox); }
     inbox.innerHTML = html;
@@ -206,7 +206,7 @@
     var ov = document.createElement('div');
     ov.setAttribute('role','dialog');
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl';
-    ov.innerHTML = '<div style="background:#fff;color:#261912;border-radius:14px;max-width:460px;width:100%;max-height:80vh;overflow:auto;padding:18px;box-sizing:border-box">' +
+    ov.innerHTML = '<div style="background:#fff;color:#1E3A5F;border-radius:14px;max-width:460px;width:100%;max-height:80vh;overflow:auto;padding:18px;box-sizing:border-box">' +
       '<h3 style="margin:0">عندك '+list.length+' رسالة جديدة من الإدارة</h3>' +
       list.map(itemHtml).join('') +
       '<div style="margin-top:14px;text-align:left"><button id="pmInboxOk" type="button" class="primary">تم، فهمت</button></div></div>';

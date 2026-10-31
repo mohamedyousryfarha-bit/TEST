@@ -6,7 +6,7 @@
   var pinStep=document.getElementById('pinStep');
   var pinInput=document.getElementById('employeePin');
   if(!sel||!pane||!grid||!staffStep||!pinStep||!pinInput)return;
-  var PALETTE=['#7E4728','#16794B','#9A5B00','#7C3AED','#B42318','#83411B','#BE185D','#4D7C0F'];
+  var PALETTE=['#1E3A5F','#16794B','#9A5B00','#7C3AED','#B42318','#1E3A5F','#BE185D','#4D7C0F'];
   function colorFor(n){var h=0;for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))>>>0;return PALETTE[h%PALETTE.length]}
   function initial(n){return (n||'?').trim().charAt(0)}
   function showStaff(){ pinStep.classList.add('hide'); staffStep.classList.remove('hide'); pinInput.value=''; }

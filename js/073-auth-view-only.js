@@ -37,7 +37,7 @@
     var dp=document.getElementById('pmDevPres'), ds=document.getElementById('pmDevSync');
     if(typeof window.pmDevRender==='function') window.pmDevRender();
     if(dp&&p) dp.textContent=(p.textContent||'').replace(/^.*?:\s*/,'')||'—';
-    if(ds&&sy) ds.textContent=(sy.textContent||'').replace(/^.*?:\s*/,'')||'—';
+    if(ds) ds.textContent=(window.pmSyncLabel?window.pmSyncLabel():'—');
   }
   var devTimer=null;
   document.addEventListener('click',function(e){

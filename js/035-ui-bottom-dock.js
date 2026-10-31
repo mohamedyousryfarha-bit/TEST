@@ -32,11 +32,18 @@
     }).join('');
   }
   window.pmDevRender=renderList;
+  window.pmSyncLabel=function(){
+    var map={ok:'متزامن',busy:'جاري المزامنة…',err:'فشلت المزامنة',idle:'في انتظار الاتصال'};
+    var ic=document.getElementById('pmSyncIcon'), st=ic&&ic.getAttribute('data-s');
+    if(st&&map[st]) return map[st];
+    var ls=document.getElementById('localSaveStatus');
+    return ls&&ls.textContent.trim()?ls.textContent.replace(/^[●\s]+/,'').trim():'غير معروف';
+  };
   function fill(){
     renderList();
     var p=$('pmPresText'), sy=$('pmSyncText');
     $('pmDevPres').textContent=(p&&p.textContent||'—').replace(/^.*?:\s*/,'') || '—';
-    $('pmDevSync').textContent=(sy&&sy.textContent||'—').replace(/^.*?:\s*/,'') || '—';
+    $('pmDevSync').textContent=window.pmSyncLabel();
   }
   function openSheet(){ fill(); sheet.hidden=false; clearInterval(timer); timer=setInterval(fill,1000); }
   function closeSheet(){ sheet.hidden=true; clearInterval(timer); timer=null; }

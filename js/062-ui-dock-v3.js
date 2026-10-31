@@ -103,7 +103,7 @@
     var act=null, p=document.querySelector('main .panel.active');
     if(p && MAP[p.id]) act=MAP[p.id];
     d.querySelectorAll('button[data-act]').forEach(function(b){
-      b.classList.toggle('cur', !!act && b.getAttribute('data-act')===act && !b.classList.contains('pm-center'));
+      b.classList.toggle('cur', !!act && b.getAttribute('data-act')===act);
     });
   },400);
   function start(){ arrange(); watch(); }

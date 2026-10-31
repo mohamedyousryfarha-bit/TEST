@@ -3,7 +3,7 @@
 (function(){
   if(window.__pmNavFilter) return; window.__pmNavFilter=true;
 
-  var ALL=['analytics','customers','menu','cartpage','salesInvoices','order','recipes:food','recipes:drink','stock','history','purchases','prices','costing','expenses','monthly','audit','backup','parties','partyInvoices','partyTemplate','drinkQueue','drinkProduce'];
+  var ALL=['analytics','customers','menu','cartpage','salesInvoices','order','recipes:food','recipes:drink','stock','history','purchases','prices','costing','expenses','monthly','audit','backup','parties','readyDelivery','partyInvoices','partyTemplate','drinkQueue','drinkProduce'];
 
 
   /* admin / employee: قائمة منع (deny) عشان أي تبويب ما نعرفوش يفضل ظاهر للمدير.
@@ -11,7 +11,7 @@
   var RULES={
     admin:    {deny:['salesInvoices']},
     employee: {deny:['analytics','cartpage','drinkQueue','drinkProduce','recipes:drink']},
-    sales:    {allow:['customers','menu','cartpage','parties','partyInvoices','openInvoices']},
+    sales:    {allow:['customers','menu','cartpage','parties','readyDelivery','partyInvoices','openInvoices']},
     kitchen:  {allow:['order','recipes:food','stock','parties']},
     barista:  {allow:['drinkProduce','drinkQueue','recipes:drink','parties']}
   };

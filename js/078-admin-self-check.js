@@ -11,8 +11,8 @@
     var old=document.getElementById('pmSelfModal'); if(old) old.remove();
     var ov=document.createElement('div'); ov.id='pmSelfModal';
     ov.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(39,21,11,.58);display:flex;align-items:center;justify-content:center;padding:16px';
-    ov.innerHTML='<div style="background:#fff;border-radius:18px;max-width:600px;width:100%;max-height:88vh;overflow:auto;padding:18px;direction:rtl;color:#37251A">'+
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:17px;color:#3E2415">'+E(title)+'</h2>'+
+    ov.innerHTML='<div style="background:#fff;border-radius:18px;max-width:600px;width:100%;max-height:88vh;overflow:auto;padding:18px;direction:rtl;color:#1E3A5F">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:17px;color:#1E3A5F">'+E(title)+'</h2>'+
       '<button type="button" id="pmSelfClose" class="secondary mini">إغلاق</button></div>'+
       '<div style="margin-top:12px;font-size:13px">'+html+'</div></div>';
     ov.addEventListener('click',function(e){ if(e.target===ov||e.target.id==='pmSelfClose') ov.remove(); });
@@ -63,13 +63,13 @@
     return out.sort(function(a,b){return a.sev-b.sev});
   }
   function runCheck(){
-    var list=integrity(), names=['عالي','متوسط','منخفض'], colors=['#B42318','#9A5B00','#37251A'];
+    var list=integrity(), names=['عالي','متوسط','منخفض'], colors=['#B42318','#9A5B00','#1E3A5F'];
     var body = list.length
       ? '<table style="width:100%;border-collapse:collapse">'+list.map(function(x){
           return '<tr style="border-bottom:1px solid #EAE2DD"><td style="padding:7px;width:80px;font-weight:800;color:'+colors[x.sev]+'">'+names[x.sev]+'</td><td style="padding:7px">'+E(x.msg)+'</td></tr>';
         }).join('')+'</table>'
       : '<div style="background:#EAF7EF;color:#145C38;border-radius:10px;padding:10px">✓ مفيش مشاكل ظاهرة في البيانات.</div>';
-    showModal('فحص سلامة البيانات ('+list.length+' ملاحظة)', body+'<p class="small" style="color:#7E6F66">الفحص للقراءة بس، ومابيغيرش أي بيانات.</p>');
+    showModal('فحص سلامة البيانات ('+list.length+' ملاحظة)', body+'<p class="small" style="color:#4A6583">الفحص للقراءة بس، ومابيغيرش أي بيانات.</p>');
   }
 
   /* ---------- اختبار الحسابات على بيانات تجريبية معروفة النتيجة ---------- */

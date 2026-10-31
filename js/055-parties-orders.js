@@ -3,7 +3,7 @@
 
   function priceOf(name){ var m=(state.menu||[]).find(function(x){return x&&x.name===name}); return Number(m&&m.price)||0; }
   function hashKey(str){ var h=5381; for(var i=0;i<str.length;i++){ h=((h*33)^str.charCodeAt(i))>>>0; } return h.toString(36); }
-  function bookingKey(o){ return o.groupId ? 'g:'+o.groupId : 'b:'+[o.customer||'',o.date||'',o.time||'',o.customerPhone||''].join('|'); }
+  function bookingKey(o){ return o.groupId ? 'g:'+o.groupId : 'o:'+String(o.id||''); }
   window.pmPartyBookingKey=bookingKey;
   function dateText(iso){ if(!iso) return ''; var d=new Date(iso); return isNaN(d.getTime())?'':d.toLocaleDateString('ar-EG'); }
   function cartRaw(){ try{ var a=JSON.parse(localStorage.getItem('pmCart:'+(cloudActorName||'anon'))||'[]'); return Array.isArray(a)?a:[]; }catch(e){ return []; } }
@@ -67,6 +67,10 @@
     for(var k=0;k<b.orders.length;k++){ if(dm[b.orders[k].id]) return String(dm[b.orders[k].id]); }
     return '';
   }
+  function creatorOf(b){
+    for(var i=0;i<b.orders.length;i++){ var o=b.orders[i]; if(o && o.by) return String(o.by); }
+    return '';
+  }
   window.pmPartyInvoicesList=function(){
     var done=window.pmPartyBookings(openPartyOrders()).filter(function(b){return b.complete && !b.orders.some(function(o){return o.closedArchiveId})});
     done.sort(function(a,b){ return (a.completedAt||'').localeCompare(b.completedAt||'') || a.key.localeCompare(b.key); });
@@ -80,10 +84,10 @@
       var notes=live.map(function(o){return o.note||''}).filter(Boolean);
       return {
         id:'pinv-'+hashKey(b.key), key:b.key, no:i+1,
-        date:dateText(b.completedAt), deliveredAt:b.completedAt, by:delivererOf(b),
+        date:dateText(b.completedAt), deliveredAt:b.completedAt, by:delivererOf(b), createdBy:creatorOf(b),
         customer:f.customer||'', customerPhone:f.customerPhone||'',
         eventDate:f.date||'', eventTime:f.time||'', orderNote:notes.join(' · '),
-        total:Math.round(total*100)/100, cost:Math.round(pcost*100)/100, uncostedLines:puncosted, lines:lines, paid:(window.__pmPaySummary&&window.__pmPaySummary[b.key])?(Number(window.__pmPaySummary[b.key].paid)||0):null
+        total:Math.round(total*100)/100, cost:Math.round(pcost*100)/100, uncostedLines:puncosted, lines:lines, paid:b.orders.reduce(function(a,o){return a+(o&&o.status!=='cancelled'?(Number(o.paid)||0):0)},0)
       };
     });
   };
@@ -142,6 +146,23 @@
   };
   window.pmPartyCheckout=function(lines){
     if(!cloudReady||!cloudActorName||!cloudActorPin){ alert('لازم تكون متصل بالسحابة عشان تسجّل أوردر الحفلات.'); return; }
+    /* الأصناف العادية في السلة بتتحول تلقائي لأصناف حفلة: صنف باسم «الاسم (حفلة)» بوصفة الصنف نفسه */
+    var __regs=lines.filter(function(l){ var m=(state.menu||[]).find(function(x){return x&&x.name===l.name}); return !m||m.kind!=='party'; });
+    if(__regs.length){
+      var __noRecipe=__regs.filter(function(l){ return !Object.prototype.hasOwnProperty.call(state.recipes||{}, l.name); });
+      if(__noRecipe.length){ alert('مفيش وصفة إنتاج للأصناف دي، فمينفعش تتحول لحفلة:\n'+__noRecipe.map(function(l){return '- '+l.name}).join('\n')+'\nضيف وصفتها الأول من تبويب المنيو.'); return; }
+      if(!confirm('الأصناف دي هتتحول لأصناف حفلة في الأوردر:\n'+__regs.map(function(l){return '- '+l.name+' × '+l.qty}).join('\n')+'\nمتابعة؟')) return;
+      var __ren={};
+      for(var __i=0;__i<__regs.length;__i++){
+        var __l=__regs[__i], __alias=__l.name+' (حفلة)';
+        var __ex=(state.menu||[]).find(function(x){return x&&x.name===__alias});
+        if(__ex && __ex.kind!=='party'){ alert('الاسم «'+__alias+'» مستخدم لصنف عادي. غيّر اسم الصنف الأصلي.'); return; }
+        __ren[__l.name]=__alias;
+      }
+      cartWrite(cartRaw().map(function(c){ return __ren[c.name]?Object.assign({},c,{name:__ren[c.name]}):c; }));
+      lines=lines.map(function(l){ return __ren[l.name]?Object.assign({},l,{name:__ren[l.name],base:l.name}):l; });
+      refreshCartUI();
+    }
     var noteEl=document.getElementById('cartNote'), phEl=document.getElementById('cartPhone');
     var today=new Date();
     var iso=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
@@ -154,6 +175,7 @@
       '<label>هاتف العميل (اختياري)</label><input id="ptyCkPhone" inputmode="tel" maxlength="30" placeholder="رقم الهاتف" value="'+esc(phEl?phEl.value.trim():'')+'">'+
       '<label>تاريخ التسليم</label><input id="ptyCkDate" type="date" lang="en-GB" dir="ltr" value="'+iso+'">'+
       '<label>وقت التسليم</label><input id="ptyCkTime" type="time" lang="en-GB" dir="ltr" value="12:00">'+
+      '<label>عدد الأفراد (اختياري، للمعلومات بس)</label><input id="ptyCkGuests" inputmode="numeric" maxlength="6" placeholder="0">'+
       '<label>ملاحظات الأوردر</label><input id="ptyCkNote" maxlength="300" placeholder="ملاحظات اختيارية">'+
       '<label>المبلغ اللي اتدفع دلوقتي (اختياري)</label><input id="ptyCkPaid" inputmode="decimal" maxlength="10" placeholder="0">'+
       '<div class="pty-parts">'+rowsHtml+'</div>'+
@@ -168,6 +190,7 @@
       var date=document.getElementById('ptyCkDate').value;
       var time=document.getElementById('ptyCkTime').value||'';
       var note=document.getElementById('ptyCkNote').value.trim();
+      var guests=Math.max(0,parseInt(document.getElementById('ptyCkGuests').value,10)||0);
       var paid=Number(document.getElementById('ptyCkPaid').value)||0;
       if(paid<0){ alert('المبلغ المدفوع مينفعش يكون سالب.'); return; }
       if(!cust){ alert('اكتب اسم العميل.'); return; }
@@ -179,7 +202,7 @@
         for(var i=0;i<lines.length;i++){
           var l=lines[i];
           var res=await apiCall({action:'party_order_action',party_action:'create',
-            order:{name:l.name,customer:cust,customerPhone:phone,customerAddress:String((document.getElementById('cartAddr')||{}).value||'').trim(),date:date,time:time,qty:l.qty,note:note,groupId:groupId,price:priceOf(l.name)},
+            order:{name:l.name,base_name:l.base||'',customer:cust,customerPhone:phone,customerAddress:String((document.getElementById('cartAddr')||{}).value||'').trim(),date:date,time:time,qty:l.qty,note:note,guests:guests,groupId:groupId,price:priceOf(l.name)},
             employee_name:cloudActorName,pin:cloudActorPin});
           if(res.error) throw res.error;
           sent++;
@@ -212,10 +235,18 @@
         }
       }
       ov.remove();
+      /* الحجز اتسجل: نطفي علامة الحفلة عشان الأوردر الجاي يكون بيع عادي */
+      var __cbOff=document.getElementById('cartAsParty');
+      if(__cbOff){ __cbOff.checked=false; __cbOff.dispatchEvent(new Event('change',{bubbles:true})); }
       if(noteEl) noteEl.value='';
       if(phEl) phEl.value='';
       refreshCartUI();
-      var dc=document.getElementById('drawerClose'); if(dc) dc.click();
+      var dc=document.getElementById('cartModalClose')||document.getElementById('drawerClose'); if(dc) dc.click();
+      var __sh=document.getElementById('cartPartySheet'); if(__sh) __sh.hidden=true;
+      /* قفل مباشر للسلة كـ fallback: ما يعتمدش على الضغط على الزرار بس */
+      if(typeof window.pmCloseCart==='function') window.pmCloseCart();
+      var __ov=document.getElementById('cartModalOverlay'); if(__ov){ __ov.hidden=true; }
+      document.body.classList.remove('cart-modal-open');
       try{ await window.pmPartyWorkflowRefresh(); }catch(_){}
       alert('تم إرسال الأوردر للشيف وجاري العمل عليه ✓\nالعميل: '+cust+' · التسليم: '+date+(time?' '+time:'')+payMsg);
     };
@@ -308,7 +339,7 @@
   /* ---------- تبويب فواتير الحفلات ---------- */
   var __pinvOpen={};
   function pmInvRc(i){
-    return {no:'ح-'+i.no, date:i.date, by:i.by||'—', note:i.customer, customerPhone:i.customerPhone, total:i.total, lines:i.lines, isParty:true};
+    return {no:'ح-'+i.no, date:i.date, by:([i.createdBy?'أخد: '+i.createdBy:'', i.by?'سلّم: '+i.by:''].filter(Boolean).join(' · ')||'—'), note:i.customer, customerPhone:i.customerPhone, total:i.total, lines:i.lines, isParty:true};
   }
   function pmPartyInvRender(){
     var box=document.getElementById('partyInvBody'); if(!box) return;

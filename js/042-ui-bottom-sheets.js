@@ -34,7 +34,7 @@
           var head=document.createElement('div'); head.style.cssText='display:flex;align-items:center;gap:8px;margin:0 0 12px';
           head.appendChild(h);
           var bx=document.createElement('button'); bx.type='button'; bx.className='pm-close-s'; bx.textContent='إغلاق';
-          bx.style.cssText='display:block;width:100%;margin:16px 0 4px;padding:12px;border-radius:14px;border:1px solid #DCD5D1;background:#FCF9F8;color:#7E4728;font:inherit;font-weight:800;font-size:15px;cursor:pointer';
+          bx.style.cssText='display:block;width:100%;margin:16px 0 4px;padding:12px;border-radius:14px;border:1px solid #DCD5D1;background:#FCF9F8;color:#1E3A5F;font:inherit;font-weight:800;font-size:15px;cursor:pointer';
           bx.addEventListener('click',function(){ ch.style.display='none' });
           ch.appendChild(bx);
           ch.insertBefore(head,ch.firstChild); ch.insertBefore(g,ch.firstChild);

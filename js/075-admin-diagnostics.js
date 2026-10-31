@@ -103,30 +103,78 @@
     var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta);
     ta.select(); try{ document.execCommand('copy'); }catch(e){} ta.remove();
   }
+  var SEEN_KEY='pm_diag_seen';
+  function seenStore(){ try{ return JSON.parse(localStorage.getItem(SEEN_KEY)||'{}'); }catch(e){ return {}; } }
+  function saveSeen(o){ try{ localStorage.setItem(SEEN_KEY,JSON.stringify(o)); }catch(e){} }
+  function dayKey(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+  // رسالة عربية بسيطة للموظف؛ التفاصيل التقنية بتفضل تحت
+  function friendlyMsg(raw){
+    var m=String(raw||'');
+    if(/Failed to (send|fetch)|NetworkError|Load failed|network/i.test(m)) return 'المزامنة مع السحابة وقفت. اتأكد إن الإنترنت شغال وجرّب تاني.';
+    if(/timeout|timed out|aborted/i.test(m)) return 'الاتصال بطيء ومش بيرد. جرّب تاني بعد شوية.';
+    if(/JWT|401|403|expired|unauthori[sz]ed|permission/i.test(m)) return 'انتهت صلاحية الدخول أو مفيش صلاحية. سجّل خروج وادخل تاني.';
+    if(/429|rate limit|too many/i.test(m)) return 'في طلبات كتير في وقت قصير. استنى دقيقة وجرّب تاني.';
+    if(/\b5\d\d\b|server|internal/i.test(m)) return 'السيرفر مش متاح حالياً. جرّب تاني بعد شوية.';
+    return 'حصلت مشكلة غير متوقعة. انسخ التفاصيل وابعتها للمدير.';
+  }
+  function retrySync(){
+    var b=document.getElementById('pmSyncIcon');
+    if(b){ b.click(); return true; }
+    return false;
+  }
   function showModal(entry){
-    var now=Date.now();
-    if(document.getElementById('pmDiagOv')||now-lastModalAt<3000) return;
-    if(navigator.onLine===false) return;               // أوفلاين: بنسجل بس، من غير مودال كل مرة
-    if(entry.message===lastMsg && now-lastModalAt<60000) return; // نفس الرسالة متكررة: مش هنعرضها تاني فورًا
-    lastModalAt=now; lastMsg=entry.message;
+    if(navigator.onLine===false) return;               // أوفلاين: بنسجل بس
+    var key=String(entry.message||'').slice(0,160);
+    var old=document.getElementById('pmDiagOv');
+    if(old) old.remove();                              // كل خطأ بيفتح نافذة جديدة، من غير منع للتكرار
+    lastModalAt=Date.now(); lastMsg=entry.message;
+
     var text=fullReport(entry);
-    var ov=document.createElement('div'); ov.id='pmDiagOv';
-    ov.innerHTML='<div class="pdg-box" role="alertdialog" aria-modal="true">'+
-      '<h3>حصلت مشكلة</h3>'+
-      '<p>الجهاز: <b id="pmDiagName"></b></p>'+
-      '<p>'+(entry.message||'')+'</p>'+
-      '<p class="small" style="font-size:12px">انسخ التفاصيل دي وابعتها للمدير، وفيها اسم الجهاز والتبويب والفاتورة.</p>'+
-      '<textarea readonly id="pmDiagText"></textarea>'+
+    var ov=document.createElement('div'); ov.id='pmDiagOv'; ov.dataset.key=key;
+    ov.innerHTML='<div class="pdg-box" role="alertdialog" aria-modal="true" aria-labelledby="pmDiagTitle">'+
+      '<h3 id="pmDiagTitle">حصلت مشكلة</h3>'+
+      '<p class="pdg-msg"></p>'+
+      '<p class="pdg-dev">الجهاز: <b id="pmDiagName"></b></p>'+
+      '<p class="pdg-cnt" id="pmDiagCnt" hidden></p>'+
       '<div class="pdg-acts">'+
-        '<button type="button" id="pmDiagCopy" style="background:#7E4728;color:#fff">نسخ التفاصيل</button>'+
-        '<button type="button" id="pmDiagRename" style="background:#F5EFEB;color:#3E2415">تسمية الجهاز</button>'+
-        '<button type="button" id="pmDiagClose" style="background:#F5EFEB;color:#3E2415">إغلاق</button>'+
-      '</div></div>';
+        '<button type="button" id="pmDiagRetry" class="pdg-retry">إعادة المحاولة</button>'+
+        '<button type="button" id="pmDiagWa" class="pdg-wa">إرسال للمدير</button>'+
+        '<button type="button" id="pmDiagCopy" class="pdg-copy">نسخ التفاصيل</button>'+
+        '<button type="button" id="pmDiagRename" class="pdg-ren">تسمية الجهاز</button>'+
+        '<button type="button" id="pmDiagClose" class="pdg-close">إغلاق</button>'+
+      '</div>'+
+      '<details class="pdg-det"><summary>عرض التفاصيل التقنية</summary>'+
+        '<textarea readonly id="pmDiagText" dir="auto"></textarea>'+
+      '</details>'+
+    '</div>';
     document.body.appendChild(ov);
+    ov.querySelector('.pdg-msg').textContent=friendlyMsg(entry.message);
+    ov.querySelector('#pmDiagCnt').hidden=true;
     ov.querySelector('#pmDiagText').value=text;
     ov.querySelector('#pmDiagName').textContent=entry.device;
-    ov.querySelector('#pmDiagClose').addEventListener('click',function(){ ov.remove(); });
-    ov.querySelector('#pmDiagCopy').addEventListener('click',function(e){ copyText(ov.querySelector('#pmDiagText').value,e.currentTarget); });
+
+    function close(){
+      document.removeEventListener('keydown',onKey);
+      ov.remove();
+    }
+    function onKey(e){ if(e.key==='Escape') close(); }
+    document.addEventListener('keydown',onKey);
+    ov.addEventListener('click',function(e){ if(e.target===ov) close(); });   // الضغط على الخلفية يقفل
+
+    ov.querySelector('#pmDiagClose').addEventListener('click',close);
+    ov.querySelector('#pmDiagRetry').addEventListener('click',function(){
+      close();
+      retrySync();
+    });
+    ov.querySelector('#pmDiagWa').addEventListener('click',function(){
+      var msg=ov.querySelector('#pmDiagText').value;
+      window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+    });
+    ov.querySelector('#pmDiagCopy').addEventListener('click',function(e){
+      var btn=e.currentTarget, orig=btn.textContent;
+      copyText(ov.querySelector('#pmDiagText').value,btn);
+      setTimeout(function(){ btn.textContent=orig; },2000);
+    });
     ov.querySelector('#pmDiagRename').addEventListener('click',function(){
       var n=prompt('اكتب اسم الجهاز (مثلاً: الكاشير، المطبخ، اللابتوب):', entry.device);
       if(n===null) return;

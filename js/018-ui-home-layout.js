@@ -87,21 +87,21 @@
     parts.push('<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="رسم بياني للمبيعات">');
     for(var g=0;g<=4;g++){
       var y=pad.t+ih-ih*g/4;
-      parts.push('<line x1="'+pad.l+'" x2="'+(W-pad.r)+'" y1="'+y+'" y2="'+y+'" stroke="#EAE2DD" stroke-width="1"/>');
-      parts.push('<text x="'+(pad.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#7E6F66">'+compact(top*g/4)+'</text>');
+      parts.push('<line x1="'+pad.l+'" x2="'+(W-pad.r)+'" y1="'+y+'" y2="'+y+'" stroke="#1E3A5F" stroke-width="1"/>');
+      parts.push('<text x="'+(pad.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#4A6583">'+compact(top*g/4)+'</text>');
     }
     var step=Math.ceil(data.length/7);
     data.forEach(function(d,i){
       var cx=pad.l+band*i+band/2;
       var hr=ih*d.rev/top;
-      parts.push('<rect class="pm-bar" style="animation-delay:'+(i*25)+'ms" x="'+(cx-bw-1)+'" y="'+(pad.t+ih-hr)+'" width="'+bw+'" height="'+Math.max(hr,0)+'" rx="4" fill="#7E4728"><title>'+d.k+' · الإيراد '+money(d.rev)+'</title></rect>');
+      parts.push('<rect class="pm-bar" style="animation-delay:'+(i*25)+'ms" x="'+(cx-bw-1)+'" y="'+(pad.t+ih-hr)+'" width="'+bw+'" height="'+Math.max(hr,0)+'" rx="4" fill="#1E3A5F"><title>'+d.k+' · الإيراد '+money(d.rev)+'</title></rect>');
       if(d.prof!==null){
         var hp=ih*Math.max(0,d.prof)/top;
         parts.push('<rect class="pm-bar" style="animation-delay:'+(i*25+60)+'ms" x="'+(cx+1)+'" y="'+(pad.t+ih-hp)+'" width="'+bw+'" height="'+Math.max(hp,0)+'" rx="4" fill="#16A34A"><title>'+d.k+' · الربح '+money(d.prof)+'</title></rect>');
       }
       if(i%step===0||i===data.length-1){
         var p=d.k.split('-');
-        parts.push('<text x="'+cx+'" y="'+(H-12)+'" text-anchor="middle" font-size="10" fill="#7E6F66">'+p[2]+'/'+p[1]+'</text>');
+        parts.push('<text x="'+cx+'" y="'+(H-12)+'" text-anchor="middle" font-size="10" fill="#4A6583">'+p[2]+'/'+p[1]+'</text>');
       }
     });
     parts.push('</svg>');

@@ -42,7 +42,7 @@
       var map=phoneToName();
       if(!(p in map)){
         hint.textContent='👤 عميل جديد (غير مسجل)';
-        hint.style.color='#7E6F66';
+        hint.style.color='#1E3A5F';
         hint.style.display='block';
         return;
       }

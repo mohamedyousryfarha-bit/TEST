@@ -9,7 +9,7 @@
 
   window.__goPre=window.__goPre||[];
   window.__goPre.push(function(id){
-    if(cloudActorRole==='sales'&&id!=='menu'&&id!=='cartpage'&&id!=='parties'&&id!=='partyInvoices'&&id!=='salesInvoices'&&id!=='drinkQueue'&&id!=='openInvoices')id='menu';if(cloudActorRole==='barista'&&id!=='recipes'&&id!=='drinkQueue'&&id!=='drinkProduce'&&id!=='parties')id='drinkProduce';
+    if(cloudActorRole==='sales'&&id!=='menu'&&id!=='cartpage'&&id!=='parties'&&id!=='readyDelivery'&&id!=='partyInvoices'&&id!=='salesInvoices'&&id!=='drinkQueue'&&id!=='openInvoices')id='menu';if(cloudActorRole==='barista'&&id!=='recipes'&&id!=='drinkQueue'&&id!=='drinkProduce'&&id!=='parties')id='drinkProduce';
     if((id==='menu'||id==='cartpage')&&!canSeeMenu()&&cloudActorRole!=='kitchen')id='home';
     if(cloudActorRole==='kitchen'&&id==='cartpage')id='order';
     return id;
@@ -28,11 +28,11 @@
 
       document.querySelectorAll('.tabs .tab').forEach(function(b){
         if(b.dataset.tab==='menu'||b.dataset.tab==='cartpage') b.style.display=menuOK?'':'none';
-        else if(sales) b.style.display=(b.dataset.tab==='sales'||b.dataset.tab==='parties'||b.dataset.tab==='partyInvoices'||b.dataset.tab==='salesInvoices'||b.dataset.tab==='openInvoices')?'':'none';
+        else if(sales) b.style.display=(b.dataset.tab==='sales'||b.dataset.tab==='parties'||b.dataset.tab==='readyDelivery'||b.dataset.tab==='partyInvoices'||b.dataset.tab==='salesInvoices'||b.dataset.tab==='openInvoices')?'':'none';
       });
       document.querySelectorAll('main .panel').forEach(function(p){
         if(p.id==='menu'||p.id==='cartpage') p.style.display=menuOK?'':'none';
-        else if(sales) p.style.display=(p.id==='sales'||p.id==='parties'||p.id==='partyInvoices'||p.id==='salesInvoices'||p.id==='openInvoices')?'':'none';
+        else if(sales) p.style.display=(p.id==='sales'||p.id==='parties'||p.id==='readyDelivery'||p.id==='partyInvoices'||p.id==='salesInvoices'||p.id==='openInvoices')?'':'none';
       });
 
       var adm=document.getElementById('menuAdminCard');
@@ -114,7 +114,7 @@
     }
     var tot=document.getElementById('cartTotal'); if(tot) tot.textContent=moneyFmt(t.total)+' ج.م';
     var cb=document.getElementById('cartCheckout'); if(cb) cb.disabled=!cart.length;
-     if(cb) cb.textContent=cart.some(function(l){var m=menuItem(l.name);return !!(m&&(m.kind==='party'||(m.kind==='drink'&&m.onDemand===true)))})?'إرسال الأوردر للشيف':'إتمام البيع';
+     if(cb) cb.textContent=((window.pmCartAsParty&&window.pmCartAsParty())||cart.some(function(l){var m=menuItem(l.name);return !!(m&&(m.kind==='party'||(m.kind==='drink'&&m.onDemand===true)))}))?'إرسال الأوردر للشيف':'إتمام البيع';
     
   }
 
@@ -148,6 +148,10 @@
   window.pmCartCheckout=async function(){
     var cart=loadCart();
     if(!cart.length){alert('السلة فاضية.');return}
+    // تحويل الأوردر لحجز حفلة: نفس الأصناف بأسعار المنيو، ونافذة الحفلات بتسجّل الحجز
+    if(window.pmCartAsParty && window.pmCartAsParty()){
+      return window.pmPartyCheckout(cart.map(function(l){ return {name:l.name, qty:l.qty}; }));
+    }
     // المشروبات التي تُحضّر عند الطلب تُرسل ضمن نفس السلة والفاتورة؛ لا نفصلها عن الأكل.
     var __pl=cart.filter(function(l){var m=menuItem(l.name);return !!(m&&m.kind==='party')});
     if(__pl.length){

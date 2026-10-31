@@ -10,7 +10,7 @@
     nochange:{n:'لم يحدث تغيير',d:5400,icon:'info'}
   };
 
-  var ICON_CLR={success:'#0E8F5B',error:'#D92D20',warn:'#D97706',info:'#D96B2B',progress:'#7C3AED',undo:'#D58556',nochange:'#877368'};
+  var ICON_CLR={success:'#0E8F5B',error:'#D92D20',warn:'#D97706',info:'#1E3A5F',progress:'#7C3AED',undo:'#1E3A5F',nochange:'#4A6583'};
   function svgIco(key){ var I=(window.__PMUI__||{}).ICONS||{}; return I[key]||I.info||''; }
   var esc=function(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}) };
   function stack(){

@@ -17,10 +17,11 @@
       });
     }catch(e){ return false; }
   }
+  window.pmCartAsParty=function(){ var c=document.getElementById('cartAsParty'); return !!(c&&c.checked); };
   function syncCartAddr(){
     var inp=document.getElementById('cartAddr'); if(!inp) return;
     var lab=document.querySelector('label[for="cartAddr"]');
-    var show=isPartyCart();
+    var show=isPartyCart()||(window.pmCartAsParty&&window.pmCartAsParty());
     inp.style.display=show?'':'none';
     if(lab) lab.style.display=show?'':'none';
   }
@@ -67,3 +68,6 @@
   setInterval(tick,1200);
   setTimeout(tick,1500);
 })();
+
+/* تحديث خانة العنوان لما يتغيّر مفتاح حجز الحفلة */
+(function(){ document.addEventListener('change',function(e){ if(e.target&&e.target.id==='cartAsParty'){ try{ if(typeof renderCart==='function') renderCart(); }catch(_){} var inp=document.getElementById('cartAddr'); if(inp){ var show=!!e.target.checked; inp.style.display=show?'':'none'; var lab=document.querySelector('label[for="cartAddr"]'); if(lab) lab.style.display=show?'':'none'; } } }); })();

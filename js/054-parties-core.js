@@ -308,10 +308,8 @@
       });
 
       var collectHtml='';
-      if(canCollect){
-        collectHtml='<div class="pm-po-actions"><button type="button" class="primary" data-po-collect="'+bi+'"'+(readyAll?'':' disabled')+'>'+
-          (readyAll?'تم التحصيل':'مستنيين الحجز يكمل ('+pendN+' متبقي)')+'</button></div>';
-      }
+      /* التحصيل والتسليم بقوا في تبويب "جاهز للتسليم" */
+      collectHtml='';
       var cancelBtn=(role==='admin' && pendN===live.length && live.length)?'<div class="pm-po-actions"><button type="button" class="secondary" data-po-cancelbk="'+bi+'">إلغاء الحفلة</button></div>':'';
       return '<article class="pm-po-card">'+head+sections+collectHtml+cancelBtn+'</article>';
     }).join('');
@@ -391,6 +389,7 @@
   }
 
   window.pmPartyWorkflowRender=pmPartyWorkflowRender;
+  window.pmCollectOpen=function(bi){ return pmCollectOpen(bi); };
   // فتح تبويب الحفلات يحدّث البيانات من الخادم
   window.__goPost=window.__goPost||[];
   window.__goPost.push(function(id){

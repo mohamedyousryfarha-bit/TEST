@@ -16,7 +16,7 @@
     var t=tpl(), r=lastReceipt();
     var rows=r?r.lines.map(function(l){
       return '<tr><td>'+esc2(l.name)+'</td><td>'+esc2(l.qty)+'</td><td>'+money(l.unitPrice)+'</td><td>'+money(l.revenue)+'</td></tr>';
-    }).join(''):'<tr><td colspan="4" style="color:#7E6F66">لسه مفيش فواتير. الفاتورة هتظهر هنا بعد أول بيع.</td></tr>';
+    }).join(''):'<tr><td colspan="4" style="color:#4A6583">لسه مفيش فواتير. الفاتورة هتظهر هنا بعد أول بيع.</td></tr>';
     box.innerHTML=(window.pmInvoiceHTML&&r)?window.pmInvoiceHTML(r,t):'<div class="pmi-paper">'+
       '<div class="pmi-head"><b>'+esc2(t.shopName)+'</b>'+(t.address?'<div>'+esc2(t.address)+'</div>':'')+(t.phone?'<div>'+esc2(t.phone)+'</div>':'')+(t.commercialReg?'<div>السجل التجاري: '+esc2(t.commercialReg)+'</div>':'')+(t.taxCard?'<div>البطاقة الضريبية: '+esc2(t.taxCard)+'</div>':'')+'</div>'+
       '<div class="pmi-meta">'+(r?'<span>فاتورة رقم '+esc2(r.no)+'</span>':'')+(r&&r.date?'<span>'+esc2(r.date)+'</span>':'')+(r&&r.by?'<span>البائع: '+esc2(r.by)+'</span>':'')+'</div>'+
@@ -67,7 +67,7 @@
     fill(); render();
   }
   var css=document.createElement('style');
-  css.textContent='.pmi-paper{background:#fff;color:#37251A;border:1px solid #EAE0DB;border-radius:14px;padding:16px;max-width:420px;font-size:13px}.pmi-head{text-align:center;margin-bottom:8px;line-height:1.7}.pmi-head b{font-size:16px}.pmi-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;color:#7E6F66;font-size:12px;margin-bottom:8px}.pmi-tbl{width:100%;border-collapse:collapse}.pmi-tbl th,.pmi-tbl td{padding:6px 4px;border-bottom:1px solid #F6F1EE;text-align:center}.pmi-tbl tfoot th{border-top:2px solid #3E2415}.pmi-foot{text-align:center;margin-top:10px;color:#7E6F66;font-size:12px}';
+  css.textContent='.pmi-paper{background:#fff;color:#1E3A5F;border:1px solid #EAE0DB;border-radius:14px;padding:16px;max-width:420px;font-size:13px}.pmi-head{text-align:center;margin-bottom:8px;line-height:1.7}.pmi-head b{font-size:16px}.pmi-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;color:#4A6583;font-size:12px;margin-bottom:8px}.pmi-tbl{width:100%;border-collapse:collapse}.pmi-tbl th,.pmi-tbl td{padding:6px 4px;border-bottom:1px solid #F6F1EE;text-align:center}.pmi-tbl tfoot th{border-top:2px solid #3E2415}.pmi-foot{text-align:center;margin-top:10px;color:#4A6583;font-size:12px}';
   document.head.appendChild(css);
   new MutationObserver(function(){ if(document.body.classList.contains('auth-required'))return; build(); }).observe(document.body,{attributes:true,attributeFilter:['class']});
   document.addEventListener('click',function(e){ if(e.target&&e.target.closest&&e.target.closest('[data-tab="invoice"]'))setTimeout(function(){fill();render()},50) });

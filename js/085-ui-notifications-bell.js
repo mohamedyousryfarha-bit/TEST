@@ -12,7 +12,7 @@
   var btn=document.createElement('button');
   btn.id='pmNotifBtn'; btn.type='button';
   btn.setAttribute('aria-label','الإشعارات'); btn.title='الإشعارات';
-  btn.innerHTML=BELL+'<span id="pmNotifCount" style="position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:10px;background:#D92D20;color:#fff;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 5px;box-sizing:border-box"></span>';
+  btn.innerHTML=BELL+'<span id="pmNotifCount" style="position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:10px;background:#D92D20;color:#1E3A5F;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 5px;box-sizing:border-box"></span>';
   var panel=document.createElement('div'); panel.id='pmNotifPanel';
   var wrap=document.createElement('span');
   wrap.id='pmNotifWrap';
@@ -37,14 +37,35 @@
   window.__pmBellAdd=function(){ unread++; drawCount(); if(panel.style.display==='block') renderPanel(); };
   var CLR_KEY='pmNotifClearedAt';
   function clearedAt(){ return Number(localStorage.getItem(CLR_KEY))||0; }
+  /* تحديد الشاشة المرتبطة بالإشعار من نصه (من غير تغيير في البيانات المحفوظة) */
+  function routeFor(t){
+    t=String(t||'');
+    if(/للحفلة/.test(t)) return /تجهيز/.test(t)?'readyDelivery':'parties';
+    if(/طلب مشروبات/.test(t)) return 'drinkQueue';
+    if(/فاتورة مفتوحة/.test(t)) return 'openInvoices';
+    if(/الأوردر جاهز|المشروبات جاهزة/.test(t)) return 'readyDelivery';
+    return null;
+  }
+  /* الضغط على الإشعار بيفتح الشاشة المرتبطة بيه ويقفل اللوحة */
+  if(panel && !panel.__pmRouteBound){
+    panel.__pmRouteBound=true;
+    panel.addEventListener('click',function(e){
+      var it=e.target && e.target.closest ? e.target.closest('[data-route]') : null;
+      if(!it) return;
+      e.stopPropagation();
+      var id=it.getAttribute('data-route');
+      panel.style.display='none';
+      if(typeof window.go==='function') window.go(id);
+    });
+  }
   function renderPanel(){
     var cl=clearedAt();
     var cloud=(window.__pmCloud||[]).map(function(n){ var b=n.body?' — '+n.body:''; return {text:(n.title||'')+b, at:Date.parse(n.created_at)||0}; }).filter(function(x){ return x.at>cl; });
     var all=cloud.concat(hist).sort(function(a,b){ return b.at-a.at; }).slice(0,MAX);
     var list=all.length
-      ? all.map(function(n){ return '<div style="padding:9px 4px;border-bottom:1px solid #EEE3DB;font-size:13px;line-height:1.5"><div>'+esc(n.text)+'</div><small style="color:#7A6A60">'+fmtTime(n.at)+'</small></div>'; }).join('')
-      : '<div style="text-align:center;color:#7A6A60;padding:20px 0">لا توجد إشعارات</div>';
-    panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:15px;color:#3E2415">الإشعارات</b><button id="pmNotifClear" type="button" style="border:0;background:none;color:#7E4728;font-weight:700;cursor:pointer;font:inherit">مسح الكل</button></div>'+list;
+      ? all.map(function(n){ var rt=routeFor(n.text); var attr=rt?' data-route="'+rt+'" style="padding:9px 4px;border-bottom:1px solid #EEE3DB;font-size:13px;line-height:1.5;cursor:pointer"':' style="padding:9px 4px;border-bottom:1px solid #EEE3DB;font-size:13px;line-height:1.5"'; return '<div'+attr+'><div>'+esc(n.text)+'</div><small style="color:#4A6583">'+fmtTime(n.at)+'</small></div>'; }).join('')
+      : '<div style="text-align:center;color:#4A6583;padding:20px 0">لا توجد إشعارات</div>';
+    panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:15px;color:#1E3A5F">الإشعارات</b><button id="pmNotifClear" type="button" style="border:0;background:none;color:#1E3A5F;font-weight:700;cursor:pointer;font:inherit">مسح الكل</button></div>'+list;
     var clr=document.getElementById('pmNotifClear');
     if(clr) clr.onclick=function(e){ e.stopPropagation(); hist=[]; save(); var newest=(window.__pmCloud||[]).reduce(function(m,n){ return Math.max(m,Date.parse(n.created_at)||0) },0); try{ localStorage.setItem(CLR_KEY,String(newest||Date.now())); }catch(err){} unread=0; drawCount(); renderPanel(); };
   }

@@ -73,6 +73,7 @@
     var pinv=arr(m.partyInvoices);
     R.partyRev=0; R.partyCost=0; R.partyUncosted=0;
     pinv.forEach(function(p){ if(!p||typeof p!=='object') return; R.partyRev+=num(p.total); R.partyCost+=num(p.cost); R.partyUncosted+=(p.uncostedLines!=null?num(p.uncostedLines):((p.lines&&p.lines.length)||(num(p.total)>0?1:0))); });
+    R.partyCollected=0; arr(m.partyOrders).forEach(function(o){ if(o && o.status!=='cancelled' && !(window.pmIsPartyOrderClosed && window.pmIsPartyOrderClosed(o))) R.partyCollected+=num(o.paid); });
     R.gross=(R.rev+R.partyRev)-(R.cost+R.partyCost);
 
     // العملاء: من الفواتير اللي فيها اسم أو تليفون
@@ -251,7 +252,7 @@
       kpi('المشتريات', money(R.pur), R.purList.length+' خامة · '+R.purCount+' عملية'+(R.purMax.v?' · أكبر عملية: '+money(R.purMax.v)+' ('+R.purMax.name+')':'')) +
       kpi('قيمة الهالك', money(R.wasteCost), qtyOf(R.wasteQty)) +
       kpi('متوسط الفاتورة', money(R.avgInvoice), qtyOf(R.qty)+' مباعة') +
-      kpi('الحفلات', fmt(R.parties.n)+' حفلة', 'متبقي '+money(R.parties.remaining)+' من '+money(R.parties.total));
+      kpi('الحفلات', fmt(R.parties.n)+' حفلة', 'متبقي '+money(R.parties.remaining)+' من '+money(R.parties.total)+' · محصّل جاري '+money(R.partyCollected||0));
 
     var totalSplit=R.foodRev+R.drinkRev, pct=totalSplit?Math.round(R.drinkRev/totalSplit*100):0;
     var split='<div class="db-split"><div><span>الأكل</span><b>'+esc(money(R.foodRev))+'</b><small>'+esc(qtyOf(R.foodQty))+'</small></div>'+
@@ -310,7 +311,7 @@
 
     root.innerHTML =
       '<div class="db-head"><div><h2>التحليلات</h2><p class="db-muted">متابعة المبيعات والمصروفات والمخزون والوصفات في شاشة واحدة.</p>'+(liveNote?'<p class="db-muted">'+esc(liveNote)+'</p>':'')+'</div>'+
-      '<div class="db-ctrl"><select id="anPeriod">'+opts+'</select><button type="button" class="db-btn" id="anRefresh">تحديث</button><div style="display:flex;gap:10px;align-items:center;margin:10px 0;direction:rtl"><label style="flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E7CDBB;border-radius:14px;padding:10px 12px;min-width:0"><span style="font-weight:800;color:#4A2A14;white-space:nowrap">من</span><input type="text" id="finFrom" inputmode="numeric" placeholder="25" maxlength="2" dir="ltr" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;text-align:right" value="'+((window.__finRange&&window.__finRange.from)||'')+'"></label><label style="flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E7CDBB;border-radius:14px;padding:10px 12px;min-width:0"><span style="font-weight:800;color:#4A2A14;white-space:nowrap">إلى</span><input type="text" id="finTo" inputmode="numeric" placeholder="26" maxlength="2" dir="ltr" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;text-align:right" value="'+((window.__finRange&&window.__finRange.to)||'')+'"></label></div><button type="button" class="db-btn pm-fin-export" id="anExportFinance">طباعة التقرير المالي</button></div></div>'+
+      '<div class="db-ctrl"><select id="anPeriod">'+opts+'</select><button type="button" class="db-btn" id="anRefresh">تحديث</button><div style="display:flex;gap:10px;align-items:center;margin:10px 0;direction:rtl"><label style="flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E7CDBB;border-radius:14px;padding:10px 12px;min-width:0"><span style="font-weight:800;color:#1E3A5F;white-space:nowrap">من</span><input type="text" id="finFrom" inputmode="numeric" placeholder="25" maxlength="2" dir="ltr" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;text-align:right" value="'+((window.__finRange&&window.__finRange.from)||'')+'"></label><label style="flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E7CDBB;border-radius:14px;padding:10px 12px;min-width:0"><span style="font-weight:800;color:#1E3A5F;white-space:nowrap">إلى</span><input type="text" id="finTo" inputmode="numeric" placeholder="26" maxlength="2" dir="ltr" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;text-align:right" value="'+((window.__finRange&&window.__finRange.to)||'')+'"></label></div><button type="button" class="db-btn pm-fin-export" id="anExportFinance">طباعة التقرير المالي</button></div></div>'+
       '<div class="db-kpis">'+kpis+'</div>'+
       '<div class="db-grid">'+grid+'</div>';
 
