@@ -6,7 +6,7 @@ html body nav.tabs .tab{display:flex!important;flex-direction:column!important;a
 html body nav.tabs .tab:hover{transform:translateY(-2px)!important;box-shadow:0 10px 20px -12px rgba(62,36,21,.25)!important}
 html body nav.tabs .tab .tab-ico{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;flex:0 0 auto;background:#FDF2EC;color:#1E3A5F;transition:background .2s ease,color .2s ease}
 html body nav.tabs .tab .tab-ico svg{width:22px;height:22px}
-html body nav.tabs .tab .tab-lbl{display:block;min-height:2.7em;display:flex;align-items:center;justify-content:center}
+html body nav.tabs .tab .tab-lbl{min-height:2.7em;display:flex;align-items:center;justify-content:center}
 html body nav.tabs .nav-group:nth-child(2) .tab .tab-ico{background:#E8F7EF;color:#16794B}
 html body nav.tabs .nav-group:nth-child(3) .tab .tab-ico{background:#F1EAFF;color:#6D28D9}
 html body nav.tabs .tab.active{background:linear-gradient(135deg,#FFFDF6,#FFF1CC)!important;border-color:transparent!important;color:#1E3A5F!important;box-shadow:0 12px 22px -12px #7E4728!important}
