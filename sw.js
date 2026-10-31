@@ -1,6 +1,6 @@
 // Service worker: لازم يكون فيه fetch handler عشان المتصفح يعتبر الموقع قابل للتثبيت.
 // الشبكة أولًا، ولو مفيش نت يرجع النسخة المخزنة (البيانات الحية ما بتتخزنش قديمة).
-const CACHE = 'rmy-shell-v82';
+const CACHE = 'rmy-shell-v83';
 const SHELL = [
   './',
   './index.html',
@@ -229,6 +229,22 @@ const SHELL = [
   './css/120-prep-board.css',
   './css/121-brand-polish.css',
   './js/121-prep-live.js',
+  './css/119-header-date-time.css',
+  './css/122-logo-palette.css',
+  './css/123-final-fixes.css',
+  './css/124-final-polish.css',
+  './css/125-maintenance-palette.css',
+  './css/126-responsive-layout.css',
+  './css/127-back-button-layout.css',
+  './css/128-final-theme.css',
+  './css/129-login-clean.css',
+  './css/130-error-dialog.css',
+  './css/132-gold-buttons.css',
+  './js/091-header-date-time.js',
+  './js/126-responsive-tables.js',
+  './js/128-contrast-guard.js',
+  './js/131-loud-alerts.js',
+  './js/133-auto-text-contrast.js',
 ];
 
 self.addEventListener('install', (e) => {
@@ -261,7 +277,8 @@ self.addEventListener('fetch', (e) => {
         }
         return res;
       })
-      .catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
+      // رجوع index.html للملاحة بس؛ لو كان ملف CSS/JS مفقود وأرجعنا HTML بيرفضه المتصفح (MIME غلط) والتطبيق يقوم ناقص
+      .catch(() => caches.match(req).then((r) => r || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())))
   );
 });
 
