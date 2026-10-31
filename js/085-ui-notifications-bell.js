@@ -94,19 +94,6 @@
     if(panel.contains(e.target)||btn.contains(e.target)) return;
     panel.style.display='none';
   });
-  function push(text){
-    // الجرس بيعرض بس إشعارات الإنتاج والحركة بين الحسابات (من السحابة)، مش رسايل المحلي
-    return;
-    text=String(text==null?'':text).trim(); if(!text) return;
-    hist.unshift({text:text,at:Date.now()}); hist=hist.slice(0,MAX);
-    unread++; save(); drawCount();
-    if(panel.style.display==='block') renderPanel();
-  }
-  var origToast=window.toast;
-  window.toast=function(msg){
-    try{ push(typeof msg==='string'?msg:(msg&&msg.text)||msg); }catch(e){}
-    return origToast?origToast.apply(this,arguments):undefined;
-  };
 
   /* أيقونة الرسائل في الشريط السفلي: مسنجر بدل الجرس */
   function swapIcon(){

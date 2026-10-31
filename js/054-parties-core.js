@@ -402,28 +402,6 @@
     if(p && p.classList.contains('active') && cloudReady && typeof window.pmPartyWorkflowRefresh==='function') window.pmPartyWorkflowRefresh().catch(function(){});
   },20000);
 
-  /* زرار ترحيل الحفلات القديمة للمدير: مرة واحدة، من غير ما يحتاج console */
-  function pmAddMigrateButton(){
-    if(cloudActorRole!=='admin') return;
-    if(localStorage.getItem('pm_migrated_closed_v1')) return;
-    var box=document.getElementById('partiesBody'); if(!box || document.getElementById('pmMigrateBtn')) return;
-    var b=document.createElement('button'); b.id='pmMigrateBtn'; b.type='button'; b.className='secondary';
-    b.textContent='ترحيل الحفلات القديمة (مرة واحدة)'; b.style.margin='0 0 10px';
-    b.onclick=async function(){
-      if(!confirm('ترحيل الحفلات القديمة اللي اتقفلت قبل كده؟ الإجراء ده بيتعمل مرة واحدة ومايغيّرش أي مبالغ.')) return;
-      b.disabled=true;
-      try{
-        var r=await apiCall({action:'migrate_closed_party_orders',employee_name:cloudActorName,pin:cloudActorPin});
-        if(r.error) throw r.error;
-        localStorage.setItem('pm_migrated_closed_v1','1');
-        alert('تم الترحيل: '+((r.data&&r.data.marked)||0)+' أوردر.');
-        b.remove();
-        if(typeof pmPartyWorkflowRefresh==='function') pmPartyWorkflowRefresh().catch(function(){});
-      }catch(e){ b.disabled=false; alert('تعذر الترحيل: '+(await pmErrText(e))); }
-    };
-    box.insertBefore(b, box.firstChild);
-  }
-  setInterval(pmAddMigrateButton, 2000);
 
   /* تزامن تقفيل الشهر لكل الحسابات: لو السيرفر فيه تقفيل جديد نحمّل آخر نسخة تلقائي (من غير ما نكسر تعديلات معلقة) */
   setInterval(async function(){

@@ -56,4 +56,16 @@
     }
   };
 
+  /* 4) راحة التبويب في الخلفية: مؤقتات تعديل الواجهة السريعة (<500ms) ما تشتغلش والتبويب مخفي.
+     مؤقتات الشبكة والتنبيهات (≥1000ms) شغّالة زي ما هي. */
+  (function(){
+    var _si=window.setInterval;
+    window.setInterval=function(fn,ms){
+      if(typeof fn==='function'&&typeof ms==='number'&&ms>0&&ms<500){
+        return _si.call(this,function(){ if(document.hidden)return; fn(); },ms);
+      }
+      return _si.apply(this,arguments);
+    };
+  })();
+
 })();
