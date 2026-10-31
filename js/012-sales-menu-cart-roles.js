@@ -173,7 +173,7 @@
     try{
       window.__pmCheckoutRequestId=window.__pmCheckoutRequestId||(function(){var id='';try{id=sessionStorage.getItem('pmCheckoutRequestId')||''}catch(e){}if(!id)id=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16)});try{sessionStorage.setItem('pmCheckoutRequestId',id)}catch(e){}return id})();
       var res=await apiCall({
-        action:'checkout_cart', employee_name:cloudActorName, pin:cloudActorPin, expected_revision:cloudRevision,
+        action:'checkout_cart', employee_name:cloudActorName, pin:cloudActorPin,
         request_id:window.__pmCheckoutRequestId,
         cart:cart.map(function(l){return {name:l.name,qty:l.qty}}), note:note, customer_phone:custPhone
       });

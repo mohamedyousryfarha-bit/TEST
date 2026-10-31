@@ -64,7 +64,6 @@
     if(body.receipt_id) c['معرف الفاتورة']=body.receipt_id;
     if(body.order_id) c['معرف الأوردر']=body.order_id;
     if(Array.isArray(body.cart)) c['عدد أصناف السلة']=body.cart.length;
-    if(body.expected_revision!=null) c['الإصدار المتوقع']=body.expected_revision;
     return c;
   }
   function errorText(err){

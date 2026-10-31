@@ -140,7 +140,7 @@
       alert('تعذر إرسال الطلب للباريستا: '+((e&&e.message)||String(e))+(sent?'\nاتبعت '+sent+' طلب قبل الخطأ، والباقي فاضل في السلة.':''));
     }finally{
       if(btn)btn.disabled=false;
-      if(typeof window.renderMenu==='function')window.renderMenu(); renderCart();
+      refreshMenu(); renderCart();
     }
     return ok;
   };

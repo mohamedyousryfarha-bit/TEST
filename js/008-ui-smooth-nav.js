@@ -294,7 +294,7 @@ document.addEventListener('touchend',function(e){
 
 /* ==================== 6) لوحة الأوامر (Ctrl+K) ==================== */
 var pal=null,palInput=null,palList=null,palItems=[],palSel=0;
-function normText(s){ return String(s||'').toLowerCase().replace(/[\u064B-\u0652\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي') }
+function norm(s){ return String(s||'').toLowerCase().replace(/[\u064B-\u0652\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي') }
 function paletteItems(){
   var out=[];
   var tabs=[].slice.call(document.querySelectorAll('nav.tabs .tab')).filter(function(b){ return b.style.display!=='none' });
@@ -304,7 +304,7 @@ function paletteItems(){
   });
   out.push({ic:'plus',t:'إضافة صنف للطلب',h:'قسم التحضير',run:function(){ go('order'); focusEl('orderProduct') }});
   out.push({ic:'calc',t:'حساب مكونات الطلب',run:function(){ go('order'); clickBtn('calcOrder') }});
-  out.push({ic:'check',t:'كشف التحضير (تأكيد الإنتاج لكل أوردر)',h:'قسم التحضير',run:function(){ go('order') }});
+  out.push({ic:'check',t:'تأكيد الإنتاج وخصم الخامات',run:function(){ go('order'); clickBtn('deductOrder') }});
   out.push({ic:'plus',t:'إضافة رصيد مخزون',run:function(){ go('stock'); focusEl('stockIngredient') }});
   out.push({ic:'list',t:'فتح المنيو',run:function(){ go('menu') }});
   out.push({ic:'receipt',t:'تسجيل مصروف',run:function(){ go('monthly'); focusEl('expenseAmount') }});
@@ -334,8 +334,8 @@ function buildPalette(){
   palInput.addEventListener('input',renderPalette);
 }
 function renderPalette(){
-  var q=normText(palInput.value);
-  palItems=paletteItems().filter(function(it){ return !q||normText(it.t).indexOf(q)>=0||normText(it.h||'').indexOf(q)>=0 });
+  var q=norm(palInput.value);
+  palItems=paletteItems().filter(function(it){ return !q||norm(it.t).indexOf(q)>=0||norm(it.h||'').indexOf(q)>=0 });
   palSel=0;
   if(!palItems.length){ palList.innerHTML='<div class="pm-pal-empty">لا توجد نتائج مطابقة.</div>'; return }
   palList.innerHTML=palItems.map(function(it,i){
@@ -430,7 +430,7 @@ function healthChecks(){
     scan:function(){ var seen={},n=0; (st.inventory||[]).forEach(function(x){ var k=String(x.name)+'|'+unitOf(x.unit); if(seen[k])n++; else seen[k]=1 }); return n },
     fix:function(){ var map={},n=0; var out=[]; (st.inventory||[]).forEach(function(x){
         var k=String(x.name)+'|'+unitOf(x.unit);
-        if(map[k]!==undefined){ var f=out[map[k]]; var fct=(typeof window.factor==='function')?window.factor:null; var base=(typeof window.norm==='function')?window.norm:null;
+        if(map[k]!==undefined){ var f=out[map[k]]; var fct=(typeof factor==='function')?factor:null; var base=(typeof norm==='function')?norm:null;
           var add=base?base(x.qty,x.unit):Number(x.qty||0);
           var div=fct?fct(f.unit):1; f.qty=Number(f.qty||0)+add/(div||1); n++; }
         else{ map[k]=out.length; out.push(x) }

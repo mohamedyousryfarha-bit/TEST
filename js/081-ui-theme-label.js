@@ -18,6 +18,7 @@
       }
     });
   }
-  // الوضع الليلي أُلغي في 008 (الثيرم دائمًا light)، فالسكان الدوري ما بيغيّرش حاجة وبيمشي كل الشجرة كل نص ثانية
+  setInterval(fix,500);
+  new MutationObserver(fix).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   fix();
 })();
