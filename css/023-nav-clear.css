@@ -6,8 +6,8 @@ html body nav.tabs .nav-title{font-size:12px!important;font-weight:800!important
 html body nav.tabs .nav-items{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(112px,1fr))!important;gap:8px!important}
 html body nav.tabs .tab{width:auto!important;min-width:0!important;max-width:none!important;flex:none!important;min-height:58px!important;height:auto!important;padding:10px 8px!important;font-size:12.5px!important;font-weight:700!important;line-height:1.35!important;white-space:normal!important;text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;border:1px solid var(--line)!important;border-radius:14px!important;background:var(--bg)!important;color:var(--ink)!important;transform:none!important;animation:none!important;box-shadow:none!important}
 html body nav.tabs .tab:hover{border-color:var(--blue)!important;background:#FBF4EF!important;color:var(--navy)!important}
-html body nav.tabs .tab.active{background:linear-gradient(125deg,var(--blue),var(--sky))!important;border-color:transparent!important;color:#fff!important;box-shadow:0 8px 18px -10px var(--blue)!important}
+html body nav.tabs .tab.active{background:linear-gradient(125deg,var(--blue),var(--sky))!important;border-color:transparent!important;color:#1E3A5F!important;box-shadow:0 8px 18px -10px var(--blue)!important}
 html body nav.tabs .tab .ui-ico{width:24px!important;height:24px!important;min-width:24px}
 html body nav.tabs .tab svg{width:20px!important;height:20px!important}
-html[data-theme="dark"] body nav.tabs{background:#291C14!important}
-html[data-theme="dark"] body nav.tabs .tab{background:#36241A!important;color:#EAE7E6!important;border-color:#3D2B21!important}
+html[data-theme="dark"] body nav.tabs{background:#FFFDF6!important}
+html[data-theme="dark"] body nav.tabs .tab{background:#FFFDF6!important;color:#1E3A5F!important;border-color:#F0D9A3!important}

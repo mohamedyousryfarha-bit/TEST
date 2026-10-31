@@ -2,7 +2,7 @@
    PastryMY Pro · حزمة تحسين الواجهة (أيقونات متحركة + تنبيهات)
    طبقة عرض فقط — لا تمس أي كود خاص بالعمل أو الحسابات
    ================================================================== */
-:root{--ui-ok:#16794B;--ui-err:#B42318;--ui-warn:#B7791F;--ui-info:#7E4728;--ui-ease:cubic-bezier(.22,.9,.24,1)}
+:root{--ui-ok:#16794B;--ui-err:#B42318;--ui-warn:#1E3A5F;--ui-info:#1E3A5F;--ui-ease:cubic-bezier(.22,.9,.24,1)}
 /* ---------- 1) الأيقونات المتحركة ---------- */
 .ui-ico{display:inline-grid;place-items:center;flex:0 0 auto;line-height:0}
 .ui-ico svg{width:100%;height:100%;display:block;overflow:visible}
@@ -40,7 +40,7 @@ header{position:relative;overflow:hidden}
 header::after{content:"";position:absolute;inset:-30% -12%;background:radial-gradient(60% 55% at 25% 0%,rgba(255,255,255,.22),transparent 70%);animation:uiShine 9s ease-in-out infinite alternate;pointer-events:none}
 @keyframes uiShine{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
 .card{position:relative;overflow:hidden}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3E2415,#7E4728,#D18559);opacity:.92}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FFFDF6,#FFFDF6,#FFF1CC);opacity:.92}
 @media(hover:hover) {
   .card:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(62,36,21,.13)}
 }
@@ -52,7 +52,7 @@ header::after{content:"";position:absolute;inset:-30% -12%;background:radial-gra
 button:disabled{opacity:.6;cursor:progress}
 button:disabled .ui-ico svg{animation:uiSpin 1s linear infinite}
 input:focus, select:focus, textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(126,71,40,.13)}
-input:hover, select:hover, textarea:hover{border-color:#D3C3B9}
+input:hover, select:hover, textarea:hover{border-color:#F0D9A3}
 .stat b.flash{animation:uiFlash .7s var(--ui-ease)}
 @keyframes uiFlash{0%{transform:scale(1)}35%{transform:scale(1.12);color:var(--blue)}100%{transform:scale(1)}}
 .login-card{animation:tabIn .5s var(--ui-ease) both}
@@ -61,7 +61,7 @@ input:hover, select:hover, textarea:hover{border-color:#D3C3B9}
 .toast-stack{position:fixed;top:96px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;pointer-events:none}
 .toast{position:relative;pointer-events:auto;display:flex;align-items:flex-start;gap:11px;overflow:hidden}
 .toast::before{content:"";position:absolute;top:0;bottom:0;inset-inline-start:0;width:4px;background:var(--tc)}
-.toast.sync{--tc:#7E4728;--tbg:#FDF2EC;--tfg:#7E4728}
+.toast.sync{--tc:#1E3A5F;--tbg:#FDF2EC;--tfg:#1E3A5F}
 @keyframes toastIn{from{opacity:0;transform:translateY(-18px) scale(.95)}to{opacity:1;transform:none}}
 @keyframes toastOut{to{opacity:0;transform:translateY(-12px) scale(.97)}}
 .toast-ico{position:relative;flex:0 0 auto;display:grid;place-items:center}
@@ -73,7 +73,7 @@ input:hover, select:hover, textarea:hover{border-color:#D3C3B9}
 .toast:hover .toast-progress{animation-play-state:paused}
 @keyframes toastBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 /* ---------- 5) شريط حالة المزامنة ---------- */
-.sync-pill{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(160%);z-index:11000;display:flex;align-items:center;gap:8px;border-radius:99px;color:#fff;font-weight:750;box-shadow:0 12px 30px rgba(50,28,15,.32);transition:transform .34s var(--ui-ease),opacity .3s ease,background .3s ease;pointer-events:none;max-width:min(92vw,430px);opacity:0}
+.sync-pill{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(160%);z-index:11000;display:flex;align-items:center;gap:8px;border-radius:99px;color:#1E3A5F;font-weight:750;box-shadow:0 12px 30px rgba(50,28,15,.32);transition:transform .34s var(--ui-ease),opacity .3s ease,background .3s ease;pointer-events:none;max-width:min(92vw,430px);opacity:0}
 .sync-pill.show{transform:translateX(-50%) translateY(0);opacity:1}
 .sync-pill .ui-ico{width:18px;height:18px}
 /* ---------- 6) نافذة الرسائل المطوّرة ---------- */
@@ -82,12 +82,12 @@ input:hover, select:hover, textarea:hover{border-color:#D3C3B9}
 .msg-symbol .ui-ico{width:40px;height:40px}
 .msg-symbol .ui-halo{position:absolute;inset:0;border-radius:26px;border:2px solid currentColor;opacity:0;animation:uiRing 1.7s ease-out .25s 2}
 .msg-box.warn .msg-symbol{background:#FFF6E3;color:#8A5500}
-.msg-box.sync .msg-symbol{background:#FDF2EC;color:#7E4728}
-.msg-box.warn{border-top:4px solid #E8A33D}
-.msg-box.error{border-top:4px solid #E0705F}
+.msg-box.sync .msg-symbol{background:#FDF2EC;color:#1E3A5F}
+.msg-box.warn{border-top:4px solid #F0D9A3}
+.msg-box.error{border-top:4px solid #F0D9A3}
 .msg-box.success{border-top:4px solid #2FAE74}
 .msg-ok{letter-spacing:.2px}
-#demoPreviewButton{margin-top:10px;background:linear-gradient(135deg,#7E4728,#A8643C)}
+#demoPreviewButton{margin-top:10px;background:linear-gradient(135deg,#FFFDF6,#FFF1CC)}
 @media(prefers-reduced-motion:reduce) {
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
