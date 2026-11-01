@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F2B233"><meta name="description" content="RMY: الوصفات والتكلفة والمشتريات والمبيعات والمخزون."><title>PastryMY Pro 3.4.3 | تطويرات التشغيل والتقارير</title>
-<link rel="stylesheet" href="css/app.css"><meta name="application-version" content="3.4.3"><meta name="application-updated" content="2026-10-21"><script src="js/001-core-boot.js"></script>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="RMY: الوصفات والتكلفة والمشتريات والمبيعات والمخزون."><title>RMY PRO 3.4.3 | تطويرات التشغيل والتقارير</title>
+<link rel="stylesheet" href="css/app.bundle.css?v=117"><meta name="application-version" content="3.4.3"><meta name="application-updated" content="2026-10-21"><script src="js/001-core-boot.js?v=116"></script>
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-<script src="js/002-core-nav-helpers.js"></script>
+<script src="js/002-core-nav-helpers.js?v=116"></script>
 
 
 
@@ -47,17 +47,17 @@
 
 
 
-<script src="js/003-ui-nav-groups.js"></script>
+<script src="js/003-ui-nav-groups.js?v=116"></script>
 
 
 
 
 
 
-<script src="js/004-ui-command-palette.js"></script>
+<script src="js/004-ui-command-palette.js?v=116"></script>
 
 
-<script src="js/005-core-role-tick.js"></script>
+<script src="js/005-core-role-tick.js?v=116"></script>
 
 
 
@@ -76,16 +76,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="ICONS/icon-192.png">
 
 <link rel="manifest" href="manifest.webmanifest">
-<script src="js/131-loud-alerts.js"></script>
+<script src="js/131-loud-alerts.js?v=116"></script>
 </head><body class="auth-required"><header><button type="button" id="drawerBtn" aria-label="القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="hrow"><div class="brand"><div class="mark"><span class="pm-logo-img" role="img" aria-label="RMY"></span></div></div><p id="headerBismillah" style="display:none"></p></div><div id="headerDateTime" class="header-date-time" aria-label="التاريخ والوقت"><span id="headerDate">--/--/----</span><strong id="headerTime">--:--:--</strong></div></header><div id="messageDialog" class="msg-overlay" role="dialog" aria-modal="true" aria-labelledby="messageTitle" aria-describedby="messageText"><div id="messageBox" class="msg-box"><div id="messageSymbol" class="msg-symbol">✓</div><h2 id="messageTitle" class="msg-title">تمت العملية بنجاح</h2><p id="messageText" class="msg-text"></p><button id="messageOk" class="msg-ok" type="button">تمام</button></div></div>
-<section id="loginScreen" class="login-screen" aria-labelledby="loginTitle"><div class="sweet-bg" aria-hidden="true"><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<symbol id="swDonut" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#E9B98A"/><circle cx="24" cy="24" r="16" fill="#F7A6C1"/><circle cx="24" cy="24" r="6" fill="#F7F2EF"/><path d="M10 14 q4 -3 6 0 M30 30 q4 -2 6 1 M32 12 q3 -1 4 2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
-<symbol id="swCupcake" viewBox="0 0 48 48"><path d="M12 26h24l-4 16H16z" fill="#F3C98B"/><path d="M7 27c0-10 8-17 17-17s17 7 17 17z" fill="#F7A6C1"/><path d="M12 22h24" stroke="#fff" stroke-width="2" opacity=".6"/><circle cx="24" cy="8" r="4" fill="#D6336C"/></symbol>
-<symbol id="swCookie" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#D9A066"/><circle cx="16" cy="18" r="3" fill="#1E3A5F"/><circle cx="30" cy="16" r="2.5" fill="#1E3A5F"/><circle cx="26" cy="30" r="3" fill="#1E3A5F"/><circle cx="14" cy="32" r="2" fill="#1E3A5F"/><circle cx="34" cy="28" r="2" fill="#1E3A5F"/></symbol>
-<symbol id="swMacaron" viewBox="0 0 48 48"><rect x="3" y="9" width="42" height="13" rx="6.5" fill="#CDB4F6"/><rect x="3" y="26" width="42" height="13" rx="6.5" fill="#B8A2EA"/><rect x="8" y="21" width="32" height="6" rx="3" fill="#FFF6E0"/></symbol>
-<symbol id="swCake" viewBox="0 0 48 48"><path d="M6 38 L24 8 L42 38 Z" fill="#FBE7C6"/><path d="M11 30 H37 M14 22 H34" stroke="#F7A6C1" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="6" r="3.5" fill="#D6336C"/></symbol>
-<symbol id="swLollipop" viewBox="0 0 48 48"><circle cx="24" cy="18" r="15" fill="#A8E6CF"/><circle cx="24" cy="18" r="9" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity=".7"/><rect x="22.5" y="32" width="3" height="15" rx="1.5" fill="#E1D7D1"/></symbol>
-</defs></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:6%;--l:4%;--s:34px;--d:16s;--dl:0s;--a:swX"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:18%;--l:70%;--s:28px;--d:12s;--dl:-4s;--a:swXr"><use href="#swCookie"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:60%;--l:8%;--s:40px;--d:18s;--dl:-2s;--a:swXr"><use href="#swCupcake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:78%;--l:62%;--s:30px;--d:14s;--dl:-7s;--a:swX"><use href="#swMacaron"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:40%;--l:88%;--s:26px;--d:20s;--dl:-9s;--a:swY"><use href="#swLollipop"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:10%;--l:40%;--s:24px;--d:15s;--dl:-5s;--a:swD"><use href="#swCake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:88%;--l:20%;--s:36px;--d:17s;--dl:-11s;--a:swDr"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:50%;--l:2%;--s:22px;--d:13s;--dl:-3s;--a:swY"><use href="#swCookie"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:30%;--l:50%;--s:32px;--d:19s;--dl:-8s;--a:swD"><use href="#swMacaron"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:70%;--l:90%;--s:30px;--d:15s;--dl:-1s;--a:swDr"><use href="#swCake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:4%;--l:85%;--s:22px;--d:11s;--dl:-6s;--a:swY"><use href="#swCupcake"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:92%;--l:48%;--s:26px;--d:16s;--dl:-12s;--a:swX"><use href="#swLollipop"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:55%;--l:40%;--s:20px;--d:21s;--dl:-4s;--a:swD"><use href="#swDonut"/></svg><svg class="sweet" viewBox="0 0 48 48" style="--t:22%;--l:22%;--s:28px;--d:14s;--dl:-10s;--a:swDr"><use href="#swCookie"/></svg></div>
+<section id="loginScreen" class="login-screen" aria-labelledby="loginTitle">
   <div class="login-card">
     <div class="login-brand">
       <div class="login-logo" aria-hidden="true"><span class="pm-logo-img"></span></div>
@@ -150,7 +143,7 @@
   </div>
 </section>
 <main class="wrap"><div id="pmBackBar" class="pm-back-bar"><button id="pmBack" type="button">→ رجوع للقائمة</button></div>
-<div class="autosave" id="localSaveStatus"><span>●</span><span>في انتظار الاتصال الآمن بالسحابة…</span><button id="retryCloudButton" type="button" class="secondary mini" onclick="retryCloudSync()">تحديث الصفحة</button><button id="reloadCloudButton" type="button" class="secondary mini" onclick="reloadCloudState()">آخر نسخة سحابية</button><button id="signOutButton" type="button" class="secondary mini" onclick="signOutCloud()">تسجيل خروج</button></div>
+<div class="autosave" id="localSaveStatus"><span>●</span><span>في انتظار الاتصال الآمن بالسحابة…</span><button id="retryCloudButton" type="button" class="secondary mini" onclick="retryCloudSync()">تحديث الصفحة</button><button id="reloadCloudButton" type="button" class="secondary mini" onclick="reloadCloudState()">آخر نسخة سحابية</button><button id="signOutButton" type="button" class="secondary mini" onclick="signOutCloud()">تسجيل خروج المستخدم</button></div>
 <nav class="tabs noprint" id="appNav"><div class="nav-group"><div class="nav-title">التشغيل</div><div class="nav-items"><button class="tab active" data-tab="analytics">الرئيسية</button><button class="tab" data-tab="customers">العملاء</button></div></div><div class="nav-group"><div class="nav-title">المبيعات</div><div class="nav-items"><button class="tab" data-tab="menu">المنيو</button><button class="tab" data-tab="cartpage">الفواتير</button><button class="tab" data-tab="salesInvoices">فواتير العملاء</button></div></div><div class="nav-group"><div class="nav-title">المطبخ</div><div class="nav-items"><button class="tab" data-tab="order">قسم التحضير</button><button class="tab" data-tab="recipes" data-rgroup="food">الوصفات</button></div></div><div class="nav-group"><div class="nav-title">المخزن</div><div class="nav-items"><button class="tab" data-tab="stock">المخزون</button><button class="tab" data-tab="history">حركة المخزون</button><button class="tab" data-tab="purchases">المشتريات</button></div></div><div class="nav-group"><div class="nav-title">الحسابات</div><div class="nav-items"><button class="tab" data-tab="prices">أسعار الخامات</button><button class="tab" data-tab="costing">تكلفة الوصفات</button><button class="tab" data-tab="expenses">المصروفات التشغيلية</button></div></div><div class="nav-group"><div class="nav-title">التقارير والإدارة</div><div class="nav-items"><button class="tab" data-tab="monthly">تقفيل الشهر</button><button class="tab" data-tab="audit">سجل التعديلات</button><button class="tab" data-tab="backup">النسخ الاحتياطي</button></div></div><div class="nav-group" id="partiesGroup"><div class="nav-title">الحفلات</div><div class="nav-items"><button class="tab" data-tab="parties">أوردرات الحفلات</button><button class="tab" data-tab="readyDelivery">جاهز للتسليم</button><button class="tab" data-tab="partyInvoices">فواتير الحفلات</button><button class="tab" data-tab="partyTemplate">هيكل فاتورة الحفلات</button></div></div><div class="nav-group" id="drinkGroup"><div class="nav-title">المشروبات</div><div class="nav-items"><button class="tab" data-tab="drinkProduce">إنتاج المشروبات</button><button class="tab" data-tab="drinkQueue">حسب الطلب</button><button class="tab" data-tab="recipes" data-rgroup="drink">وصفة مشروبات</button></div></div></nav>
 <div id="home" hidden><div class="pm-grid">
 <div class="card c12 pm-hero" id="pmHero">
@@ -183,7 +176,7 @@
 <div class="card"><div class="sectionhead"><h2>ملخص تكلفة الوصفات</h2><button id="exportCostReport" class="secondary mini">تصدير Excel</button></div><div id="allRecipeCosts" class="tablewrap"></div></div>
 </section>
 <section id="purchases" class="panel">
-<div class="card"><div class="sectionhead"><h2>قائمة نواقص المخزون</h2><button id="exportPurchases" class="secondary mini">تصدير Excel</button></div><p class="small">تعرض هذه القائمة الخامات غير الموجودة في المخزون أو التي رصيدها صفر، سواء كانت مستخدمة في الوصفات أو مسجلة ضمن أسعار الخامات. لا تعتمد على طلب الإنتاج الحالي.</p><div id="purchaseList"></div><div class="actions"><button id="refreshPurchases" class="secondary">تحديث القائمة</button><button id="printPurchases" class="secondary">طباعة القائمة</button></div></div>
+<div class="card"><div class="sectionhead"><h2>قائمة نواقص المخزون</h2><button id="exportPurchases" class="secondary mini">تصدير Excel</button></div><p class="small">تعرض هذه القائمة الخامات غير الموجودة في المخزون أو التي رصيدها صفر، سواء كانت مستخدمة في الوصفات أو مسجلة ضمن أسعار الخامات. كما تعرض الخامات اللي رصيدها مش مكفي لأوردرات التحضير الحالية (قسم التحضير).</p><div id="purchaseList"></div><div class="actions"><button id="refreshPurchases" class="secondary">تحديث القائمة</button><button id="printPurchases" class="secondary">طباعة القائمة</button></div></div>
 <div class="card"><h2>تسجيل شراء فعلي</h2><p class="small">سجّل كمية الخامة التي اشتريتها وإجمالي ما دفعته. سيزيد المخزون وتُسجّل الحركة، ويُحدّث سعر الشراء المرجعي إلى آخر عملية شراء لهذه الكمية والوحدة.</p><div class="grid2"><div><label>الخامة المشتراة</label><select id="purchaseIngredient"></select></div><div><label>الكمية المشتراة</label><input id="purchaseQty" type="number" min="0.001" step="any" placeholder="مثال: 2"></div><div><label>وحدة الكمية</label><select id="purchaseUnit"></select></div><div><label>إجمالي سعر الشراء (جنيه)</label><input id="purchaseTotal" type="number" min="0.01" step="any" placeholder="إجمالي الفاتورة لهذه الخامة"></div></div><label>المورد / رقم الفاتورة / ملاحظة (اختياري)</label><input id="purchaseNote" placeholder="اسم المورد أو رقم الفاتورة"><div id="purchasePreview" class="pro-note">اختر الخامة وأدخل الكمية والسعر لعرض سعر الوحدة.</div><button id="addPurchase" class="primary" style="width:100%;margin-top:12px">تسجيل الشراء وإضافة المخزون</button></div>
 <div class="card"><div class="sectionhead"><h2>سجل المشتريات الفعلية</h2><button id="exportPurchaseLog" class="secondary mini">تصدير سجل المشتريات</button></div><div id="purchasesTable" class="tablewrap"></div></div>
 <div class="card"><h2>المصروفات التشغيلية</h2><p class="small">المصروفات هي نفقات التشغيل العامة مثل الإيجار والكهرباء والنقل والصيانة. لا تسجّل هنا شراء خامات (يسجّل في المشتريات)، ولا تسجّل بندًا سبق تحميله ضمن تكلفة الوصفة حتى لا يتكرر الحساب.</p><div class="grid2"><div><label>نوع المصروف</label><select id="expenseCategory"><option>عمالة عامة غير محمّلة على الوصفات</option><option>راتب شيف</option><option>راتب مساعد شيف</option><option>راتب مبيعات</option><option>راتب ستيوراد</option><option>كهرباء / غاز عامة</option><option>نقل وتوصيل</option><option>إيجار</option><option>صيانة</option><option>تسويق</option><option>اتصالات / إنترنت</option><option>أخرى</option></select></div><div><label>قيمة المصروف (جنيه)</label><input id="expenseAmount" type="number" min="0.01" step="any" placeholder="قيمة المصروف"></div></div><label>تفاصيل المصروف</label><input id="expenseNote" placeholder="مثال: فاتورة كهرباء أو إيجار"><button id="addExpense" class="primary" style="width:100%;margin-top:12px">حفظ المصروف</button></div>
@@ -237,58 +230,58 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script defer src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1"></script>
 <script src="./supabase-config.js"></script>
-<script src="js/006-core-main-app.js"></script>
-<script src="js/007-ui-enhancements.js"></script>
+<script src="js/006-core-main-app.js?v=116"></script>
+<script src="js/007-ui-enhancements.js?v=116"></script>
 
-<script src="js/008-ui-smooth-nav.js"></script>
-
-
-
-
-
-<script src="js/009-cloud-live-presence.js"></script>
+<script src="js/008-ui-smooth-nav.js?v=116"></script>
 
 
 
 
 
-<script src="js/010-menu-categories.js"></script>
-<script src="js/011-auth-login-errors.js"></script>
-<script src="js/012-sales-menu-cart-roles.js"></script>
-
-<script src="js/013-invoices-close-clean.js"></script>
-<script src="js/014-invoices-archive.js"></script>
+<script src="js/009-cloud-live-presence.js?v=116"></script>
 
 
-<script src="js/015-reports-excel-export.js"></script>
-<script src="js/016-cloud-multiuser-merge.js"></script>
-<script src="js/017-cloud-presence-chip.js"></script>
-<script src="js/018-ui-home-layout.js"></script>
-<script src="js/019-ui-visibility-pause.js"></script>
-<script src="js/020-core-tour-cleanup.js"></script>
-<script src="js/021-auth-logout.js"></script>
-<script src="js/022-ui-topbar.js"></script>
-<script src="js/023-admin-wipe-data.js"></script>
-<script src="js/024-ui-tap-guard.js"></script>
-<script src="js/025-ui-fullscreen.js"></script>
-<script src="js/026-inventory-links-prices.js"></script>
-
-<script src="js/027-core-ready-checks.js"></script>
-<script src="js/028-invoices-settings.js"></script>
-<script src="js/029-invoices-show.js"></script>
-
-<script src="js/030-messages-core.js"></script>
-
-<script src="js/031-cloud-presence-icon.js"></script>
 
 
-<script src="js/032-ui-app-nav-sync.js"></script>
+
+<script src="js/010-menu-categories.js?v=116"></script>
+<script src="js/011-auth-login-errors.js?v=116"></script>
+<script src="js/012-sales-menu-cart-roles.js?v=116"></script>
+
+<script src="js/013-invoices-close-clean.js?v=116"></script>
+<script src="js/014-invoices-archive.js?v=116"></script>
 
 
-<script src="js/033-auth-employee-login.js"></script>
+<script src="js/015-reports-excel-export.js?v=116"></script>
+<script src="js/016-cloud-multiuser-merge.js?v=116"></script>
+<script src="js/017-cloud-presence-chip.js?v=116"></script>
+<script src="js/018-ui-home-layout.js?v=116"></script>
+<script src="js/019-ui-visibility-pause.js?v=116"></script>
+<script src="js/020-core-tour-cleanup.js?v=116"></script>
+<script src="js/021-auth-logout.js?v=116"></script>
+<script src="js/022-ui-topbar.js?v=116"></script>
+<script src="js/023-admin-wipe-data.js?v=116"></script>
+<script src="js/024-ui-tap-guard.js?v=116"></script>
+<script src="js/025-ui-fullscreen.js?v=116"></script>
+<script src="js/026-inventory-links-prices.js?v=116"></script>
+
+<script src="js/027-core-ready-checks.js?v=116"></script>
+<script src="js/028-invoices-settings.js?v=116"></script>
+<script src="js/029-invoices-show.js?v=116"></script>
+
+<script src="js/030-messages-core.js?v=116"></script>
+
+<script src="js/031-cloud-presence-icon.js?v=116"></script>
 
 
-<script src="js/034-menu-v2.js"></script>
+<script src="js/032-ui-app-nav-sync.js?v=116"></script>
+
+
+<script src="js/033-auth-employee-login.js?v=116"></script>
+
+
+<script src="js/034-menu-v2.js?v=116"></script>
 
 
 <nav class="pm-dock" id="pmDock" aria-label="التنقل السريع">
@@ -300,67 +293,67 @@
 <div class="pm-devsheet" id="pmDevSheet" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pmDevTitle">
     <div class="grab"></div>
-    <h3 id="pmDevTitle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F7DB8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="13" height="10" rx="2"/><path d="M7 20h5M9.5 14v6"/><rect x="17" y="8" width="4" height="12" rx="1.5"/></svg>الأجهزة المتصلة</h3>
+    <h3 id="pmDevTitle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="13" height="10" rx="2"/><path d="M7 20h5M9.5 14v6"/><rect x="17" y="8" width="4" height="12" rx="1.5"/></svg>الأجهزة المتصلة</h3>
     <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg></span><div><b id="pmDevPres">—</b><small>عدد الحسابات المتصلة الآن</small></div></div>
     <div id="pmDevList"></div>
     <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></svg></span><div><b>حالة المزامنة</b><small id="pmDevSync">—</small></div></div>
     <button class="close" id="pmDevClose" type="button">إغلاق</button>
   </div>
 </div>
-<script src="js/035-ui-bottom-dock.js"></script>
+<script src="js/035-ui-bottom-dock.js?v=116"></script>
 
 
-<script src="js/036-reports-bento-home.js"></script>
-
-
-
-
-
-<script src="js/037-ui-toast-queue.js"></script>
-
-
-<script src="js/038-menu-cart-badges.js"></script>
-
-
-
-<script src="js/039-auth-autologin-pin.js"></script>
-
-
-<script src="js/040-auth-remember-employee.js"></script>
-
-
-
-<script src="js/041-ui-dock-icons.js"></script>
+<script src="js/036-reports-bento-home.js?v=116"></script>
 
 
 
 
 
-<script src="js/042-ui-bottom-sheets.js"></script>
+<script src="js/037-ui-toast-queue.js?v=116"></script>
+
+
+<script src="js/038-menu-cart-badges.js?v=116"></script>
 
 
 
-<script src="js/043-messages-read-ticks.js"></script>
+<script src="js/039-auth-autologin-pin.js?v=116"></script>
+
+
+<script src="js/040-auth-remember-employee.js?v=116"></script>
 
 
 
-<script src="js/044-messages-tab.js"></script>
-
-<script src="js/045-ui-hide-fab.js"></script>
-
-
-<script src="js/046-sales-lock.js"></script>
-
-
+<script src="js/041-ui-dock-icons.js?v=116"></script>
 
 
 
 
 
-<script src="js/047-customers-core.js"></script>
+<script src="js/042-ui-bottom-sheets.js?v=116"></script>
 
-<script src="js/048-reports-audit-filter.js"></script>
-<script src="js/049-ui-back-navigation.js"></script>
+
+
+<script src="js/043-messages-read-ticks.js?v=116"></script>
+
+
+
+<script src="js/044-messages-tab.js?v=116"></script>
+
+<script src="js/045-ui-hide-fab.js?v=116"></script>
+
+
+<script src="js/046-sales-lock.js?v=116"></script>
+
+
+
+
+
+
+
+<script src="js/047-customers-core.js?v=116"></script>
+
+<script src="js/048-reports-audit-filter.js?v=116"></script>
+<script src="js/049-ui-back-navigation.js?v=116"></script>
 
 
 <button type="button" id="cartFab" aria-label="السلة" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6"/></svg><span id="cartFabN">0</span></button>
@@ -370,7 +363,7 @@
   <section id="drawerBasket" class="drawer-basket" hidden>
     <h3>🧺 السلة</h3>
     <div id="cartItems"></div>
-    <label for="cartPhone">رقم التليفون (اختياري)</label><input id="cartPhone" type="tel" inputmode="tel" placeholder="01xxxxxxxxx"><label for="cartNote">اسم العميل (اختياري)</label><input id="cartNote" placeholder="اسم العميل"><div class="pm-party-bar"><span id="cartPartyChip" class="pm-party-chip-txt">بيع عادي</span><button type="button" id="cartPartyOpen" class="pm-party-open">تحويل لحجز حفلة</button></div><div id="cartPartySheet" class="pm-party-sheet" hidden><div class="pm-party-card" role="dialog" aria-modal="true" aria-labelledby="cartPartyTitle"><div class="pm-party-head"><b id="cartPartyTitle">حجز حفلة</b><button type="button" id="cartPartyClose" aria-label="إغلاق">×</button></div><label class="pm-party-switch"><input type="checkbox" id="cartAsParty"><span class="pm-party-track"></span><span>حوّل الأوردر لحجز حفلة</span></label><p class="pm-party-hint">الأوردر هيتسجّل كحجز للشيف، ومفيش خصم مخزون عند الحجز.</p><label for="cartAddr">عنوان التسليم</label><input id="cartAddr" placeholder="العنوان"><div class="actions"><button type="button" class="primary" id="cartPartyDone">تم</button></div></div></div>
+    <label for="cartPhone">رقم التليفون (اختياري)</label><input id="cartPhone" type="tel" inputmode="tel" placeholder="01xxxxxxxxx"><label for="cartNote">اسم العميل (اختياري)</label><input id="cartNote" placeholder="اسم العميل"><div class="pm-party-inline"><label class="pm-party-switch"><input type="checkbox" id="cartAsParty"><span class="pm-party-track"></span><span>حوّل الأوردر لحجز حفلة</span></label><p class="pm-party-hint">الأوردر هيتسجّل كحجز للشيف، ومفيش خصم مخزون عند الحجز.</p></div><label for="cartAddr" style="display:none">عنوان التسليم</label><input id="cartAddr" placeholder="العنوان" style="display:none">
     <div class="sale-total">الإجمالي: <b id="cartTotal">0 ج.م</b></div>
     <div class="actions">
       <button id="cartClear" class="secondary mini" type="button" onclick="pmCartClear()">تفريغ</button>
@@ -380,32 +373,20 @@
   <div class="sd-title">أدوات</div>
   <div id="drawerTools"></div>
 </aside>
-<script src="js/050-sales-cart-drawer.js"></script>
-<script src="js/051-ui-header-scroll.js"></script>
-<script src="js/052-sales-no-invoices.js"></script>
-<script src="js/053-recipes-costing-auto.js"></script>
-<script src="js/054-parties-core.js"></script>
+<script src="js/050-sales-cart-drawer.js?v=116"></script>
+<script src="js/051-ui-header-scroll.js?v=116"></script>
+<script src="js/052-sales-no-invoices.js?v=116"></script>
+<script src="js/053-recipes-costing-auto.js?v=116"></script>
+<script src="js/054-parties-core.js?v=116"></script>
 
 
 
 
-<script src="js/055-parties-orders.js"></script>
+<script src="js/055-parties-orders.js?v=116"></script>
 
-<script src="js/056-sales-invoices.js"></script>
-<script src="js/057-barista-drink-queue.js"></script>
-<script src="js/058-invoices-manual-close.js"></script>
-
-
-
-
-
-
-
-
-
-<script src="js/059-reports-analytics.js"></script>
-
-<script src="js/060-menu-qty.js"></script>
+<script src="js/056-sales-invoices.js?v=116"></script>
+<script src="js/057-barista-drink-queue.js?v=116"></script>
+<script src="js/058-invoices-manual-close.js?v=116"></script>
 
 
 
@@ -413,40 +394,52 @@
 
 
 
-<script src="js/061-ui-toast-v2.js"></script>
 
-<script src="js/062-ui-dock-v3.js"></script>
 
-<script src="js/063-barista-order-alerts.js"></script>
+<script src="js/059-reports-analytics.js?v=116"></script>
 
-<script src="js/064-invoices-open-badge.js"></script>
+<script src="js/060-menu-qty.js?v=116"></script>
 
 
 
 
-<script src="js/065-cloud-save-timeout.js"></script>
-
-<script src="js/066-customers-phone-autofill.js"></script>
 
 
-<script src="js/067-customers-address-scope.js"></script>
-<script src="js/136-cart-party-sheet.js"></script>
 
-<script src="js/068-ui-notification-sound.js"></script>
+<script src="js/061-ui-toast-v2.js?v=116"></script>
 
+<script src="js/062-ui-dock-v3.js?v=116"></script>
 
-<script src="js/069-ui-dock-home.js"></script>
+<script src="js/063-barista-order-alerts.js?v=116"></script>
 
-
-<script src="js/070-ui-nav-filter-by-role.js"></script>
+<script src="js/064-invoices-open-badge.js?v=116"></script>
 
 
 
 
-<script src="js/071-customers-blocked-sync.js"></script>
-<script src="js/072-core-pwa-register.js"></script>
+<script src="js/065-cloud-save-timeout.js?v=116"></script>
 
-<script src="js/073-auth-view-only.js"></script>
+<script src="js/066-customers-phone-autofill.js?v=116"></script>
+
+
+<script src="js/067-customers-address-scope.js?v=116"></script>
+<script src="js/136-cart-party-sheet.js?v=116"></script>
+
+<script src="js/068-ui-notification-sound.js?v=116"></script>
+
+
+<script src="js/069-ui-dock-home.js?v=116"></script>
+
+
+<script src="js/070-ui-nav-filter-by-role.js?v=116"></script>
+
+
+
+
+<script src="js/071-customers-blocked-sync.js?v=116"></script>
+<script src="js/072-core-pwa-register.js?v=116"></script>
+
+<script src="js/073-auth-view-only.js?v=116"></script>
 
 
 <div id="pmMaint" role="alertdialog" aria-modal="true" aria-labelledby="pmMaintTitle" aria-describedby="pmMaintMsg">
@@ -472,58 +465,52 @@
 </div>
 
 
-<script src="js/074-admin-maintenance.js"></script>
+<script src="js/074-admin-maintenance.js?v=116"></script>
 
 
 
 
 
-<script src="js/075-admin-diagnostics.js"></script>
+<script src="js/075-admin-diagnostics.js?v=116"></script>
 
-<script src="js/076-reports-accountant.js"></script>
-
-
-<script src="js/077-reports-accountant-alerts.js"></script>
+<script src="js/076-reports-accountant.js?v=116"></script>
 
 
-<script src="js/078-admin-self-check.js"></script>
+<script src="js/077-reports-accountant-alerts.js?v=116"></script>
 
 
-
-<script src="js/079-ui-tools-group.js"></script>
-<script src="js/080-admin-only-tools.js"></script>
+<script src="js/078-admin-self-check.js?v=116"></script>
 
 
 
-
-
-
-<script src="js/081-ui-theme-label.js"></script>
-<script src="js/082-ui-dark-contrast.js"></script>
-
-<script src="js/083-invoices-language.js"></script>
-
-<script src="js/084-invoices-english-names.js"></script>
-
-<script src="js/085-ui-notifications-bell.js"></script>
-
-<script src="js/086-admin-settings-fold.js"></script>
-
-
-
-<script src="js/087-cloud-auto-restore.js"></script>
-
-<script src="js/088-invoices-settings-fold.js"></script>
-
-<script src="js/089-admin-maintenance-fold.js"></script>
-
-<script src="js/090-ui-folds-placement.js"></script>
+<script src="js/079-ui-tools-group.js?v=116"></script>
+<script src="js/080-admin-only-tools.js?v=116"></script>
 
 
 
 
 
 
+<script src="js/081-ui-theme-label.js?v=116"></script>
+<script src="js/082-ui-dark-contrast.js?v=116"></script>
+
+<script src="js/083-invoices-language.js?v=116"></script>
+
+<script src="js/084-invoices-english-names.js?v=116"></script>
+
+<script src="js/085-ui-notifications-bell.js?v=116"></script>
+
+<script src="js/086-admin-settings-fold.js?v=116"></script>
+
+
+
+<script src="js/087-cloud-auto-restore.js?v=116"></script>
+
+<script src="js/088-invoices-settings-fold.js?v=116"></script>
+
+<script src="js/089-admin-maintenance-fold.js?v=116"></script>
+
+<script src="js/090-ui-folds-placement.js?v=116"></script>
 
 
 
@@ -541,11 +528,23 @@
 
 
 
-<script src="js/091-header-date-time.js"></script>
-<script src="js/121-prep-live.js"></script>
-<script src="js/092-brand-sounds.js"></script>
-<script src="js/126-responsive-tables.js"></script>
-<script src="js/128-contrast-guard.js"></script>
-<script src="js/133-auto-text-contrast.js"></script>
-<script src="js/135-ready-delivery.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="js/091-header-date-time.js?v=116"></script>
+<script src="js/121-prep-live.js?v=116"></script>
+<script src="js/092-brand-sounds.js?v=116"></script>
+<script src="js/126-responsive-tables.js?v=116"></script>
+<script src="js/128-contrast-guard.js?v=116"></script>
+<script src="js/133-auto-text-contrast.js?v=116"></script>
+<script src="js/135-ready-delivery.js?v=116"></script>
+<script src="js/145-recipe-smart-entry.js?v=116"></script>
+
+
 </body></html>
