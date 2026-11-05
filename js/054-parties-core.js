@@ -4,15 +4,6 @@
 
   function recipeItems(){ return Object.keys(state.recipes||{}).filter(function(n){var r=state.recipes[n];return Array.isArray(r)&&r.some(function(c){return c&&String(c.name||'').trim()&&Number(c.qty)>0;});}).sort(function(a,b){return a.localeCompare(b,'ar');}); }
 
-  window.pmPartyStock = function(x){
-    var parts=Array.isArray(x.parts)?x.parts:[], rd=state.readyStock||{}, best=null;
-    parts.forEach(function(p){
-      var need=Number(p.qty)||0; if(need<=0) return;
-      var n=Math.floor((Number(rd[p.name])||0)/need);
-      best = best===null ? n : Math.min(best,n);
-    });
-    return best===null?0:best;
-  };
 
   // تبويبات المنيو
   document.getElementById('menuTabs').addEventListener('click', function(e){
@@ -58,7 +49,7 @@
     document.getElementById('menuRecipe').hidden = (k==='party');
     document.getElementById('menuRecipeLbl').hidden = (k==='party');
     document.getElementById('menuOnDemandLbl').hidden=(k!=='drink');
-    var __sel=document.getElementById('menuRecipe'); if(__sel){ var __prev=__sel.value, __list=names().filter(function(n){return k==='drink'?isDrinkName(n):true;}); __sel.innerHTML=__list.map(function(n){return '<option value="'+esc(n)+'">'+esc(n)+'</option>'}).join(''); if(__prev&&__list.indexOf(__prev)!==-1) __sel.value=__prev; }
+    var __sel=document.getElementById('menuRecipe'); if(__sel){ var __prev=__sel.value, __list=names().filter(function(n){return k==='drink'?isDrinkName(n):(window.pmIsSweetRecipe?window.pmIsSweetRecipe(n):true);}); __sel.innerHTML=__list.map(function(n){return '<option value="'+esc(n)+'">'+esc(n)+'</option>'}).join(''); if(__prev&&__list.indexOf(__prev)!==-1) __sel.value=__prev; }
      if(k==='party') buildParts();
   };
 
@@ -90,15 +81,6 @@
     document.getElementById('menuPrice').value='';
     save(); if(typeof refreshMenu==='function') refreshMenu(); else renderMenu(); window.__pmPartyDraft=[]; buildParts();
     alert('تمت إضافة الحفلة للمنيو.');
-  };
-
-  // الضغط على حفلة يفتح نموذج الطلب بدل السلة
-  var origStep = window.pmMenuStep;
-  window.pmMenuStep = function(enc, d){
-    var name=decodeURIComponent(enc);
-    var item=(state.menu||[]).find(function(x){ return x.name===name; });
-    /* الحفلات بقت بتتضاف للسلة زي الأصناف العادية */
-    return origStep(enc, d);
   };
 
   // نموذج طلب الحفلة
@@ -262,7 +244,7 @@
     var sorted=all.slice().filter(function(o){ return !(mine && (o.status==='ready'||o.status==='delivered'||o.status==='cancelled')); }).sort(function(a,b){return String(a.date||'').localeCompare(String(b.date||''))||String(a.time||'').localeCompare(String(b.time||''));});
     var ordersHtml=sorted.length
       ? '<div class="pm-po-tablewrap"><table><tr><th>الصنف</th><th>العميل</th><th>التسليم</th><th>الكمية</th><th>الحالة</th></tr>'+sorted.map(function(o){
-          return '<tr><td>'+pmPartyEsc(o.name)+'</td><td>'+pmPartyEsc(o.customer)+(o.customerPhone?'<br><small>'+pmPartyEsc(o.customerPhone)+'</small>':'')+'</td><td>'+pmPartyEsc(o.date)+' '+pmPartyEsc(o.time||'')+'</td><td>'+nfmt(o.qty)+'</td><td>'+statusPill(o)+'</td></tr>';
+          return '<tr><td>'+pmPartyEsc(o.name)+'</td><td>'+pmPartyEsc(o.customer)+((cloudActorRole==='sales'||cloudActorRole==='admin')&&o.customerPhone?'<br><small>'+pmPartyEsc(o.customerPhone)+'</small>':'')+'</td><td>'+pmPartyEsc(o.date)+' '+pmPartyEsc(o.time||'')+'</td><td>'+nfmt(o.qty)+'</td><td>'+statusPill(o)+'</td></tr>';
         }).join('')+'</table></div>'
       : '<div class="pm-po-empty">مفيش أوردرات حفلات مسجلة.</div>';
 
@@ -286,7 +268,7 @@
       window.__pmBkInfo[bi]={ids:live.map(function(o){return o.id}), customer:o0.customer||'', total:total, paid:paidRec, remaining:Math.max(0,Math.round((total-paidRec)*100)/100)};
 
       var head='<div class="pm-po-head"><b>'+pmPartyEsc(o0.customer||'بدون اسم')+'</b><span class="pill'+(readyAll?'':' warn')+'">'+(readyAll?'كله جاهز':'ناقص '+pendN+' صنف')+'</span></div>'+
-        '<div class="pm-po-meta">التليفون: '+pmPartyEsc(o0.customerPhone||'—')+' · الموعد: '+pmPartyEsc(o0.date||'')+' '+pmPartyEsc(o0.time||'')+'</div>'+
+        '<div class="pm-po-meta">'+(((cloudActorRole==='sales'||cloudActorRole==='admin')?'التليفون: '+pmPartyEsc(o0.customerPhone||'—')+' · ':''))+'الموعد: '+pmPartyEsc(o0.date||'')+' '+pmPartyEsc(o0.time||'')+'</div>'+
         (o0.note?'<div class="pm-po-meta">ملاحظات: '+pmPartyEsc(o0.note)+'</div>':'')+
         (window.pmPayLine?window.pmPayLine(b):'');
 
@@ -364,6 +346,8 @@
       '<div class="pty-total"><span>المتبقي</span><span>'+moneyFmt(info.remaining)+' ج.م</span></div>'+
       '<label>المبلغ اللي اتحصل دلوقتي (لازم يساوي المتبقي)</label>'+
       '<input id="pcAmt" inputmode="decimal" value="'+info.remaining+'">'+
+      '<label>طريقة الدفع</label>'+
+      '<select id="pcMethod"><option value="cash">كاش</option><option value="instapay">انستا باي</option><option value="visa">فيزا</option></select>'+
       '<label>الـ PIN بتاعك</label>'+
       '<input id="pcPin" inputmode="numeric" type="password" maxlength="5">'+
       '<div class="pty-actions"><button type="button" class="secondary" id="pcCancel">إلغاء</button><button type="button" class="primary" id="pcOk">تأكيد التحصيل والتسليم</button></div></div>';
@@ -372,11 +356,12 @@
     document.getElementById('pcOk').onclick=async function(){
       var amount=Math.round((Number(document.getElementById('pcAmt').value)||0)*100)/100;
       var pin=String(document.getElementById('pcPin').value||'').trim();
+      var method=String(document.getElementById('pcMethod').value||'cash');
       if(!pin){ alert('اكتب الـ PIN بتاعك.'); return; }
       if(Math.abs(amount-info.remaining)>0.005){ alert('لازم يتحصل المبلغ كله: '+info.remaining+' ج.م.'); return; }
       var btn=this; btn.disabled=true; btn.textContent='جارٍ التحصيل…';
       try{
-        var r=await apiCall({action:'party_collect',order_ids:info.ids,amount:amount,employee_name:cloudActorName,pin:pin});
+        var r=await apiCall({action:'party_collect',order_ids:info.ids,amount:amount,payment_method:method,employee_name:cloudActorName,pin:pin});
         if(r.error) throw r.error;
         ov.remove();
         await pmPartyWorkflowRefresh();
@@ -392,6 +377,23 @@
 
   window.pmPartyWorkflowRender=pmPartyWorkflowRender;
   window.pmCollectOpen=function(bi){ return pmCollectOpen(bi); };
+  // اختيار طريقة الدفع بزراير (مناسب للموبايل) — بيرجع 'cash' | 'instapay' | 'visa' أو null لو اتلغى
+  window.pmPickPayMethod=function(){
+    return new Promise(function(resolve){
+      var ov=document.createElement('div'); ov.className='pty-ov';
+      ov.innerHTML='<div class="pty-card" role="dialog" aria-modal="true"><h3>طريقة الدفع</h3>'+
+        '<div class="pty-actions" style="flex-direction:column;gap:8px">'+
+        '<button type="button" class="primary" data-m="cash">كاش</button>'+
+        '<button type="button" class="primary" data-m="instapay">انستا باي</button>'+
+        '<button type="button" class="primary" data-m="visa">فيزا</button>'+
+        '<button type="button" class="secondary" data-m="">إلغاء</button></div></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener('click',function(e){
+        var b=e.target.closest&&e.target.closest('[data-m]'); if(!b) return;
+        ov.remove(); resolve(b.getAttribute('data-m')||null);
+      });
+    });
+  };
   // فتح تبويب الحفلات يحدّث البيانات من الخادم
   window.__goPost=window.__goPost||[];
   window.__goPost.push(function(id){

@@ -151,7 +151,7 @@ try{
         if(!x||inp.value===''){ td.textContent='—'; td.style.color=''; td.style.fontWeight=''; return; }
         var d=Math.round((Number(inp.value)-Number(x.qty||0))*1000)/1000;
         td.textContent=(d>0?'+':'')+fmt(d)+' '+(x.unit||'');
-        td.style.color=d===0?'':'#B42318'; td.style.fontWeight=d===0?'':'800';
+        td.style.color=d===0?'':'var(--ui-err)'; td.style.fontWeight=d===0?'':'800';
       });
     });
     var b=document.getElementById('pmAcctSave'); if(b) b.onclick=saveCount;

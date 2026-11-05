@@ -1,6 +1,6 @@
 (function(){
   /* تعدد المستخدمين: كل جهاز بيحفظ تغييراته بس، والسيرفر بيدمج، ومفيش جهاز يمسح تعديلات جهاز تاني */
-  var origApi=window.apiCall, origPersist=window.persistCloudSnapshot;
+  var origPersist=window.persistCloudSnapshot;
   var pmBase=null;        // آخر نسخة سحابية الجهاز اشتغل عليها (الأساس للدمج)
   var pmAdopted=false;    // الحفظ اتم والجهاز اتبنى على النسخة المدمجة
   var pmResave=false;     // في تعديلات جديدة اتعملت أثناء الحفظ، لازم تتحفظ بعده
@@ -8,7 +8,7 @@
   function copy(o){ return JSON.parse(JSON.stringify(o)); }
   function isFocusedField(){ var a=document.activeElement; return !!(a&&a.matches&&a.matches('input,textarea,select')); }
 
-  window.apiCall=function(body){
+  pmApiUse('multi-device-merge',function(origApi){ return function(body){
     if(!body||typeof origApi!=='function') return origApi.apply(this,arguments);
 
     if(body.action==='get_state'){
@@ -45,7 +45,7 @@
     }
 
     return origApi.apply(this,arguments);
-  };
+  }; });
 
   window.persistCloudSnapshot=function(snapshot){
     return origPersist.apply(this,arguments).then(function(r){

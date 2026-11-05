@@ -2,6 +2,16 @@
   if(window.__pmPartyV3) return; window.__pmPartyV3=true;
 
   function priceOf(name){ var m=(state.menu||[]).find(function(x){return x&&x.name===name}); return Number(m&&m.price)||0; }
+  function drinkBaseOf(name){
+    var n=String(name||'').replace(/\s*\(حفلة\)\s*$/,'').trim();
+    var m=(state.menu||[]).find(function(x){return x&&x.name===n&&x.kind==='drink'&&x.onDemand===true&&x.active!==false});
+    return m?n:'';
+  }
+  function partyDefOf(l){
+    if(l.base) return {name:l.name,price:priceOf(l.name),parts:[{name:l.base,qty:1}]};
+    var b=drinkBaseOf(l.name);
+    return b?{name:l.name,price:priceOf(b),parts:[{name:b,qty:1}]}:undefined;
+  }
   function hashKey(str){ var h=5381; for(var i=0;i<str.length;i++){ h=((h*33)^str.charCodeAt(i))>>>0; } return h.toString(36); }
   function bookingKey(o){ return o.groupId ? 'g:'+o.groupId : 'o:'+String(o.id||''); }
   window.pmPartyBookingKey=bookingKey;
@@ -87,10 +97,28 @@
         date:dateText(b.completedAt), deliveredAt:b.completedAt, by:delivererOf(b), createdBy:creatorOf(b),
         customer:f.customer||'', customerPhone:f.customerPhone||'',
         eventDate:f.date||'', eventTime:f.time||'', orderNote:notes.join(' · '),
-        total:Math.round(total*100)/100, cost:Math.round(pcost*100)/100, uncostedLines:puncosted, lines:lines, paid:b.orders.reduce(function(a,o){return a+(o&&o.status!=='cancelled'?(Number(o.paid)||0):0)},0)
+        total:Math.round(total*100)/100, cost:Math.round(pcost*100)/100, uncostedLines:puncosted, lines:lines, paymentMethod:String((live.find(function(o){return o&&o.paymentMethod})||{}).paymentMethod||''), paid:b.orders.reduce(function(a,o){return a+(o&&o.status!=='cancelled'?(Number(o.paid)||0):0)},0)
       };
     });
   };
+
+  /* ---------- مصدر واحد للمبالغ: الإجمالي والمدفوع بيتاخدوا من الخادم (نفس الأرقام اللي بيتحصّل بيها) ----------
+     كده الفاتورة ما تفضلش تعرض متبقي وهمي بسبب فرق بين حساب السعر في المتصفح وحساب الخادم */
+  (function(){
+    var base=window.pmPartyInvoicesList;
+    if(typeof base!=='function') return;
+    window.pmPartyInvoicesList=function(){
+      var list=base.apply(this,arguments);
+      var sm=window.__pmPaySummary||{};
+      return list.map(function(i){
+        var p=sm[i.key];
+        if(!p) return i;
+        var t=Number(p.total), pd=Number(p.paid);
+        if(!isFinite(t)||!isFinite(pd)) return i;
+        return Object.assign({}, i, {total:Math.round(t*100)/100, paid:Math.round(pd*100)/100});
+      });
+    };
+  })();
 
   /* ---------- الأوردرات المقفولة: بنعلّم كل أوردر بـ id (بيفضل حتى لو الأرشيف اتحذف) ---------- */
   window.pmClosedPartyIds=function(){
@@ -118,32 +146,6 @@
   };
 
   /* ---------- إرسال أوردر الحفلات من السلة ---------- */
-  window.pmDrinkCheckout=async function(lines){
-    if(!cloudReady||!cloudActorName||!cloudActorPin){ alert('لازم تكون متصل بالسحابة عشان تبعت الطلب للباريستا.'); return; }
-    var noteEl=document.getElementById('cartNote');
-    var note=String((noteEl&&noteEl.value)||'').trim();
-    var btn=document.getElementById('cartCheckout'); if(btn)btn.disabled=true;
-    var sent=0, ok=false;
-    try{
-      for(var i=0;i<lines.length;i++){
-        var l=lines[i];
-        var r=await apiCall({action:'drink_order_action',drink_action:'create',employee_name:cloudActorName,pin:cloudActorPin,order:{name:l.name,qty:l.qty,note:note}});
-        if(r.error) throw r.error;
-        sent++;
-        var c=cartRaw(), ix=c.findIndex(function(x){return x.name===l.name});
-        if(ix>=0){ c.splice(ix,1); cartWrite(c); }
-      }
-      if(noteEl)noteEl.value='';
-      ok=true;
-      alert('تم إرسال '+sent+' طلب مشروب للباريستا.');
-    }catch(e){
-      alert('تعذر إرسال الطلب للباريستا: '+((e&&e.message)||String(e))+(sent?'\nاتبعت '+sent+' طلب قبل الخطأ، والباقي فاضل في السلة.':''));
-    }finally{
-      if(btn)btn.disabled=false;
-      refreshMenu(); renderCart();
-    }
-    return ok;
-  };
   window.pmPartyCheckout=function(lines){
     if(!cloudReady||!cloudActorName||!cloudActorPin){ alert('لازم تكون متصل بالسحابة عشان تسجّل أوردر الحفلات.'); return; }
     /* الأصناف العادية في السلة بتتحول تلقائي لأصناف حفلة: صنف باسم «الاسم (حفلة)» بوصفة الصنف نفسه */
@@ -184,6 +186,7 @@
       '<label>عدد الأفراد (اختياري، للمعلومات بس)</label><input id="ptyCkGuests" inputmode="numeric" maxlength="6" placeholder="0">'+
       '<label>ملاحظات الأوردر</label><input id="ptyCkNote" maxlength="300" placeholder="ملاحظات اختيارية">'+
       '<label>المبلغ اللي اتدفع دلوقتي (اختياري)</label><input id="ptyCkPaid" inputmode="decimal" maxlength="10" placeholder="0">'+
+      (true?'<label>طريقة الدفع</label><select id="ptyCkMethod"><option value="cash">كاش</option><option value="instapay">انستا باي</option><option value="visa">فيزا</option></select>':'')+
       '<div class="pty-parts">'+rowsHtml+'</div>'+
       '<div class="pty-total"><span>الإجمالي</span><span>'+moneyFmt(total)+' ج.م</span></div>'+
       '<div class="pty-actions"><button type="button" class="secondary" id="ptyCkCancel">إلغاء</button><button type="button" class="primary" id="ptyCkOk">إرسال الأوردر للشيف</button></div></div>';
@@ -209,7 +212,7 @@
           var l=lines[i];
           var res=await apiCall({action:'party_order_action',party_action:'create',
             order:{name:l.name,base_name:l.base||'',customer:cust,customerPhone:phone,customerAddress:String((document.getElementById('cartAddr')||{}).value||'').trim(),date:date,time:time,qty:l.qty,note:note,guests:guests,groupId:groupId,price:priceOf(l.name)},
-            party_def:(l.base?{name:l.name,price:priceOf(l.name),parts:[{name:l.base,qty:1}]}:undefined),employee_name:cloudActorName,pin:cloudActorPin});
+            party_def:partyDefOf(l),employee_name:cloudActorName,pin:cloudActorPin});
           if(res.error) throw res.error;
           sent++;
           cartWrite(cartRaw().filter(function(x){ return x.name!==l.name; }));
@@ -233,7 +236,7 @@
           var mine=ords.filter(function(o){return o.groupId===groupId});
           if(!mine.length) mine=ords.filter(function(o){return o.status!=='cancelled' && o.customer===cust && o.date===date && (o.time||'')===time && (o.customerPhone||'')===phone});
           if(!mine.length) throw new Error('الأوردر اتسجل بس مش لاقيه عشان أسجل الدفعة');
-          var rp=await cloudClient.rpc('pastrymy_record_party_payment',{p_employee_name:cloudActorName,p_pin:cloudActorPin,p_order_id:mine[0].id,p_amount:paid});
+          var __args={p_employee_name:cloudActorName,p_pin:cloudActorPin,p_order_id:mine[0].id,p_amount:paid};if(true){__args.p_method=((document.getElementById('ptyCkMethod')||{}).value)||'cash';}var rp=await cloudClient.rpc('pastrymy_record_party_payment_v2',__args);
           if(rp.error) throw rp.error;
           payMsg='\nالمدفوع دلوقتي: '+moneyFmt(paid)+' ج.م';
         }catch(e){
@@ -313,7 +316,7 @@
     if(!pin) return;
     btn.disabled=true;
     try{
-      var r=await cloudClient.rpc('pastrymy_record_party_payment',{p_employee_name:cloudActorName,p_pin:pin,p_order_id:id,p_amount:amt});
+      var __a={p_employee_name:cloudActorName,p_pin:pin,p_order_id:id,p_amount:amt};if(true){__a.p_method=await window.pmPickPayMethod();if(!__a.p_method){btn.disabled=false;return;}}var r=await cloudClient.rpc('pastrymy_record_party_payment_v2',__a);
       if(r.error) throw r.error;
       await window.pmPartyWorkflowRefresh();
       alert('تم تسجيل الدفعة.');

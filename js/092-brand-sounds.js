@@ -118,9 +118,8 @@ try{
   };
 
   /* ---------- العمليات: بيع، تجهيز مشروبات/أوردرات، حفظ ---------- */
-  var prevApi=window.apiCall;
-  if(typeof prevApi==='function'){
-    window.apiCall=function(body){
+  pmApiUse('sounds',function(prevApi){
+    return function(body){
       var p=prevApi.apply(this,arguments);
       try{
         var a=body&&body.action;
@@ -134,7 +133,7 @@ try{
       }catch(e){}
       return p;
     };
-  }
+  });
 })();
 }catch(e){console.error('[PastryMY] 092-brand-sounds.js failed',e)}
 /* ---- 131-loud-alerts.js ---- */

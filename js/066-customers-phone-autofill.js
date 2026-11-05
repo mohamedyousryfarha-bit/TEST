@@ -54,14 +54,14 @@ try{
       var map=phoneToName();
       if(!(p in map)){
         hint.textContent='👤 عميل جديد (غير مسجل)';
-        hint.style.color='#1B1B1B';
+        hint.style.color='var(--ink)';
         hint.style.display='block';
         return;
       }
       var name=map[p];
       if(name && (!nm.value.trim() || nm.dataset.pmAuto==='1')){ nm.value=name; nm.dataset.pmAuto='1'; }
       hint.textContent=name?('✓ عميل مسجل: '+name):'✓ عميل مسجل';
-      hint.style.color='#16794B';
+      hint.style.color='var(--ui-ok)';
       hint.style.display='block';
     }
 

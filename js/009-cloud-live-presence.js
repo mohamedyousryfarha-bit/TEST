@@ -20,7 +20,11 @@ try{
   syncIcon.type='button'; syncIcon.id='pmSyncIcon'; syncIcon.setAttribute('aria-label','حالة المزامنة'); syncIcon.title='حالة التحديث';
   syncIcon.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="pm-cloud" d="M7 18h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6.2 9.5 3.5 3.5 0 0 0 7 18z"/><g class="pm-arrow"><path d="M12 16V11M9.6 13.4L12 11l2.4 2.4"/></g><path class="pm-ck" d="M6.8 12.6l3.4 3.4L17.2 8.6"/><path class="pm-cx" d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg>';
   document.querySelector('header').appendChild(syncIcon);
-  syncIcon.addEventListener('click',function(){ alert(syncIcon.title); });
+  syncIcon.addEventListener('click',function(){
+    /* الضغط على الأيقونة بيحمّل آخر نسخة سحابية فوراً (reloadCloudState بيسأل بس لو فيه تعديلات محلية مش متزامنة) */
+    if(typeof window.reloadCloudState==='function'){ window.reloadCloudState(); }
+    else { alert(syncIcon.title); }
+  });
   if(main) main.insertBefore(bar,main.firstChild);
 
   function syncFromLocal(){
@@ -32,7 +36,7 @@ try{
       var busy=!err && /جاري|حفظ|مزامن|تحميل/.test(msg);
       icon.title='حالة التحديث: '+msg;
       icon.setAttribute('data-s',err?'err':(busy?'busy':'ok'));
-      icon.style.color=err?'#B3261E':(busy?'#0067B8':'#4ADE80');
+      icon.style.color=err?'var(--ui-err)':(busy?'#0067B8':'#4ADE80');
       icon.style.animation='none';
     }
   }

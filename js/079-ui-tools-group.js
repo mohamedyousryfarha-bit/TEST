@@ -8,7 +8,7 @@ try{
       return ['فحص وإصلاح','فحص سلامة البيانات','اختبار الحسابات'].some(function(l){ return t.indexOf(l)===0; });
     }},
     {id:'pmScreenGroup', title:'إعدادات الشاشة', match:function(t){
-      return t.indexOf('الوضع الليلي')===0 || t.indexOf('الوضع النهاري')===0 || t.indexOf('تحويل للوضع')===0 || t.indexOf('ملء الشاشة')>=0 || t.indexOf('إنهاء ملء الشاشة')>=0;
+      return t.indexOf('ملء الشاشة')>=0 || t.indexOf('إنهاء ملء الشاشة')>=0;
     }}
   ];
   function folder(box,id,title){

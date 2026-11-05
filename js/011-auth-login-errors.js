@@ -3,9 +3,8 @@
 try{
 (function(){
   /* رسالة واضحة بالعربي لو الاسم أو الـ PIN غلط بدل "Edge Function returned a non-2xx status code" */
-  var origApi=window.apiCall;
-  if(typeof origApi==='function'){
-    window.apiCall=function(body){
+  pmApiUse('login-errors',function(origApi){
+    return function(body){
       var p=origApi.apply(this,arguments);
       if(!body||body.action!=='verify_employee')return p;
       return Promise.resolve(p).then(function(r){
@@ -18,7 +17,7 @@ try{
         return r;
       });
     };
-  }
+  });
   /* رسالة واضحة لو بيانات الحساب المشترك غلط */
   var ORIG_MSG='Invalid login credentials';
   var mo=new MutationObserver(function(){
@@ -35,7 +34,16 @@ try{
 try{
 (function(){
   var b=document.getElementById('signOutButton'); if(!b)return;
-  b.onclick=function(){ location.reload() };
+  // تسجيل الخروج: يمسح الجلسة المحفوظة على الجهاز ويعمل reload فورًا.
+  // إلغاء التوكن على السيرفر بيحصل في الخلفية (لو فشل، التوكن بيخلص لوحده خلال 12 ساعة).
+  b.onclick=function(){
+    try{ localStorage.removeItem('pm_sess'); localStorage.removeItem('pm_last_emp'); localStorage.removeItem('pm_last_tab'); }catch(e){}
+    try{
+      var tok=(typeof cloudActorPin==='string')?cloudActorPin:'';
+      if(tok.indexOf('tok_')===0 && typeof window.apiCall==='function'){ var rp=window.apiCall({action:'revoke_session',token:tok}); if(rp&&rp.catch)rp.catch(function(){}); }
+    }catch(e){}
+    location.reload();
+  };
 })();
 }catch(e){console.error('[PastryMY] 021-auth-logout.js failed',e)}
 /* ---- 033-auth-employee-login.js ---- */

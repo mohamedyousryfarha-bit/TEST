@@ -91,16 +91,25 @@
     return {total:total,count:count};
   }
 
+  /* ضريبة اختيارية 14%: بتتفعل/تتقفل من السلة، والاختيار بيتحفظ على الجهاز */
+  var TAX_RATE=14;
+  function taxOn(){ try{ return localStorage.getItem('pmTaxOn')!=='0'; }catch(e){ return true; } } // افتراضيًا متحدد؛ '0' بس لما المستخدم يلغي التحديد لأوردر معين
+  function taxAmount(sub){ return taxOn() ? Math.round(sub*TAX_RATE)/100 : 0; }
+  window.pmCartTaxToggle=function(on){ try{ localStorage.setItem('pmTaxOn',on?'1':'0'); }catch(e){} renderCart(); };
+
   function remainingOf(name){
     var __pm=menuItem(name); if(__pm&&(__pm.kind==='party'||(__pm.kind==='drink'&&__pm.onDemand===true))) return 1e9;
     var base=Number((state.readyStock||{})[name])||0;
     var inC=loadCart().reduce(function(s,l){ return l.name===name ? s+(Number(l.qty)||0) : s },0);
-    return Math.max(0,base-inC);
+    var off=typeof window.pmOfflinePending==='function' ? window.pmOfflinePending(name) : 0; // مبيعات أوفلاين لسه متترفعتش
+    return Math.max(0,base-off-inC);
   }
   function refreshMenu(){ if(typeof window.renderMenu==='function') window.renderMenu(); }
 
   function renderCart(){
     var cart=loadCart(), t=cartTotals(cart);
+    // السلة فاضية = أوردر جديد أو خلص: نرجّع الضريبة متحددة تاني
+    if(!cart.length){ try{ localStorage.removeItem('pmTaxOn'); }catch(e){} }
     var box=document.getElementById('cartItems');
     if(box){
       box.innerHTML=cart.length?cart.map(function(l,i){
@@ -110,9 +119,12 @@
           '<div class="cqty"><button type="button" onclick="pmCartChange('+i+',-1)">−</button><b>'+l.qty+'</b><button type="button" onclick="pmCartChange('+i+',1)">+</button></div>'+
           '<div class="cline">'+moneyFmt(line)+' ج.م</div>'+
           '<button type="button" class="danger mini" onclick="pmCartRemove('+i+')">×</button></div>';
-      }).join(''):'<div class="empty">السلة فاضية. اختار أصناف من المنيو.<div class="actions" style="justify-content:center"><button type="button" class="secondary mini" style="flex:0 0 auto" onclick="go(\'menu\')">فتح المنيو</button></div></div>';
+      }).join(''):'';
     }
-    var tot=document.getElementById('cartTotal'); if(tot) tot.textContent=moneyFmt(t.total)+' ج.م';
+    var tax=taxAmount(t.total), grand=t.total+tax;
+    var tot=document.getElementById('cartTotal'); if(tot) tot.textContent=moneyFmt(grand)+' ج.م';
+    var tb=document.getElementById('cartTaxBreak'); if(tb){ tb.hidden=!(taxOn()&&cart.length); tb.textContent='قبل الضريبة: '+moneyFmt(t.total)+' ج.م · ضريبة 14%: '+moneyFmt(tax)+' ج.م'; }
+    var tc=document.getElementById('cartTaxOn'); if(tc) tc.checked=taxOn();
     var cb=document.getElementById('cartCheckout'); if(cb) cb.disabled=!cart.length;
      if(cb) cb.textContent=((window.pmCartAsParty&&window.pmCartAsParty())||cart.some(function(l){var m=menuItem(l.name);return !!(m&&(m.kind==='party'||(m.kind==='drink'&&m.onDemand===true)))}))?'إرسال الأوردر للشيف':'إتمام البيع';
     
@@ -169,13 +181,14 @@
      var phoneEl=document.getElementById('cartPhone');
      var custPhone=String((phoneEl&&phoneEl.value)||'').trim();
     // checkout_cart على السيرفر بيدعم فاتورة واحدة للأكل والمشروبات العادية معًا.
+    var __pmSel=document.querySelector('input[name="cartPayMethod"]:checked'); var payMethod=__pmSel?__pmSel.value:'cash';
     var btn=document.getElementById('cartCheckout'); if(btn)btn.disabled=true;
     try{
       window.__pmCheckoutRequestId=window.__pmCheckoutRequestId||(function(){var id='';try{id=sessionStorage.getItem('pmCheckoutRequestId')||''}catch(e){}if(!id)id=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16)});try{sessionStorage.setItem('pmCheckoutRequestId',id)}catch(e){}return id})();
       var res=await apiCall({
         action:'checkout_cart', employee_name:cloudActorName, pin:cloudActorPin, expected_revision:cloudRevision,
         request_id:window.__pmCheckoutRequestId,
-        cart:cart.map(function(l){return {name:l.name,qty:l.qty}}), note:note, customer_phone:custPhone
+        cart:cart.map(function(l){return {name:l.name,qty:l.qty}}), note:note, customer_phone:custPhone, payment_method:payMethod, tax_rate:taxOn()?TAX_RATE:0, tax_amount:taxAmount(cartTotals(cart).total)
       });
       if(res.error){
         var st=res.error.context&&res.error.context.status;
@@ -184,6 +197,9 @@
       }
       cloudRevision=Number((res.data&&res.data.revision)||cloudRevision);
       var rc=res.data.receipt; window.__pmCheckoutRequestId=null; try{sessionStorage.removeItem('pmCheckoutRequestId')}catch(e){}
+      if(taxOn() && window.pmSetReceiptTax){ window.pmSetReceiptTax(rc,{rate:TAX_RATE, amount:Math.round((Number(rc.total)||0)*TAX_RATE)/100}); }
+      rc.paymentMethod=rc.paymentMethod||payMethod;
+      rc.lines.forEach(function(l){ if(l&&typeof l==='object') l.paymentMethod=rc.paymentMethod; });
       state.readyStock=state.readyStock||{};rc.lines.forEach(function(l){if(!(l.onDemand===true))state.readyStock[l.name]=Math.max(0,(Number(state.readyStock[l.name])||0)-(Number(l.qty)||0))});
       state.salesLog=state.salesLog||[];
       rc.lines.forEach(function(l){ if(l&&typeof l==='object'){ if(!l.by)l.by=cloudActorName; if(l.receiptNo==null&&rc.no!=null)l.receiptNo=rc.no; if(!l.receiptId&&rc.id)l.receiptId=rc.id; } });
@@ -209,9 +225,9 @@
         }catch(e){ /* لو السيرفر رفض الإغلاق، الفاتورة تفضل مفتوحة زي ما هي */ }
       }
       if(rc.status==='open'){
-        alert('تم تسجيل الطلب رقم '+rc.no+' · الإجمالي '+moneyFmt(rc.total)+' ج.م. الفاتورة ما زالت مفتوحة لحين تجهيز كل المشروبات، وسيتم إغلاقها بعد اكتمال التحضير.');
+        alert('تم تسجيل الطلب رقم '+rc.no+' · الإجمالي '+moneyFmt(window.pmRcGrand?window.pmRcGrand(rc):rc.total)+' ج.م. الفاتورة ما زالت مفتوحة لحين تجهيز كل المشروبات، وسيتم إغلاقها بعد اكتمال التحضير.');
       }else{
-        alert('تم تسجيل الفاتورة رقم '+rc.no+' · البائع: '+cloudActorName+' · الإجمالي '+moneyFmt(rc.total)+' ج.م');
+        alert('تم تسجيل الفاتورة رقم '+rc.no+' · البائع: '+cloudActorName+' · الإجمالي '+moneyFmt(window.pmRcGrand?window.pmRcGrand(rc):rc.total)+' ج.م · الدفع: '+({cash:'كاش',instapay:'انستا باي',visa:'فيزا'}[rc.paymentMethod]||'كاش'));
         if(typeof window.pmShowInvoice==='function')window.pmShowInvoice(rc);
       }
       if(typeof window.pmCloseCart==='function') window.pmCloseCart();
@@ -232,6 +248,7 @@
       return x&&x.active!==false&&((x.kind||'piece')===(window.pmMenuTab||'piece'))&&(!q||String(x.name).toLowerCase().indexOf(q)!==-1);
     });
     var __rd=state.readyStock||{};var __cart=loadCart(), __cq={};
+    var __pq=typeof window.pmOfflinePending==='function'?window.pmOfflinePending:function(){return 0};
     __cart.forEach(function(l){ __cq[l.name]=(__cq[l.name]||0)+(Number(l.qty)||0) });
     var __sc={};
     (state.salesLog||[]).forEach(function(z){ if(z&&z.name) __sc[z.name]=(__sc[z.name]||0)+(Number(z.qty)||0) });
@@ -239,13 +256,13 @@
     Object.keys(__sc).forEach(function(k){ if(__sc[k]>__tv){ __tv=__sc[k]; __top=k } });
     var __isSold=function(x){
       var __p=x.kind==='party'||(x.kind==='drink'&&x.onDemand===true);
-      var __b=__p?1e9:(Number(__rd[x.name])||0), __r=Math.max(0,__b-(__cq[x.name]||0));
+      var __b=__p?1e9:Math.max(0,(Number(__rd[x.name])||0)-__pq(x.name)), __r=Math.max(0,__b-(__cq[x.name]||0));
       return !!x.soldOut||(!__p&&__b<=0)||(!__p&&__r<=0);
     };
     items=items.slice().sort(function(a,b){ return (__isSold(a)?1:0)-(__isSold(b)?1:0); });
     var __html=items.map(function(x){
       var __isParty=x.kind==='party'||(x.kind==='drink'&&x.onDemand===true);
-      var __base=__isParty?1e9:(Number(__rd[x.name])||0), __inC=__cq[x.name]||0, __r=Math.max(0,__base-__inC);
+      var __base=__isParty?1e9:Math.max(0,(Number(__rd[x.name])||0)-__pq(x.name)), __inC=__cq[x.name]||0, __r=Math.max(0,__base-__inC);
       var __out=!!x.soldOut||(!__isParty&&__base<=0), __sold=__out||(!__isParty&&__r<=0);
       var __low=!__isParty&&!__out&&__r<=5, __enc=encodeURIComponent(x.name);
       var __feat=(!__sold&&!q&&__tv>0&&x.name===__top);
@@ -293,10 +310,17 @@
     renderMenu();
   };
 
+  /* حلويات فقط في منيو القطع: يستبعد المشروبات (المعلَّمة كمشروب + أسماء المشروبات المعروفة) */
+  window.pmIsSweetRecipe=function(n){
+    if(isDrinkName(n)) return false;
+    var t=String(n||'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+    if(/كيك|براون|تورت|بسكو|كوكيز|معجن|بودينغ|حلو/.test(t)) return true;
+    return !/شاي|اعشاب|قهوه|كابتش|لاتيه|ماتشا|ه+و+ت\s*شوك|عصير|مشروب|نسكافيه|موكا|كركد|سحلب/.test(t);
+  };
   function renderMenuAdmin(){
     var sel=document.getElementById('menuRecipe');
     if(sel&&isOwner()){
-      var prev=sel.value, __kk=(document.getElementById('menuKind')||{}).value, list=names().filter(function(n){return __kk==='drink'?isDrinkName(n):true;});
+      var prev=sel.value, __kk=(document.getElementById('menuKind')||{}).value, list=names().filter(function(n){return __kk==='drink'?isDrinkName(n):window.pmIsSweetRecipe(n);});
       sel.innerHTML=list.map(function(n){return '<option value="'+esc(n)+'">'+esc(n)+'</option>'}).join('');
       if(prev&&list.indexOf(prev)!==-1)sel.value=prev;
     }
@@ -430,11 +454,6 @@
     alert('تم حذف '+indices.length+' صنف من المنيو بنجاح.');
   };
 
-  window.pmMenuRemove=function(i){
-    var x=(state.menu||[])[i]; if(!x)return;
-    if(!confirm('حذف «'+x.name+'» من المنيو؟ الوصفة نفسها لن تُحذف.'))return;
-    state.menu.splice(i,1); save(); renderMenu();
-  };
 
   window.pmMenuToggleSold=async function(i){
     var x=(state.menu||[])[i]; if(!x)return;

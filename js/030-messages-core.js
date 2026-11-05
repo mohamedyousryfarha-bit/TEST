@@ -105,12 +105,9 @@ try{
   wrap.appendChild(bell);
   // القايمة برا الشريط السفلي، عشان قواعد أزرار الشريط ما تأثرش على الفورم والفلاتر
   document.body.appendChild(panel);
-  var darkCss = document.createElement('style');
-  darkCss.textContent = 'html[data-theme="dark"] #pmGearMenu{background:#FFFFFF;color:#1B1B1B;border:1px solid #D6D6D6}' +
-    'html[data-theme="dark"] #pmGearMenu button{background:#FFFFFF!important;color:#1B1B1B!important;border-color:#D6D6D6!important}' +
-    'html[data-theme="dark"] #pmGearBtn,html[data-theme="dark"] #pmBell{background:#FFFFFF!important;color:#1B1B1B!important;border-color:#D6D6D6!important}' +
-    '#pmMsgWrap,#pmMsgWrap *,#pmGearWrap,#pmGearWrap *{pointer-events:auto!important}';
-  document.head.appendChild(darkCss);
+  var pe = document.createElement('style');
+  pe.textContent = '#pmMsgWrap,#pmMsgWrap *,#pmGearWrap,#pmGearWrap *{pointer-events:auto!important}';
+  document.head.appendChild(pe);
   // الأيقونتين في نفس صف "الحسابات المتصلة" جنبها
   var liveBar = document.getElementById('pmLiveBar');
   var presChip = document.getElementById('pmPresChip');

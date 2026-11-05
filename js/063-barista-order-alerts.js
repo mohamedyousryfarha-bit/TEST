@@ -4,7 +4,6 @@
 
 
   function role(){ return (typeof cloudActorRole!=='undefined')?cloudActorRole:''; }
-  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
 
   /* ---------- 2) الباريستا ---------- */
   var lastCount=-1, busy=false;
@@ -86,9 +85,8 @@
     parts.forEach(function(p){ var nm=(p&&p.name)||''; var bar=(typeof isDrinkName==='function')&&isDrinkName(nm); set[bar?'bar':'kitchen']=true; });
     return Object.keys(set);
   }
-  var _apiN=window.apiCall;
-  if(typeof _apiN==='function'){
-    window.apiCall=function(body){
+  pmApiUse('order-notices',function(_apiN){
+    return function(body){
       var p=_apiN.apply(this,arguments);
       try{
         var a=body&&body.action;
@@ -144,7 +142,7 @@
       }catch(e){}
       return p;
     };
-  }
+  });
   function notifTime(n){ return Date.parse(n.created_at)||0; }
   function fetchNotices(){
     if(!cloudClient||!cloudReady) return Promise.resolve(null);

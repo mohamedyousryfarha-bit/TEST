@@ -160,9 +160,10 @@
     if(id!=='salesInvoices') return;
     window.pmSalesInvRender();
     if(!cloudReady||!cloudActorName||!cloudActorPin) return;
-    cloudClient.rpc('pastrymy_sales_invoices',{p_employee_name:cloudActorName,p_pin:cloudActorPin}).then(function(res){
-      if(res&&!res.error&&res.data&&Array.isArray(res.data.entries)){
-        window.__pmSalesLogServer=res.data.entries;
+    window.apiCall({action:'get_state',employee_name:cloudActorName,pin:cloudActorPin}).then(function(res){
+      var st=res&&!res.error&&res.data&&res.data.state;
+      if(st&&Array.isArray(st.salesLog)){
+        window.__pmSalesLogServer=st.salesLog;
       }
       if(typeof window.pmPartyWorkflowRefresh==='function') return window.pmPartyWorkflowRefresh();
     }).catch(function(){}).then(function(){ window.pmSalesInvRender(); if(typeof window.pmSalesArchiveRender==='function') window.pmSalesArchiveRender(); });

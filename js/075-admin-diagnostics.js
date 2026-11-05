@@ -106,7 +106,6 @@
   var SEEN_KEY='pm_diag_seen';
   
   
-  function dayKey(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
   // رسالة عربية بسيطة للموظف؛ التفاصيل التقنية بتفضل تحت
   function friendlyMsg(raw){
     var m=String(raw||'');
@@ -138,7 +137,7 @@
       '<p class="pdg-cnt" id="pmDiagCnt" hidden></p>'+
       '<div class="pdg-acts">'+
         '<button type="button" id="pmDiagRetry" class="pdg-retry">إعادة المحاولة</button>'+
-        '<button type="button" id="pmDiagWa" class="pdg-wa">إرسال للمدير</button>'+
+        '<button type="button" id="pmDiagWa" class="pdg-wa">ارسال للدعم الفني</button>'+
         '<button type="button" id="pmDiagCopy" class="pdg-copy">نسخ التفاصيل</button>'+
         '<button type="button" id="pmDiagRename" class="pdg-ren">تسمية الجهاز</button>'+
         '<button type="button" id="pmDiagClose" class="pdg-close">إغلاق</button>'+
@@ -168,7 +167,7 @@
     });
     ov.querySelector('#pmDiagWa').addEventListener('click',function(){
       var msg=ov.querySelector('#pmDiagText').value;
-      window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+      window.open('https://wa.me/201508999341?text='+encodeURIComponent(msg),'_blank');
     });
     ov.querySelector('#pmDiagCopy').addEventListener('click',function(e){
       var btn=e.currentTarget, orig=btn.textContent;
@@ -236,9 +235,8 @@
   }
 
   // كل استدعاء للسيرفر: لو رجع خطأ نسجل تفاصيل السياق (من غير الـ PIN)
-  var orig=window.apiCall;
-  if(typeof orig==='function'){
-    window.apiCall=function(body){
+  pmApiUse('diagnostics',function(orig){
+    return function(body){
       var action=body&&body.action;
       var op=opContext(body);
       var quiet=QUIET.indexOf(action)>=0;
@@ -258,7 +256,7 @@
         throw e;
       });
     };
-  }
+  });
 
   // أخطاء JavaScript غير متوقعة: بنعرف في أي تبويب حصلت
   window.addEventListener('error',function(ev){
@@ -271,5 +269,4 @@
     report({},{message:errorText(r)||'خطأ غير معالج'});
   });
 
-  window.pmDiagLast=function(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY)||'[]'); }catch(e){ return []; } };
 })();

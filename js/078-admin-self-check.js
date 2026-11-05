@@ -72,32 +72,47 @@
     showModal('فحص سلامة البيانات ('+list.length+' ملاحظة)', body+'<p class="small" style="color:#1B1B1B">الفحص للقراءة بس، ومابيغيرش أي بيانات.</p>');
   }
 
-  /* ---------- اختبار الحسابات على بيانات تجريبية معروفة النتيجة ---------- */
+  /* ---------- اختبار الحسابات على بيانات تجريبية معروفة النتيجة ----------
+     كل اختبار: بيانات بسيطة + القانون مكتوب بالعربي + الناتج المتوقع.
+     لو اختبار فشل، يبقى المعادلة اتغيّرت وده محتاج مراجعة. */
   function runTests(){
     var mm=window.monthMetrics;
     if(typeof mm!=='function'){ showModal('اختبار الحسابات','<p>دالة الحساب مش متاحة.</p>'); return; }
     function base(o){ return Object.assign({salesLog:[],expensesLog:[],purchasesLog:[],productionLog:[],history:[],wasteLog:[],partyInvoices:[],inventory:[]},o); }
-    var T=[
-      {n:'بيع 90 وتكلفته 45 ⇒ ربح 45', a:base({salesLog:[{name:'كيك',qty:1,unitPrice:90,revenue:90,costAtSale:45}]}), m:'profit', e:45},
-      {n:'بيع 90 ومشتريات 300 ⇒ الحركة النقدية -210', a:base({salesLog:[{name:'كيك',qty:1,unitPrice:90,revenue:90,costAtSale:45}],purchasesLog:[{totalCost:300,qty:1}]}), m:'cashNet', e:-210},
-      {n:'الإيراد = الكمية × السعر (3 × 10 = 30) ⇒ ربح 18 مع تكلفة 12', a:base({salesLog:[{name:'x',qty:3,unitPrice:10,costAtSale:12}]}), m:'profit', e:18},
-      {n:'مصروف 10 على بيع 100 وتكلفة 20 ⇒ ربح 70', a:base({salesLog:[{name:'x',qty:2,unitPrice:50,revenue:100,costAtSale:20}],expensesLog:[{amount:10,category:'كهربا'}]}), m:'profit', e:70},
-      {n:'هالك بتكلفة 5 ⇒ يتخصم من الربح (75)', a:base({salesLog:[{name:'x',qty:2,unitPrice:50,revenue:100,costAtSale:20}],wasteLog:[{qty:1,costAtWaste:5}]}), m:'profit', e:75},
-      {n:'حفلة 100 تكلفتها 40 ⇒ ربح 60', a:base({partyInvoices:[{total:100,cost:40,paid:30}]}), m:'profit', e:60},
-      {n:'حفلة 100 مدفوع منها 30 ⇒ الكاش 30', a:base({partyInvoices:[{total:100,cost:40,paid:30}]}), m:'cashNet', e:30}
+    var GROUPS=[
+      {key:'profit', title:'أ) الربح', hint:'الربح = الإيراد − تكلفة البيع − الحفلات − المصروفات − الهالك', metric:'profit', tests:[
+        {n:'بيع واحد بسعر 90 وتكلفته 45', f:'90 − 45 = 45', a:base({salesLog:[{name:'كيك',qty:1,unitPrice:90,revenue:90,costAtSale:45}]}), e:45},
+        {n:'3 قطع، كل قطعة بسعر 10، وتكلفتهم 12', f:'الإيراد 3 × 10 = 30، والربح 30 − 12 = 18', a:base({salesLog:[{name:'x',qty:3,unitPrice:10,costAtSale:12}]}), e:18},
+        {n:'بيع 100 تكلفته 20 ومصروف كهربا 10', f:'100 − 20 − 10 = 70', a:base({salesLog:[{name:'x',qty:2,unitPrice:50,revenue:100,costAtSale:20}],expensesLog:[{amount:10,category:'كهربا'}]}), e:70},
+        {n:'بيع 100 تكلفته 20 وهالك بتكلفة 5', f:'100 − 20 − 5 = 75', a:base({salesLog:[{name:'x',qty:2,unitPrice:50,revenue:100,costAtSale:20}],wasteLog:[{qty:1,costAtWaste:5}]}), e:75},
+        {n:'حفلة بسعر 100 وتكلفتها 40', f:'100 − 40 = 60', a:base({partyInvoices:[{total:100,cost:40,paid:30}]}), e:60}
+      ]},
+      {key:'cash', title:'ب) الحركة النقدية (الفلوس الفعلية)', hint:'الكاش = الفلوس اللي دخلت فعلًا − المشتريات − المصروفات', metric:'cashNet', tests:[
+        {n:'بيع 90 واشتريت خامات بـ 300', f:'90 − 300 = −210 (الكاش خرج أكتر ما دخل)', a:base({salesLog:[{name:'كيك',qty:1,unitPrice:90,revenue:90,costAtSale:45}],purchasesLog:[{totalCost:300,qty:1}]}), e:-210},
+        {n:'حفلة بسعر 100، والعميل دفع 30 منها', f:'الكاش = المدفوع فقط = 30 (الـ 70 الباقية مش فلوس دخلت لسه)', a:base({partyInvoices:[{total:100,cost:40,paid:30}]}), e:30}
+      ]}
     ];
-    var rows='', fails=0;
-    T.forEach(function(t){
-      var got; try{ got=Number(mm(t.a)[t.m]); }catch(e){ got=NaN; }
-      var ok=Math.abs(got-t.e)<0.01; if(!ok) fails++;
-      rows+='<tr style="border-bottom:1px solid #D6D6D6"><td style="padding:7px">'+E(t.n)+'</td>'+
-        '<td style="padding:7px">'+(Number.isFinite(got)?money(got):'خطأ')+'</td>'+
-        '<td style="padding:7px;font-weight:800;color:'+(ok?'#16794B':'#B42318')+'">'+(ok?'✓ نجح':'✗ فشل (المتوقع '+money(t.e)+')')+'</td></tr>';
+    var fails=0, total=0, body='';
+    GROUPS.forEach(function(g){
+      body+='<div style="margin-top:14px;font-weight:800;color:#0067B8">'+E(g.title)+'</div>'+
+            '<div style="font-size:12px;color:#555;margin:2px 0 8px">'+E(g.hint)+'</div>';
+      g.tests.forEach(function(t){
+        total++;
+        var got; try{ got=Number(mm(t.a)[g.metric]); }catch(err){ got=NaN; }
+        var ok=Math.abs(got-t.e)<0.01; if(!ok) fails++;
+        body+='<div style="border:1px solid #D6D6D6;border-radius:12px;padding:10px;margin-bottom:8px;background:'+(ok?'#FFFFFF':'#FFF0EE')+'">'+
+          '<div style="font-weight:800;color:#1B1B1B">'+E(t.n)+'</div>'+
+          '<div style="font-size:12px;color:#555;margin-top:4px">الحساب: '+E(t.f)+'</div>'+
+          '<div style="margin-top:6px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">'+
+            '<span>المتوقع: <b>'+money(t.e)+'</b> · الناتج: <b>'+(Number.isFinite(got)?money(got):'خطأ')+'</b></span>'+
+            '<span style="font-weight:800;color:'+(ok?'#16794B':'#B42318')+'">'+(ok?'✓ صح':'✗ غلط')+'</span>'+
+          '</div></div>';
+      });
     });
     var summary = fails
-      ? '<div style="background:#FFF0EE;color:#8E2018;border-radius:10px;padding:10px">✗ فشل '+fails+' من '+T.length+'. في معادلة اتغيرت، راجع آخر تعديل قبل ما تقفّل.</div>'
-      : '<div style="background:#EAF7EF;color:#145C38;border-radius:10px;padding:10px">✓ كل الاختبارات ('+T.length+') نجحت.</div>';
-    showModal('اختبار الحسابات', summary+'<table style="width:100%;border-collapse:collapse;margin-top:10px"><tr><th style="text-align:right;padding:6px">الاختبار</th><th style="padding:6px">الناتج</th><th style="padding:6px">النتيجة</th></tr>'+rows+'</table>');
+      ? '<div style="background:#FFF0EE;color:#8E2018;border-radius:10px;padding:10px">✗ '+fails+' اختبار من '+total+' فشل. في معادلة اتغيرت، راجع آخر تعديل قبل ما تقفّل اليوم.</div>'
+      : '<div style="background:#EAF7EF;color:#145C38;border-radius:10px;padding:10px">✓ كل الاختبارات ('+total+') نجحت. الحسابات شغالة صح.</div>';
+    showModal('اختبار الحسابات', summary+body+'<p class="small" style="color:#555;margin-top:10px">الاختبار بيستخدم بيانات تجريبية بس، ومابيغيرش أي بيانات حقيقية.</p>');
   }
 
   /* ---------- زراير في القائمة الجانبية (للمدير بس) ---------- */

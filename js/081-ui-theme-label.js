@@ -1,31 +1,4 @@
 /* دمج تلقائي لملفات من نفس الميزة (بنفس الترتيب، والملفات اللي بينها ما بتشاركش عناصر أو حالة). كل جزء معزول بـ try/catch. */
-/* ---- 081-ui-theme-label.js ---- */
-try{
-/* زرار تبديل المظهر يقول الاتجاه الصح: في النهاري "تحويل للوضع الليلي"، وفي الليلي "تحويل للوضع النهاري" */
-(function(){
-  var RX=/^\s*(تحويل للوضع|الوضع (الليلي|النهاري)|تبديل الوضع)/;
-  function wanted(){
-    return document.documentElement.getAttribute('data-theme')==='dark'?'تحويل للوضع النهاري':'تحويل للوضع الليلي';
-  }
-  function fix(){
-    var label=wanted();
-    document.querySelectorAll('button,[role="button"],.pm-pal-item').forEach(function(b){
-      var w=document.createTreeWalker(b,NodeFilter.SHOW_TEXT,null), n;
-      while((n=w.nextNode())){
-        if(RX.test(n.nodeValue)){
-          var lead=n.nodeValue.match(/^\s*/)[0], trail=n.nodeValue.match(/\s*$/)[0];
-          var nv=lead+label+trail;
-          if(n.nodeValue!==nv) n.nodeValue=nv;
-          break;
-        }
-      }
-    });
-  }
-  setInterval(fix,500);
-  new MutationObserver(fix).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  fix();
-})();
-}catch(e){console.error('[PastryMY] 081-ui-theme-label.js failed',e)}
 /* ---- 128-contrast-guard.js ---- */
 try{
 /* حارس التباين: أي عنصر خلفيته داكنة (من بقايا الألوان القديمة) يتحول لخلفية فاتحة، والنص يتحول لكحلي،
@@ -44,6 +17,7 @@ try{
   }
   var marked=new Map();
   function fix(el){
+    if(document.documentElement.getAttribute('data-theme')==='dark') return;
     if(el.closest && el.closest(SKIP)) return;
     var cs=getComputedStyle(el);
     if(cs.backgroundImage!=='none') return;
@@ -51,9 +25,9 @@ try{
     var L=lum(bg), S=sat(bg);
     if(L<0.45 && S<0.6){
       if(!marked.has(el)) marked.set(el,{bg:el.style.getPropertyValue('background-color')});
-      el.style.setProperty('background-color','rgba(0,103,184,.12)','important');
+      el.style.setProperty('background-color','rgba(0,103,184,.12)','important'); el.setAttribute('data-pm-auto-bg','1');
       var tc=parse(getComputedStyle(el).color);
-      if(!tc || lum(tc)>0.45) el.style.setProperty('color','#1B1B1B','important');
+      if(!tc || lum(tc)>0.45) el.style.setProperty('color','#1B1B1B','important'); el.setAttribute('data-pm-auto-color','1');
     }
   }
   function scan(root){
@@ -141,17 +115,19 @@ try{
   }
   var PLAIN_SEL='#menu,#appNav,nav.tabs,#home';
   function setColor(el,col){
+    if(document.documentElement.getAttribute('data-theme')==='dark') return;
     var plain=!!(el.closest && el.closest(PLAIN_SEL));
     if(plain) col='#1B1B1B';
     if(el.__pmCol===col) return;
     el.__pmCol=col;
-    el.style.setProperty('color',col,'important');
+    el.style.setProperty('color',col,'important'); el.setAttribute('data-pm-auto-color','1');
     var inMenu=plain;
     el.style.setProperty('text-shadow', (col==='#FFFFFF' && !inMenu) ? '0 1px 3px rgba(27,27,27,.55)' : 'none','important');
   }
 
   var SKIP='#pmDock,header,#pmTopBar,.toast,.toast-stack,#pmDiagOv,#pmMaint,.side-drawer,.drawer,.sync-pill,.prep-board';
   function scan(root){
+    if(document.documentElement.getAttribute('data-theme')==='dark') return;
     var els=(root||document.body).querySelectorAll('*');
     for(var i=0;i<els.length;i++){
       var el=els[i];

@@ -15,9 +15,8 @@
   function done(){ pending=Math.max(0,pending-1); if(pending===0){ clearTimeout(hideT); hideT=setTimeout(hideIfIdle,220); } }
 
   /* أي طلب للسحابة (حفظ، مزامنة، تحميل، تسجيل دخول) بيظهر الشريط لحد ما يخلص */
-  var orig=window.apiCall;
-  if(typeof orig==='function'){
-    window.apiCall=function(){
+  pmApiUse('sync-topbar',function(orig){
+    return function(){
       pending++; show();
       var p;
       try{ p=orig.apply(this,arguments) }catch(e){ done(); throw e }
@@ -33,7 +32,7 @@
         return v;
       },function(err){ done(); throw err });
     };
-  }
+  });
 
   window.addEventListener('scroll',function(){ if(bar.classList.contains('on'))place() },{passive:true});
   window.addEventListener('resize',function(){ if(bar.classList.contains('on'))place() });

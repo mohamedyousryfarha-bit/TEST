@@ -85,6 +85,20 @@ try{
   function money(v){ return (Math.round((Number(v)||0)*100)/100).toFixed(2) }
   function tplOf(){ return Object.assign({shopName:'PastryMY',address:'',phone:'',taxCard:'',commercialReg:'',footer:'شكراً لزيارتكم'},(state&&state.invoiceTemplate)||{}) }
 
+  /* ضريبة الفاتورة: بتتسجل مع رقم الفاتورة على الجهاز عشان تفضل ظاهرة في إعادة الطباعة */
+  var TAX_KEY='pmReceiptTax';
+  function taxKey(rc){ return (rc&&rc.id)?'id:'+rc.id:'no:'+(rc&&rc.no); }
+  window.pmSetReceiptTax=function(rc,tax){
+    rc.tax=tax;
+    try{ var m=JSON.parse(localStorage.getItem(TAX_KEY)||'{}'); m[taxKey(rc)]=tax; localStorage.setItem(TAX_KEY,JSON.stringify(m)); }catch(e){}
+  };
+  function taxOf(rc){
+    if(rc&&rc.tax&&Number(rc.tax.amount)>0) return rc.tax;
+    try{ var m=JSON.parse(localStorage.getItem(TAX_KEY)||'{}'); var t=m[taxKey(rc)]; return (t&&Number(t.amount)>0)?t:null; }catch(e){ return null; }
+  }
+  /* الإجمالي النهائي بعد الضريبة (لو مفيش ضريبة بيرجع الإجمالي زي ما هو) */
+  window.pmRcGrand=function(rc){ var t=taxOf(rc); return (Number(rc&&rc.total)||0)+(t?Number(t.amount)||0:0); };
+
   /* تصميم الفاتورة: بيتستخدم على الشاشة وفي معاينة هيكل الفاتورة */
   window.pmInvoiceHTML=function(rc,t){
     t=Object.assign({shopName:'PastryMY',address:'',phone:'',taxCard:'',commercialReg:'',footer:''},t||{});
@@ -98,6 +112,9 @@ try{
       return '<tr class="'+(i%2?'alt':'')+'"><td class="nm">'+esc(l.name)+'</td><td>'+esc(qty)+'</td><td>'+money(unit)+'</td><td class="tot">'+money(rev)+'</td></tr>';
     }).join('');
     var total=(rc&&rc.total!=null)?Number(rc.total):sum;
+    var tx=taxOf(rc), taxAmt=tx?(Number(tx.amount)||0):0, grand=total+taxAmt;
+    var taxRows=tx?'<div class="inv-total" style="font-size:12.5px;font-weight:400"><span>الإجمالي قبل الضريبة</span><b>'+money(total)+' ج.م</b></div>'+
+      '<div class="inv-total" style="font-size:12.5px;font-weight:400"><span>ضريبة القيمة المضافة '+esc(tx.rate)+'%</span><b>'+money(taxAmt)+' ج.م</b></div>':'';
     return '<div class="inv">'+
       '<div class="inv-top"><div class="inv-shop">'+esc(t.shopName)+'</div>'+
         (t.address?'<div class="inv-sub">'+esc(t.address)+'</div>':'')+
@@ -112,7 +129,7 @@ try{
       ((cname||cphone)?'<div style="text-align:center;font-size:12.5px;margin:0 0 10px">العميل: <b>'+esc(cname||'—')+'</b>'+(cphone?' · التليفون: <b dir="ltr">'+esc(cphone)+'</b>':'')+'</div>':'')+
       '<table class="inv-tbl"><thead><tr><th class="nm">الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>'+rows+'</tbody></table>'+
       '<div class="inv-sum"><div class="inv-note">'+((rc&&rc.note&&rc.note!==cname)?'ملاحظة: '+esc(rc.note):'')+'</div>'+
-        '<div class="inv-total"><span>الإجمالي</span><b>'+money(total)+' ج.م</b></div></div>'+
+        taxRows+'<div class="inv-total"><span>الإجمالي</span><b>'+money(grand)+' ج.م</b></div></div>'+
       (t.footer?'<div class="inv-foot">'+esc(t.footer)+'</div>':'')+
       '</div>';
   };
@@ -120,7 +137,7 @@ try{
     /* رابط صفحة الفاتورة: البيانات نفسها بتتحط في الجزء اللي بعد # (مش بيتبعت لأي سيرفر) */
   function invoiceUrl(rc,t){
     function build(withExtra){
-      var pay={v:1,s:t.shopName||'',t:t.taxCard||'',c:t.commercialReg||'',n:rc.no,d:rc.date||'',b:rc.by||'',tt:Number(rc.total)||0,cn:(rc.note||(rc.lines&&rc.lines[0]&&rc.lines[0].note)||''),cp:(rc.customerPhone||(rc.lines&&rc.lines[0]&&rc.lines[0].customerPhone)||''),
+      var pay={v:1,s:t.shopName||'',t:t.taxCard||'',c:t.commercialReg||'',n:rc.no,d:rc.date||'',b:rc.by||'',tt:(Number(rc.total)||0)+(taxOf(rc)?(Number(taxOf(rc).amount)||0):0),cn:(rc.note||(rc.lines&&rc.lines[0]&&rc.lines[0].note)||''),cp:(rc.customerPhone||(rc.lines&&rc.lines[0]&&rc.lines[0].customerPhone)||''),
                l:(rc.lines||[]).map(function(l){return [l.name,Number(l.qty)||0,Number(l.unitPrice)||0,Number(l.revenue)||0]})};
       if(withExtra){ pay.a=t.address||''; pay.p=t.phone||''; pay.f=t.footer||''; pay.o=rc.note||'' }
       var bytes=new TextEncoder().encode(JSON.stringify(pay)), bin='';

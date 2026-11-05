@@ -497,11 +497,6 @@ function openHealth(){
 }
 window.__PM_HEALTH__=openHealth;
 
-/* ==================== 8) الوضع الليلي ==================== */
-function toggleTheme(){ /* الوضع الليلي أُلغي: التطبيق نهاري فقط */ document.documentElement.setAttribute('data-theme','light'); }
-window.__PM_THEME__=toggleTheme;
-(function(){ document.documentElement.setAttribute('data-theme','light'); try{ localStorage.removeItem('pmTheme') }catch(e){} })();
-
 /* ==================== 10) أدوات الإدخال ==================== */
 (function(){
   ['orderQty','saleQty','purchaseQty','stockAddQty','expenseAmount','salePrice'].forEach(function(id){
@@ -590,7 +585,7 @@ document.addEventListener('keydown',function(e){
   var menu=document.createElement('div'); menu.className='pm-menu';
   var items=[
     ['shield','فحص وإصلاح',function(){ openHealth() }],
-    ['support','الدعم الفني',function(){ window.open('https://wa.me/201066297395?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20RMY','_blank','noopener,noreferrer') }],
+    ['support','الدعم الفني',function(){ window.open('https://wa.me/201508999341?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20RMY','_blank','noopener,noreferrer') }],
     ['database','نسخة استرداد',function(){ try{ call('downloadRecoverySnapshot','manual') }catch(e){} toast({k:'success',t:'نسخة استرداد',x:'تم تنزيل نسخة استرداد كاملة من بياناتك.',d:5000}) }],
 
   ];

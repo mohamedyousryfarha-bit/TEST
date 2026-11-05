@@ -235,6 +235,7 @@ function showPill(msg,state){
   pillTimer=setTimeout(function(){p.classList.remove('show')},state?'4500':'2800');
 }
 function dismiss(t){
+  if(window.__pmToastV2 || window.dismiss){ if(t&&t._pendingEntry) t._pendingEntry.cancelled=true; else if(window.dismiss) window.dismiss(t); return; }
   if(!t||t.classList.contains('out'))return;
   clearTimeout(t._t);
   t.classList.add('out');
@@ -243,6 +244,7 @@ function dismiss(t){
 
 /* ---------- Toast: يقبل كائنًا {t:عنوان,x:نص,k:نوع,d:مدة} أو (نص,نوع,مدة,عنوان) ---------- */
 function toast(o,kind,duration,title){
+  if(typeof window.toast==='function') return window.toast(o,kind,duration,title);
   if(o==null)return null;
   if(typeof o==='string')o={x:o,k:kind,d:duration,t:title};
   var k=(o.k&&KINDS[o.k])?o.k:'info', K=KINDS[k];

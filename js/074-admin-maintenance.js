@@ -112,7 +112,7 @@
   function note(text,isErr){
     var n=document.getElementById('pmMaintNote'); if(!n) return;
     n.textContent=text||'';
-    n.style.color=isErr?'#B42318':'#16794B';
+    n.style.color=isErr?'var(--ui-err)':'var(--ui-ok)';
   }
 
   async function saveAndVerify(prev){
@@ -244,9 +244,7 @@
 
   // حماية: أي حفظ للسحابة لازم يحمل حالة الصيانة الحالية (بما فيها وقت الانتهاء)
   (function(){
-    var origApi=window.apiCall;
-    if(typeof origApi!=='function') return;
-    window.apiCall=async function(body){
+    pmApiUse('maintenance-state',function(origApi){ return async function(body){
       try{
         if(body&&body.action==='save_state'&&body.state&&typeof body.state==='object'){
           if(!known){ await poll(); }
@@ -257,7 +255,7 @@
         }
       }catch(e){}
       return origApi.call(this,body);
-    };
+    }; });
   })();
 
   buildSheet();

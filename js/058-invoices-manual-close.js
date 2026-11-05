@@ -29,8 +29,10 @@
     var who=(typeof cloudActorName!=='undefined'?cloudActorName:window.cloudActorName);
     var pin=(typeof cloudActorPin!=='undefined'?cloudActorPin:window.cloudActorPin);
     if(!c||!ready||!who||!pin)return Promise.resolve();
-    return c.rpc('pastrymy_sales_invoices',{p_employee_name:who,p_pin:pin}).then(function(res){
-      if(res&&!res.error&&res.data&&Array.isArray(res.data.entries)){window.__pmSalesLogServer=res.data.entries;}
+    /* المصدر: get_state من السيرفر (الـ Edge بيرجّع salesLog للمبيعات بعد إزالة التكلفة). */
+    return window.apiCall({action:'get_state',employee_name:who,pin:pin}).then(function(res){
+      var st=res&&!res.error&&res.data&&res.data.state;
+      if(st&&Array.isArray(st.salesLog)){window.__pmSalesLogServer=st.salesLog;}
     }).catch(function(){});
   }
   function groups(){

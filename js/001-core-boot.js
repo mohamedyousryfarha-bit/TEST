@@ -1,3 +1,14 @@
+/* ---- قبل تحميل نظام الإشعارات (061): أي إشعار بيتطلب وقت الإقلاع بيتخزن ويتعرض بعد تحميل الصفحة، واحد ورا واحد ---- */
+(function(){
+  if(window.__pmToastV2 || typeof window.toast==='function') return;
+  window.__pmToastPending=window.__pmToastPending||[];
+  window.toast=function(o,kind,duration,title){
+    var e={args:[o,kind,duration,title],cancelled:false};
+    window.__pmToastPending.push(e);
+    return {_pendingEntry:e};
+  };
+  window.dismiss=function(t){ if(t&&t._pendingEntry) t._pendingEntry.cancelled=true; };
+})();
 /* ==================================================================
    PastryMY Pro · حارس الإقلاع (يعمل قبل أي كود آخر)
    - يفحص النسخة المحفوظة: لو تالفة ينقلها لنسخة آمنة ويشغّل التطبيق سليم

@@ -167,7 +167,7 @@
     if(!hint || !hint.classList.contains('pm-phone-hint')) return;
     if(isBlocked(ph.value,nm.value)){
       hint.textContent='🚫 العميل محظور';
-      hint.style.color='#B42318';
+      hint.style.color='var(--ui-err)';
       hint.style.display='block';
       ph.style.borderColor='#B42318';
       nm.style.borderColor='#B42318';

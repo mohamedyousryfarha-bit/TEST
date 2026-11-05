@@ -30,21 +30,62 @@
       box.parentNode.insertBefore(inp,box);
     }
   }
+  /* ---- تقسيم الأصناف حسب المنيو (قطع / حفلات / مشروبات) في جروبات قابلة للطي ---- */
+  var GROUPS=[
+    {k:'piece',t:'منيو القطع الجاهزة',ico:'🥐'},
+    {k:'party',t:'حفلات / حسب الطلب',ico:'🎉'},
+    {k:'drink',t:'مشروبات',ico:'🥤'}
+  ];
+  var OPEN_KEY='pm_menu_groups_open';
+  var openState=null;
+  function loadOpen(){
+    if(openState) return openState;
+    try{ openState=JSON.parse(localStorage.getItem(OPEN_KEY)||'{}'); }catch(e){ openState={}; }
+    if(!openState||typeof openState!=='object') openState={};
+    return openState;
+  }
+  window.pmMenuGroupToggled=function(el){
+    var s=loadOpen(); s[el.getAttribute('data-gk')]=el.open;
+    try{ localStorage.setItem(OPEN_KEY,JSON.stringify(s)); }catch(e){}
+  };
+  function groupCss(){
+    if(document.getElementById('pmMenuGroupCss')) return;
+    var st=document.createElement('style'); st.id='pmMenuGroupCss';
+    st.textContent=
+      '.pm-grp{margin:10px 0;border-radius:14px;background:#EEF4FA;border:1px solid #cfe0ee;overflow:hidden}'+
+      '.pm-grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:12px 14px;font-weight:700;color:#0B3A66;user-select:none}'+
+      '.pm-grp>summary::-webkit-details-marker{display:none}'+
+      '.pm-grp>summary::after{content:"\\25BE";margin-inline-start:auto;color:#0067B8;font-size:14px}'+
+      '.pm-grp:not([open])>summary::after{content:"\\25B8"}'+
+      '.pm-grp>summary .pm-grp-n{font-size:12px;font-weight:600;background:#fff;color:#0067B8;border-radius:999px;padding:2px 9px}'+
+      '.pm-grp>.pm-tiles{padding:0 10px 12px}';
+    document.head.appendChild(st);
+  }
   function render(){
     var box=document.getElementById('menuAdminList'); if(!box) return;
-    var all=items(); ensureSearch(box);
+    var all=items(); ensureSearch(box); groupCss();
     if(!all.length){box.innerHTML='<div class="empty">لم تضف أصنافًا للمنيو بعد.</div>';box.dataset.pmSig=sig();return}
     var list=[];all.forEach(function(x,i){if(!q||String(x.name).toLowerCase().indexOf(q)!==-1)list.push(i)});
     var selected=window.__pmMenuSelected||{};
     var chosen=Object.keys(selected).filter(function(k){return selected[k]&&all[Number(k)]});
     var role=(typeof cloudActorRole!=='undefined'?String(cloudActorRole||''):'')||(document.body&&document.body.dataset?String(document.body.dataset.role||''):'');var isAdmin=role.toLowerCase()==='admin';var bulk=isAdmin?'<div class="pm-menu-bulk"><label><input type="checkbox" '+(all.length&&chosen.length===all.length?'checked':'')+' onchange="pmMenuSelectAll(this.checked)"> تحديد كل الأصناف</label><span>'+(chosen.length?'تم تحديد '+chosen.length+' صنف':'حدد مربع الصنف ثم اضغط حذف المحدد')+'</span>'+(chosen.length?'<button type="button" class="danger mini" onclick="pmMenuDeleteSelected()">حذف المحدد ('+chosen.length+')</button><button type="button" class="secondary mini" onclick="pmMenuClearSelection()">إلغاء التحديد</button>':'')+'</div>':'';
     var html=bulk+((sel>=0&&all[sel])?detail(sel):'');
-    html+='<div class="pm-tiles">'+(list.length?list.map(tile).join(''):'<div class="empty" style="grid-column:1/-1">لا توجد أصناف مطابقة للبحث.</div>')+'</div>';
+    var st=loadOpen(), shown=0;
+    GROUPS.forEach(function(g){
+      var idx=list.filter(function(i){return (all[i].kind||'piece')===g.k});
+      if(!idx.length && q) return;          /* أثناء البحث نخفي المنيوهات الفاضية */
+      shown+=idx.length;
+      var isOpen=(st[g.k]===undefined)?true:!!st[g.k];
+      html+='<details class="pm-grp" data-gk="'+g.k+'"'+(isOpen?' open':'')+' ontoggle="pmMenuGroupToggled(this)">'+
+        '<summary>'+g.ico+' '+g.t+' <span class="pm-grp-n">'+idx.length+'</span></summary>'+
+        '<div class="pm-tiles">'+(idx.length?idx.map(tile).join(''):'<div class="empty" style="grid-column:1/-1">لا توجد أصناف في هذا المنيو.</div>')+'</div></details>';
+    });
+    if(!shown) html+='<div class="empty">لا توجد أصناف مطابقة للبحث.</div>';
     box.innerHTML=html; box.dataset.pmSig=sig();
   }
   window.pmTileRefresh=render;
   setInterval(function(){
     var box=document.getElementById('menuAdminList'); if(!box) return;
-    if(!box.querySelector('.pm-tiles')||box.dataset.pmSig!==sig()) render();
+    if((!box.querySelector('.pm-tiles')&&!box.querySelector('.pm-grp'))||box.dataset.pmSig!==sig()) render();
   },400);
 })();
