@@ -1,6 +1,6 @@
 // Service worker: لازم يكون فيه fetch handler عشان المتصفح يعتبر الموقع قابل للتثبيت.
 // الشبكة أولًا، ولو مفيش نت يرجع النسخة المخزنة (البيانات الحية ما بتتخزنش قديمة).
-const CACHE = 'rmy-shell-v118';
+const CACHE = 'rmy-shell-v172';
 const SHELL = [
   './',
   './index.html',
@@ -12,9 +12,18 @@ const SHELL = [
   './ICONS/apple-touch-icon.png',
   './ICONS/favicon-32.png',
   './ICONS/rmy-logo.png',
+  './ICONS/rmy-logo-256.png',
   './css/app.bundle.css',
+  './css/dark-mode.css',
+  './css/rmy-design-system.css',
+  './js/210-ui-theme-toggle.js',
+  './js/211-ui-dark-guard.js',
   './js/135-ready-delivery.js',
   './js/145-recipe-smart-entry.js',
+  './js/146-payment-breakdown.js',
+  './js/147-menu-admin-collapse.js',
+  './js/148-cart-party-hide-pay.js',
+  './js/196-party-sheet.js',
   './js/001-core-boot.js',
   './js/002-core-nav-helpers.js',
   './js/003-ui-nav-groups.js',
@@ -58,6 +67,7 @@ const SHELL = [
   './js/053-recipes-costing-auto.js',
   './js/054-parties-core.js',
   './js/055-parties-orders.js',
+  './js/190-party-upcoming.js',
   './js/056-sales-invoices.js',
   './js/057-barista-drink-queue.js',
   './js/058-invoices-manual-close.js',
@@ -75,6 +85,7 @@ const SHELL = [
   './js/070-ui-nav-filter-by-role.js',
   './js/071-customers-blocked-sync.js',
   './js/072-core-pwa-register.js',
+  './js/093-ui-remember-tab.js',
   './js/073-auth-view-only.js',
   './js/074-admin-maintenance.js',
   './js/075-admin-diagnostics.js',
@@ -88,6 +99,11 @@ const SHELL = [
   './js/087-cloud-auto-restore.js',
   './js/088-invoices-settings-fold.js',
   './js/121-prep-live.js',
+  './js/091-header-date-time.js',
+  './js/126-responsive-tables.js',
+  './js/197-party-dashboard.js',
+  './js/198-auto-update.js',
+  './js/199-offline-sales.js',
 ];
 
 self.addEventListener('install', (e) => {
@@ -111,6 +127,21 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // API / Firebase / CDN: للشبكة مباشرة
+  // الصور (اللوجو والأيقونات): تظهر فورًا من الكاش، وفي الخلفية بتتحدّث لو اتغيرت
+  if (/\.(png|jpe?g|webp|svg|ico)$/i.test(url.pathname)) {
+    e.respondWith(
+      caches.open(CACHE).then((c) =>
+        c.match(req).then((cached) => {
+          const network = fetch(req).then((res) => {
+            if (res && res.status === 200) c.put(req, res.clone());
+            return res;
+          }).catch(() => cached);
+          return cached || network;
+        })
+      )
+    );
+    return;
+  }
   e.respondWith(
     fetch(req)
       .then((res) => {

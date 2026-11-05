@@ -2,9 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>فاتورة</title>
+<meta name="theme-color" content="#142342">
+<title>RMY PRO | فاتورة</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;background:#F2F2F2;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;color:#1B1B1B}
@@ -64,6 +65,25 @@ html,body{margin:0;background:#F2F2F2;font-family:system-ui,-apple-system,'Segoe
   .inv-cust{border:1px solid #D6D6D6!important;background:none!important;border-radius:0!important;color:#1B1B1B!important;font-size:10px!important;padding:4px!important}
   .inv-tbl,.inv-meta,.inv-total,.inv-tax{break-inside:avoid}
 }
+
+/* RMY PRO premium invoice layer */
+html,body{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;background:#F3F6FB;color:#17243A}
+.wrap{max-width:520px;margin:26px auto;padding:0 14px}
+.paper{border:1px solid #E0E7F0;border-radius:20px;padding:18px;background:#fff;box-shadow:0 18px 48px rgba(20,35,66,.10)}
+.inv-top{background:linear-gradient(120deg,#142342,#2563EB)!important;border-radius:16px;padding:20px 14px}
+.inv-tax span,.inv-meta>div,.inv-cust{border-color:#E2E8F0;background:#F8FAFD;color:#24334B}
+.inv-meta small,.inv-note,.inv-foot{color:#68758A}
+.inv-tbl{border-color:#E2E8F0;border-radius:13px}
+.inv-tbl th{background:#EEF3FB;color:#1B3561;border-bottom:1px solid #DCE5F2}
+.inv-tbl td{border-top:1px solid #E8EDF4}
+.inv-tbl tr.alt td{background:#FAFBFE}
+.inv-tbl td.tot{color:#142342}
+.inv-total{background:linear-gradient(120deg,#142342,#2563EB);border-radius:13px}
+.actions button{background:linear-gradient(120deg,#142342,#2563EB);border-radius:12px}
+.langbar button{border-color:#DCE5F2;border-radius:12px}
+.langbar button.on{background:#1D4ED8;border-color:#1D4ED8}
+@media(max-width:480px){.wrap{margin:10px auto;padding:0 9px}.paper{padding:12px;border-radius:15px}.inv-meta{gap:5px}.inv-meta>div{padding:7px 4px}}
+
 </style>
 </head>
 <body>
